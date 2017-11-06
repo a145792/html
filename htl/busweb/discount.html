@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优惠活动</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="top">
+        <div style="position: relative">
+            <a href="JavaScript:void(0)" class="countFan" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <div style="text-align: center ;font-size: 17px">优惠活动</div>
+            <a href="JavaScript:void(0)" class="top-right font14 mingxi" style="position: absolute;top:2px;right: 10px;"  v-bind:dsp-id="disDspid">
+                明细
+            </a>
+        </div>
+    </div>
+    <div class="order">
+        <div class="orderBody">
+            <p>近一周买单</p>
+            <p><span v-text="weekOfDiscount"></span><span class="font16">单</span></p>
+        </div>
+        <i></i>
+        <div class="orderBody">
+            <p>近一周买单收益</p>
+            <p class="text-overflow"><span class="font16">¥</span><span v-text="weekOfDisOrderLucre"></span></p>
+        </div>
+    </div>
+    <!--当前活动列表-->
+    <div>
+        <div class="payList huodong" v-for="item in disList"   v-if="disList.length!=0">
+            <div class="historyList" style="font-size: 12px">
+                <div class="iconList borderb1" style="padding: 0;border-top:0" v-bind:dc-id="item.dsp_dc_id">
+                    <span class="color333 font14 fontW500">店铺当前优惠活动信息</span>
+                    <span class="text-overflow" style="color:#dc3c4f">活动进行中</span>
+                    <img src="../themes/images/item_arrow@2x copy@2x.png" alt="">
+                </div>
+                <div class="martb10">
+                    <div class="flex ">
+                        <span>优惠信息：</span>
+                        <span class="flex-right text-overflow" v-text="item.dsp_dc_name"></span>
+                    </div>
+                </div>
+                <div class="martb10">
+                    <span>活动折扣：</span>
+                    <span class="colordc3" v-cloak>{{item.dc_discount*10}}折</span>
+                </div>
+                <div class="martb10">
+                    <div class="flex ">
+                        <span>活动描述：</span>
+                        <span class="flex-right text-overflow"  v-text="item.dsp_dc_desc"></span>
+                    </div>
+                </div>
+                <div class="martb10">
+                    <span>活动有效期：</span>
+                    <span v-cloak>{{item.dsp_dc_starttime | FMtime}}</span>
+                    <span>至</span>
+                    <span v-cloak>{{item.dsp_dc_endtime | FMtime}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="payList">
+        <div class="historyList" style="font-size: 12px;padding-bottom:0;border-bottom: 0">
+            <div class="flex maiMoney">
+                <span class="flex-right color333 font14 fontW500">历史优惠活动</span>
+            </div>
+            <!--历史活动列表-->
+            <div class="historyYouhui" v-for="item in HisList">
+                <div class="martb10">
+                    <span v-text="item.dsp_dc_name"></span>
+                </div>
+                <div class="martb10">
+                    <span>活动有效期：</span>
+                    <span v-cloak>{{item.dsp_dc_starttime | FMtime}}</span>
+                    <span>至</span>
+                    <span v-cloak>{{item.dsp_dc_endtime | FMtime}}</span>
+                </div>
+                <div class="youhuiCode">
+                    <span v-cloak>{{item.dsp_dc_discount*10}}</span><span class="font10">折</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="Nono"  v-if="HisList.length==0">
+        <img src="../themes/images/Coupon-empty-page@2x@2x.png" alt="">
+        <p>暂无活动</p>
+    </div>
+</div>
+
+    <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/context.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/discount.js"></script>
+    <script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>销售统计</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <style>
+        .finance-head{
+            margin-bottom: 0;
+        }
+        .userTime{
+
+        }
+        .userTime>img{
+            width:8px;
+            height: 8px;
+            display: inline-block;
+        }
+        #end-date {
+            outline: none;
+            border: 0;
+            line-height: 40px;
+            color: #FFFFFF;
+            padding: 0;
+            margin: 0;
+            text-align: right;
+            background-color: #DC3C4F;
+            border-radius:0;
+            height:20px;
+            width: auto;
+            font-size: 14px;
+            opacity: 0.7;
+            margin-right: 5px;
+        }
+        .userTime{
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+                <li class="finance-head">
+                    <ul class="userMoney " style="padding-bottom: 0">
+                        <li class="userTime">订单收益(元)：
+                            <!--<span class="beginTime">2017-09-01</span>至<span class="lastTime">2019-09-02</span>-->
+                            <input type="text" id="end-date" data-options='{"type":"YYYY-MM-DD","beginYear":2017,"endYear":2222}' value="">
+                            <img src="../images/Sales statistics_arrow@2x.png" alt="">
+                        </li>
+                        <li class="userSum" id="userSum">100.00<span>共2单</span></li>
+                    </ul>
+                    <ul class="DateMoney">
+                        <li>
+                            <p>近7日收益(元)</p>
+                            <p>1230.4</p>
+                        </li>
+                        <li>
+                            <p>近30日收益(元)</p>
+                            <p>1230.4</p>
+                        </li>
+                        <li>
+                            <p>近90日收益(元)</p>
+                            <p>1230.4</p>
+                        </li>
+                    </ul>
+                    <div class="orderList mat10">
+                        <div class="icon-cart">
+                            <div>
+                                <img src="../images/order_title copy@2x.png" alt="" class="iconLeft">
+                                <span class="iconMotive">北京众胜鑫海批发有限公司</span>
+                                <span class="iconStatus">已完成</span>
+                            </div>
+                        </div>
+                        <div class="orderChose">
+                            <div class="choseImg">
+                                <img src="../images/c41847b21bd44981ad31b41ad5433f91.jpeg" alt="" />
+                            </div>
+                            <ul class="choseleft" >
+                                <li class="leftA">
+                                    <span class="text-overflow2 flex1">盛牛酱香白酒SADAS5瓶装大大说</span>
+                                    <div class="adrretA-font">
+                                        <p>¥<span class="font14">100</span></p>
+                                        <p>×<span>100</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="adrretA">
+                            <span>完成时间：2017-09-21 10:21:21</span>
+                            <span class="icon-textRight" style="color: #333333;">共计2件商品  合计：¥380.20 (含运费：<span>20</span>元)</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/saleList.js"></script>
+<script src="../js/supp/dataHour.js"></script>
+</body>
+</html>

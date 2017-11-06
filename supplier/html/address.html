@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/index.css">
+		<style type="text/css">
+			.mui-content{
+				margin-bottom: 46px;
+			}
+			.icon-cart{
+				border-bottom: 1px solid #EEEEEE;
+			}
+			.icon-cart .iconLeft {
+			    width: 20px;
+			    height: 20px;
+			}
+			.AddBill{
+				width: 100%;
+				height: 44px;
+			    line-height: 44px;
+			    background: #FFFFFF;
+			    display: flex;
+			    display: -webkit-flex;
+			    align-items:center;
+			    justify-content:center;
+			    box-shadow: 0 -2px 8px 0 rgba(0,0,0,0.14);
+			    font-size: 17px;
+				color: #333333;
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				z-index: 5;
+			}
+			.AddBill img{
+				width: 18px;
+				height: 18px;
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div id="loadingdiv">
+		<div style="width: 100%;height: 100%;position: relative">
+			<img src="../images/soogif1.gif" alt=""  class="spinner">
+		</div>
+	</div>
+<div id="app">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		 <div class="mui-scroll">
+		  <!--数据列表-->
+		  <ul class="mui-table-view">
+			<div class="billList address" uad_id="">
+				<div style="height: 10px;background: #F3F5F7;"></div>
+				<div class="location">
+					<div class="addres">
+		                <div style="margin-bottom: 5px">
+		                    <span class="mar10">{{shop.dsp_name}}</span>
+		                    <span v-text="shop.dsp_phone"></span>
+		                </div>
+		                <span class="text-overflow2">收货地址:{{shop.pvc_name}}{{shop.cty_name}}{{shop.dis_name}} / {{shop.dsp_address}}</span>
+		          </div>
+				</div>
+				
+				<!-- <div class="icon-radio">
+					<a v-if="isdef == 'Y'" href="javascript:void(0);" class="checked">
+						<span class="radio-bg-no"></span>
+						<span class="sure">默认收货地址</span>
+					</a>
+					<a v-if="isdef == 'N'" href="javascript:void(0);" class="checked todef" v-bind:uad_id="item.uad_id">
+						<span class="radio-bg"></span>变换class radio-bg-no
+						<span class="sure" style="display: none"></span>
+					</a>
+					<div  class="billChose" style="margin-right: 20px;">
+						<img src="../images/new-address_delete@2x.png" alt="" />
+						<span>删除</span>
+					</div>
+					<div class="billChose">
+						<img src="../images/new-address_edit@2x.png" alt="" />
+						<span>编辑</span>
+					</div>
+				</div> -->
+			</div>
+			<div class="billList address" v-for="item in addressList" v-bind:uad_id="item.uad_id">
+				<div style="height: 10px;background: #F3F5F7;"></div>
+				<div class="location">
+					<div class="addres">
+		                <div style="margin-bottom: 5px">
+		                    <span class="mar10" v-text="item.uad_reciever_name"></span>
+		                    <span>{{item.uad_reciever_tel}}</span>
+		                </div>
+		                <span class="text-overflow2">收货地址： {{item.uad_province}}{{item.uad_city}}{{item.uad_district}}/{{item.uad_add_detail}}</span>
+		          </div>
+				</div>
+				
+				<div class="icon-radio">
+					<a v-if="item.uad_default_add == 'N'" href="javascript:void(0);" class="checked todef" v-bind:uad_id="item.uad_id">
+						<span class="radio-bg"></span><!-- 变换class radio-bg-no-->
+						<span class="sure" style="display: none"></span>
+					</a>
+					<a v-if="item.uad_default_add == 'Y'" href="javascript:void(0);" class="checked">
+						<span class="radio-bg-no"></span>
+						<span class="sure">默认收货地址</span>
+					</a>
+					<div class="billChose delAddre" style="margin-right: 20px;" v-bind:uad_id="item.uad_id">
+						<img src="../images/new-address_delete@2x.png" alt="" />
+						<span>删除</span>
+					</div>
+					<div class="billChose editAddre" v-bind:uad_id="item.uad_id">
+						<img src="../images/new-address_edit@2x.png" alt="" />
+						<span>编辑</span>
+					</div>
+				</div>
+			</div>
+		</ul>
+	 </div>
+	</div>
+
+</div>
+		<div class="AddBill addAddress">
+			<img src="../images/add_invoice@2x.png" alt="">
+			<span>新增收货地址</span>
+		</div>
+
+		
+		<!--遮罩层-->
+		<div class="zhezhao"></div>
+		<!--取消订单提醒 取消退款 确认收货-->
+		<div class="alertWait"  id="picture">
+			<div class="a1">确认操作?</div>
+			<div class="a2">
+				<span class="abolish">取消</span>
+				<span class="makeSure sureDel" style="cursor:pointer;">确定</span>
+			</div>
+		</div>
+
+		<script src="../js/lib/jquery-1.7.1.min.js"></script>
+		<script src="../js/lib/mui.min.js"></script>
+		<script src="../js/lib/vue.min.js"></script>
+		<script src="../js/lib/application.js"></script>
+		<script src="../js/address.js"></script>
+		
+	</body>
+
+</html>

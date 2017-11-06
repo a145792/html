@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/index.css">
+		<style>
+			.mui-table-view-cell{
+				padding: 0;
+			}
+			.mui-table-view-cell:after{
+				background-color:#FFFFFF;
+			}
+			.groomList{
+				border-top: 0;
+			}
+		</style>
+	</head><!-- ?ste_id=31&origin=adr -->
+		
+	<body>
+	<div id="loadingdiv">
+		<div style="width: 100%;height: 100%;position: relative">
+			<img src="../images/soogif1.gif" alt=""  class="spinner">
+		</div>
+	</div>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		 <div class="mui-scroll">
+		  <!--数据列表-->
+		  <ul class="mui-table-view">
+  				<div class="groomList product" v-for="item in productlist" v-bind:spt_id="item.spt_id">
+					<div class="itemLeft">
+						<img v-bind:src="item.spt_photo" alt="" />
+						<img v-if="item.hasSalses" src="../images/product_abel@2x.png" alt="" />
+					</div>
+					<ul class="itemRight">
+						<li>{{item.spt_name}}</li>
+						<li>
+							<div class="wholesale">
+								批发价：
+								<span>¥
+									<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／瓶</span>
+									<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／瓶</span>
+								</span>
+							</div>
+							<div>
+								零售价：
+								<span>¥<span v-text="item.spt_suggestion_price"></span></span>
+							</div>
+							<div class="font12">
+								规格
+								<span v-text="item.spt_unit_desc"></span>
+							</div>
+						</li>
+						<li>
+							<div v-if="item.cpr_id != null" class="ac_list">
+								<img src="../images/shop_Discount@2x.png" />
+								<span>{{item.cpr_desc}}</span>
+							</div>
+							<div v-if="item.hasMorefree == 'Y'" class="ac_list">
+								<img src="../images/Full reduction@2x.png" alt="" />
+								<span>{{item.morefree.spr_name}}</span>
+							</div>
+							<div v-if="item.hasSalses == 'Y'" class="ac_list">
+								<img src="../images/Sales promotion@2x.png" alt="" />
+								<span>{{item.sales.spr_name}}</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+		  </ul>
+		 </div>
+		</div>
+		<script src="../js/lib/application.js"></script>
+		<script src="../js/lib/mui.min.js"></script>
+		<script src="../js/lib/vue.min.js"></script>
+		<script src="../js/lib/jquery-1.7.1.min.js"></script>
+		<script src="../js/productlist.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,167 @@
+
+.Imgbg{
+	height:100vw;
+	background:url(../../images/Bitmap@2x.png)no-repeat 0 0;
+	background-size: cover;
+	overflow: hidden;
+}
+.Imgbg>img{
+	width: 100%;
+	height: 100%;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.mui-content>.mui-card:first-child {
+     margin-top: 0; 
+}
+.mui-card{
+	margin: 0;
+	box-shadow:none;
+	border-radius:0;
+}
+.commList{
+	background: #FFFFFF;
+	padding: 10px;
+}
+.commName{
+	font-size: 15px;
+	color: #333333;
+    letter-spacing: 0;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.commList>li:nth-child(2){
+	font-size: 14px;
+	color: #333333;
+	margin: 5px 0;
+}
+.commPrice{
+	color: rgb(220,60,79);
+}
+.commList>li:nth-child(2)>span>span{
+	font-size: 17px;
+}
+.commFlex{
+	font-size: 12px;
+	color: #999999;
+	display: flex;
+	justify-content: space-between;
+}
+.supplier{
+	margin-top: 10px;
+	background: #FFFFFF;
+}
+.supplier .icon-cart{
+	border-top: 0;
+	border-bottom: 1px solid  #EEEEEE;
+}
+.supplier>ul{
+	padding: 10px;
+	font-size: 14px;
+	color: #333333;
+}
+.supplier>ul>li{
+	display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.orerfooter{
+	position: fixed;
+	display: flex;
+	background: #FFFFFF;
+	width: 100%;
+	height: 61px;
+	line-height: 50px;
+	align-items: center;
+	font-size: 17px;
+	bottom: 0;
+	left: 0;
+	background: url(../../images/bgbox-show.png)no-repeat 0 0;
+	background-size:100% 100%;
+	z-index: 5;
+}
+.orerfooter>button{
+	 align-self:flex-end;
+	 height: 50px;
+}
+.orderTel{
+	border-right: 1px solid #EEEEEE;
+}
+.orderTel>img , .orderShop>img{
+	width: 20px;
+	height: 20px;
+	margin: auto;
+}
+.orderTel>p , .orderShop>p{
+	font-size: 12px;
+	color: #333333;
+}
+.orderTel,.orderShop{
+	flex-grow:1;
+	text-align: center;
+}
+.orderMarke{
+	background: #D63141;
+	color: #FFFFFF;
+	flex-grow:2;
+	font-size: 17px;
+}
+.orderGet{
+	background: #F53548;
+	color: #FFFFFF;
+	font-size: 17px;
+	flex-grow:2;
+}
+
+
+/*现金券列表弹出*/
+#activeList{
+	width: 100%;
+	height: 300px;
+	background: #FFFFFF;
+}
+.mui-backdrop-action.mui-backdrop{
+	    background-color: rgba(0,0,0,.5);
+}
+.aletValue{
+		padding:0 15px;
+}
+.valueList{
+	width: 100%;
+	height: 100px;
+	display: flex;
+	display: -webkit-flex;
+	background: url(../../images/coupons@2x.png)no-repeat 0 0;
+	background-size: 100% 100%;
+	color: #FFFFFF;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.valuePrice{
+	flex: 1;
+	font-size: 18px;
+	padding: 10px;
+}
+.valuePrice ul{
+	font-size: 12px;
+	margin-top: 6px;
+}
+.value-moban,.value-moban-no{
+	width: 27%;
+	text-align: center;
+	border-left: 1px dashed #FFFFFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.no-value{
+	width: 60%;
+	margin: 20px auto;
+}
+.no-value>img{
+	width: 100%;
+}

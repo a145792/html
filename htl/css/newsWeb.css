@@ -1,0 +1,341 @@
+@charset "utf-8";
+.orderAlert{
+    display: flex;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #EEEEEE;
+    font-size: 17px;
+    padding: 0 10px;
+    font-weight: 500;
+    color: #333333;
+    align-items: center;
+}
+.orderName{
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.orderDetail{
+    padding: 10px;
+    font-size: 14px;
+    color: #999999;
+    background-color: #FFFFFF;
+    line-height: 24px;
+}
+.orderClass{
+    display: flex;
+    display: -webkit-flex;
+}
+.orderA{
+    flex: 1;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+.orderLi{
+    padding:0 10px;
+    padding-bottom: 10px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 15px;
+    color: #333333;
+}
+.orderLi>img{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.orderLi>.orderSpan2{
+    font-size: 15px;
+    flex: 1;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-right: 10px;
+}
+.orderSpan{
+    font-size: 14px;
+    color: #151515;
+    font-weight: 500;
+}
+.orderSpan>span{
+    font-size: 18px;
+}
+.assess{
+    font-size: 14px;
+    color: #333333;
+    margin-right: 5px;
+}
+.assess>img{
+    width: 84px;
+    height: 15px;
+}
+.newsComment{
+    background-color: #fff;
+}
+.commentA{
+    display: flex;
+    display: -webkit-flex;
+    align-items:center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+.AImg{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: url("../themes/images/Buyers@2x.png") no-repeat 0 0;
+    background-size: cover;
+    margin-right: 10px;
+}
+.AImg>img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.commentA>span:nth-child(2){
+    font-size: 12px;
+    color: #333333;
+    margin-right: 10px;
+    flex: 1;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    font-weight: 500;
+}
+.commentA>span:nth-child(3){
+    font-size: 11px;
+    color: #999999;
+}
+.commentB{
+    font-size: 13px;
+    color: #333333;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+.commentC{
+    font-size: 11px;
+    color: #999999;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+.commentD{
+    padding: 10px;
+    background-color: #FFFFFF;
+}
+.commentBg{
+    width: 20%;
+    background-color: #f6f6f6;
+    margin:0 5px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 1px solid #EEEEEE;
+    position: relative;
+
+}
+.commentBg:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+.commentBg>img{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+}
+.orderImg{
+    width: 54px;
+    height: 54px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.newDetail>div{
+    line-height: 27px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/*订单详情*/
+.orderAlert img{
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+    margin-right: 6px;
+    font-weight: 500;
+}
+.priceList{
+    background-color: #FFFFFF;
+    padding:0 10px;
+    color: #333333;
+}
+.priceList li{
+    padding: 10px 0;
+    border-bottom:1px solid #EEEEEE ;
+}
+.priceLei{
+    display: flex;
+    display: -webkit-flex;
+}
+.priceLei>span:nth-child(1){
+    font-weight: 500;
+    flex: 1;
+    width: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+.priceLei>span:nth-child(2){
+    color: #999999;
+    text-align: right;
+}
+.priceLei>span:nth-child(3){
+    margin-left: 50px;
+}
+.priceList li p {
+    margin-top: 5px;
+    text-align: right;
+    color: #999999;
+    text-decoration:line-through;
+}
+.waiter{
+    display: flex;
+    display: -webkit-flex;
+    height: 44px;
+    line-height: 44px;
+    border-bottom:1px solid #EEEEEE ;
+}
+.waiter>span:last-child ,.zongjiPrice{
+    flex: 1;
+    width: 1px;
+    text-align: right;
+}
+.zongji{
+    display: flex;
+    display: -webkit-flex;
+    height: 50px;
+    line-height: 50px;
+}
+.zongjiPrice{
+    color: #DC3C4F;
+}
+.zongjiPrice>span{
+    font-size: 17px;
+    margin-left: 2px;
+}
+.locus{
+    display: flex;
+    display: -webkit-flex;
+    margin: 10px;
+    padding: 10px;
+    align-items:center;
+    background-color: #FFFFFF;
+    color: #333333;
+    position: relative;
+}
+.locus>img{
+    width:20px;
+    height:20px;
+    margin-right: 8px;
+}
+.locusImg{
+    width: 100%;
+    position: absolute;
+    bottom:-10px;
+    left: 0;
+}
+.locusImg>img{
+    width: 100%;
+}
+.addres{
+    flex: 1;
+    width: 1px;
+}
+.addres>div{
+    font-size: 14px;
+    color: #333333;
+}
+.addres>span{
+    font-size: 12px;
+    color: #999999;
+}
+.telHref{
+    padding: 10px;
+    font-size: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    background-color: #f6f6f6;
+}
+.telBg{
+    background: #DC3C4F;
+    border-radius: 4px;
+    height: 44px;
+    line-height: 44px;
+}
+.telHref img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.advert{
+    margin: 0 10px;
+    margin-top: 15px;
+    background-color: #FFFFFF;
+    padding-bottom:10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.advertBg{
+    width: 100%;
+    height:140px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.advertName{
+    padding: 0 10px;
+    padding-top: 10px;
+    font-size: 15px;
+    color: #333333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+}
+.advertZhuti{
+    padding: 0 10px;
+    padding-top: 5px;
+    font-size: 13px;
+    color: #999999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.orderAlert>.order_i{
+    width: 20px;
+    height: 20px;
+    margin-right: 0;
+    float: right;
+    margin-top: 12px;
+}

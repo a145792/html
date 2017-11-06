@@ -1,0 +1,25 @@
+
+@font-face {font-family: "iconfont";
+  src:url('../fonts/iconfont.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.mui-bar .mui-icon{
+	font-size: 20px;
+}
+.mui-bar-tab .mui-tab-item.mui-active{
+	color: #F53548;
+}
+.icon-gouwucheshoppingcart:before { content: "\e639"; }
+
+.icon-leimu01:before { content: "\e604"; }
+
+.icon-shouye:before { content: "\e633"; }
+
+.icon-cart_icon:before { content: "\e658"; }

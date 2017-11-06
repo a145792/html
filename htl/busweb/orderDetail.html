@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+    <link rel="stylesheet" type="text/css" href="../css/newsWeb.css">
+    <style>
+        .orderAlert{
+            font-size: 14px;
+            height: 44px;
+            line-height: 44px;
+        }
+        body{
+            padding-bottom: 74px;
+        }
+        .oirderState{
+            color: #f53548;
+        }
+    </style>
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="top">
+        <div style="position: relative">
+            <a v-if="from == 'app'" href="javascript:void(0)" class="toback" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <a v-if="from == 'web'" href="JavaScript:history.back(-1)" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <div style="text-align: center ;font-size: 17px">订单详情</div>
+        </div>
+    </div>
+
+    <!--非优惠订单-->
+    <div v-if="is_discount == 0">
+        <div v-if="detail.sor_is_send == 1" class="locus" style="margin-bottom: 0">
+            <img src="../themes/images/order_address_icon@2x.png" alt="">
+            <div class="addres" v-if="address.exists==1">
+                <div style="margin-bottom: 5px">
+                    <span class="mar10">{{address.uad_reciever_name}}</span>
+                    <span>{{address.uad_reciever_tel}}</span>
+                </div>
+                <span class="text-overflow2">收货地址： {{address.uad_province}} / {{address.uad_city}} / {{address.uad_district}} / {{address.uad_add_detail}}</span>
+            </div>
+            <span  v-if="address.exists==0">收货地址不存在</span>
+            <div class="locusImg">
+                <img src="../themes/images/order_address_line@2x@2x.png" alt="">
+            </div>
+        </div>
+        <div style="padding:10px;">
+            <div class="orderAlert">
+                <img src="../themes/images/details_shop_icon@2x@2x.png" alt="">
+                <span class="orderName">{{detail.dsp_name}}</span>
+                <span class="oirderState">{{detail.sor_order_status | getOrderStaus}}</span>
+            </div>
+            <div class="priceList">
+                <ul>
+                    <li v-for="item in detail.productdetail">
+                        <div class="priceLei">
+                            <span v-text="item.sim_name"></span>
+                            <span>x{{item.soi_number}}</span>
+                            <span>¥{{item.sim_target_price}}</span>
+                        </div>
+                        <p>¥{{item.sim_source_price}}</p>
+                    </li>
+                </ul>
+                <div v-if="detail.sor_is_send == 0" class="waiter">
+                    <span>服务费</span>
+                    <span>¥<span>{{service}}</span></span>
+                </div>
+                <div class="zongji">
+                    <span>总计：</span>
+                    <div class="zongjiPrice">¥<span>{{detail.sor_price}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="padlr10">
+            <div class="orderDetail">
+                <div v-if="detail.soi_sendTime != ''" class="orderClass">
+                    <span>所选配送时间</span>
+                    <span class="orderA">{{detail.soi_sendTime}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>订单编号:</span>
+                    <span class="orderA">{{detail.sor_order_no}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>下单时间:</span>
+                    <span class="orderA">{{detail.sor_datetime | FMtime}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>支付方式:</span>
+                    <span class="orderA">{{detail.sor_pay_mode | getPayMode}}</span>
+                </div>
+                <!-- <div class="orderClass">
+                    <span>商品总额:</span>
+                    <span class="orderA">¥<span>3200.00</span></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+    <!--优惠订单-->
+    <div v-if="is_discount == 1">
+        <div style="padding:10px;padding-top: 15px">
+            <div class="orderAlert">
+                <img src="../themes/images/details_shop_icon@2x@2x.png" alt="">
+                <span class="orderName">{{detail.dsp_name}}</span>
+                <span class="oirderState">{{detail.sor_order_status | getOrderStaus}}</span>
+            </div>
+            <div class="priceList">
+                <div class="waiter">
+                    <span>优惠价格</span>
+                    <span>-¥<span>{{detail.sor_fav_price}}</span></span>
+                </div>
+                <div class="zongji">
+                    <span>实付价格 </span>
+                    <div class="zongjiPrice">¥<span>{{detail.sor_price}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="padlr10">
+            <div class="orderDetail">
+                <div class="orderClass">
+                    <span>订单编号:</span>
+                    <span class="orderA">{{detail.sor_order_no}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>下单时间:</span>
+                    <span class="orderA">{{detail.sor_datetime | FMtime}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>消费总计:</span>
+                    <span class="orderA">¥<span>{{detail.sor_price}}</span></span>
+                </div>
+                <div class="orderClass">
+                    <span>支付方式:</span>
+                    <span class="orderA">{{detail.sor_pay_mode | getPayMode}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="isOk == 0">订单不存在</div>
+
+    <!--电话-->
+    <div class="telHref phone" v-bind:phone="detail.ccr_mobile">
+        <div class="telBg">
+            <img src="../themes/images/details_Contact@2x%20Copy%202@2x.png" alt="">
+            <span>联系买家</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/context.js"></script>
+<script type="text/javascript" src="../js/lib/vue.min.js"></script>
+<script type="text/javascript" src="../js/orderDetail.js"></script>
+<script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+</body>
+</html>

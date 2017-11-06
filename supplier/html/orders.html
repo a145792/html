@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="../css/MyOrder.css">
+		<style>
+		   .mui-table-view-cell{
+		      padding: 14px 15px;
+		   }
+		</style>
+	</head>
+	<body><!-- ?user_id=307&origin=adr -->
+	<div id="loadingdiv">
+		<div style="width: 100%;height: 100%;position: relative">
+			<img src="../images/soogif1.gif" alt=""  class="spinner">
+		</div>
+	</div>
+	<div id="app">
+		<ul class="whose-tab">
+			<li v-bind:class="{'active':status == 0,'orderstatus':true}" status="0">
+				<span>待付款</span>
+			</li>
+			<li v-bind:class="{'active':status == 1,'orderstatus':true}" status="1">
+				<span>待收货</span>
+			</li>
+			<li v-bind:class="{'active':status == 2,'orderstatus':true}" status="2">
+				<span>待提货</span>
+			</li>
+			<li v-bind:class="{'active':status == 3,'orderstatus':true}" status="3">
+				<span>退款／售后</span>
+			</li>
+		</ul>
+
+		<div  id="pullrefresh" class="mui-content mui-scroll-wrapper">
+
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view">
+					<div class="orderList order" v-for="item in orders" v-bind:so_id="item.so_id">
+						<div class="icon-cart">
+							<div>
+								<img src="../images/order_title copy@2x.png" alt="" class="iconLeft">
+								<span class="iconMotive" v-text="item.csr_username"></span>
+								<span class="iconStatus">{{item.so_status | getStatus}}</span>
+							</div>
+						</div>
+						<div class="orderChose" v-for="detail in item.detail">
+							<div class="choseImg">
+								<img v-bind:src="detail.spt_photo" alt="" />
+							</div>
+							<ul class="choseBody">
+								<li class="text-overflow2">{{detail.spt_name}}</li>
+								<li>规格&nbsp;<span>{{detail.spt_unit_desc}}</span></li>
+							</ul>
+
+							<ul class="choseFoot">
+								<li>批发价: <span class="font12 color535">¥
+									<span class="font14">{{detail.sod_price}}</span>
+								</span></li>
+								<li>×<span>{{detail.sod_number}}</span></li>
+							</ul>
+						</div>
+						<div class="icon-cart">
+							<div>
+								<span class="icon-textRight" style="color: #333333;">共计{{item.count}}件商品  合计：¥{{item.so_price}} (含运费：{{item.so_send_price | getPrice}}) 元</span>
+							</div>
+						</div>
+						<!--待付款-->
+						<div v-if="item.so_status == 'ToPaid'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 topay" v-bind:so_id="item.so_id" v-bind:so_no="item.so_no" v-bind:price="item.so_price" v-bind:so_issend="item.so_issend">
+								去支付
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary Cancel" v-bind:so_id="item.so_id">
+								取消订单
+							</a>
+						</div>
+						<!--待发货-->
+						<div v-if="item.so_status == 'ToSend'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 Refund" v-bind:so_id="item.so_id">
+								退款
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+						</div>
+						<!--待收货-->
+						<div v-if="item.so_status == 'Send'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 Confirm" v-bind:so_id="item.so_id">
+								确认收货
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+						</div>
+						<!--待提货-->
+						<div v-if="item.so_status == 'ToPickUp'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 Refund" v-bind:so_id="item.so_id">
+								退款
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+						</div>
+						<!--待退款-->
+						<div v-if="item.so_status == 'Refund'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 CloseRefund" v-bind:so_id="item.so_id">
+								取消退款
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+						</div>
+						<!--平台审核-->
+						<div v-if="item.so_status == 'PlatfromRefund'" class="icon-btn-order">
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 CloseRefund" v-bind:so_id="item.so_id">
+								取消退款
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="item.csr_mobile">
+								联系卖家
+							</a>
+						</div>
+					</div>
+				</ul>
+			</div>
+
+		</div>
+		<!--遮罩层-->
+		<div class="zhezhao"></div>
+		<!--取消订单提醒 取消退款 确认收货-->
+		<div class="alertWait"  id="picture">
+			<div class="a1">确认操作?</div>
+			<div class="a2">
+				<span class="abolish">取消</span>
+				<span class="makeSure sureli" style="cursor:pointer;">确定</span>
+			</div>
+		</div>
+		<!--退款提醒-->
+		<div id="refund" class="mui-popover mui-popover-action mui-popover-bottom">
+		   <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		         <a href="javascript:void(0);" class="refundtip">多拍/拍错/不想要</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		         <a href="javascript:void(0);" class="refundtip">快递一直未送到</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		         <a href="javascript:void(0);" class="refundtip">未按约定时间发货</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		         <a href="javascript:void(0);" class="refundtip">空包囊/少货</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		         <a href="javascript:void(0);" class="refundtip">其他</a>
+		      </li>
+		   </ul>
+		   <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		         <a href="#refund"><b>取消</b></a>
+		      </li>
+		   </ul>
+		</div>
+
+	</div>
+		<script src="../js/lib/application.js"></script>
+		<script src="../js/lib/mui.min.js"></script>
+		<script src="../js/lib/vue.min.js"></script>
+		<script src="../js/lib/jquery-1.7.1.min.js"></script>
+		<script src="../js/orders.js"></script>
+
+	</body>
+</html>

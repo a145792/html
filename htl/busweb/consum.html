@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消费买单历史</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+    <link rel="stylesheet" type="text/css" href="../css/mobiscroll-2.13.2.full.min.css">
+    <style>
+        @-webkit-keyframes name{
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(0deg); }
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="top">
+        <div style="position: relative">
+            <a href="JavaScript:history.back(-1)" class="" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <div style="text-align: center ;font-size: 17px">消费买单历史</div>
+        </div>
+    </div>
+    <div class="iconHeader " style="text-align: center">
+        <span class="beginTime" v-text="begin"></span> 至 <span class="lastTime" v-text="last"></span>
+    </div>
+    <div class="order" style="background-color: #FFFFFF; color: #333">
+        <div class="orderBody orderMoney">
+            <p>买单数量</p>
+            <p class="text-overflow colordc3"><span style="font-size: 24px;" v-text="count"></span><span>单</span></p>
+        </div>
+        <i></i>
+        <div class="orderBody orderMoney">
+            <p class="font15">共计消费</p>
+            <p class="text-overflow colordc3">
+                <span v-if="count==0" style="font-size: 24px;">0</span>
+                <span v-if="count!=0">¥</span><span style="font-size: 24px;" v-text="price"></span></p>
+        </div>
+    </div>
+    <!--列表-->
+    <div class="dingdanList" v-if="count!=0">
+        <div class="payList"  v-for="item in list">
+            <div class="historyList" style="font-size: 12px;color: #666">
+                <div class="flex martb10">
+                    <div class="flex-right">
+                        <span>订单号：</span>
+                        <span v-text="item.sor_order_no"></span>
+                    </div>
+                    <span class="colordc3" v-cloak>{{item.sor_order_status | order_status}}</span>
+                </div>
+                <div class="martb10">
+                    <span>消费时间：</span>
+                    <span class="mar5" v-cloak>{{item.sor_datetime | FMtime}}</span>
+                </div>
+                <div class="martb10">
+                    <span>消费金额：</span>
+                    <span>¥<span v-text="item.sor_price"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Nono"  v-if="count==0">
+        <img src="../themes/images/No-order@2x.png" alt="">
+        <p>暂无订单历史</p>
+    </div>
+</div>
+    <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/context.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/consum.js"></script>
+    <script type="text/javascript" src="../js/lib/mobiscroll-2.13.2.full.min.js"></script>
+    <script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+</body>
+</html>

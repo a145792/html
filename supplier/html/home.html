@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        .groomList{
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app"><!-- ?user_id=307&origin=adr -->
+    <div class="mui-content">
+        <!--主页 顶部宣传-->
+        <div class="pageHeader">
+            <ul class="pageSale" v-bind:class="{'page-media':actnum % 2 != 0}"><!-- page-media为奇数时 -->
+                <li class="sale activies" v-for="item in activies" v-bind:spr_prd_id="item.spr_prd_id" v-bind:sag_new_prd_id="item.sag_new_prd_id" v-bind:spr_prd_child_type="item.spr_prd_child_type" v-bind:spr_sup_id="item.spr_sup_id">
+                    <div class="Timebg">
+                        <span v-text="item.spr_name"></span>
+                        <span v-text="item.free_time"></span>
+                    </div>
+                    <img v-bind:src="item.spr_pic" alt="" class="saleImg">
+                    <!--活动-->
+                    <img v-if="item.mav_type == 'sales'" src="../images/label_cuxiao@2x.png" alt="" class="salePosition"/>
+                    <img v-if="item.mav_type == 'morefree'" src="../images/label_manjian@2x.png" alt="" class="salePosition"/>
+                    <img v-if="item.mav_type == 'group'" src="../images/label_zuhe@2x.png" alt="" class="salePosition" />
+                </li>
+                <li class="clearfix"></li>
+            </ul>
+        </div>
+
+
+        <!--热销商品列表-->
+        <div class="PageList">
+            <img src="../images/hot_product@2x.png" alt="" />
+        </div>
+
+        <div class="groomList product" v-for="item in hotlist" v-bind:spt_id="item.spt_id">
+            <div class="itemLeft">
+                <img v-bind:src="item.spt_photo" alt="" />
+                <!--<img v-if="item.hasSalses == 'Y'" src="../images/product_abel@2x.png" alt="" />-->
+            </div>
+            <ul class="itemRight">
+                <li v-text="item.spt_name"></li>
+                <li>
+                    <div class="wholesale">
+                        批发价：
+							<span>￥
+								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.spt_wholesale_unit}}</span>
+								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.spt_wholesale_unit}}</span>
+							</span>
+                    </div>
+                    <div>
+                        零售价：
+                        <span>￥<span v-text="item.spt_suggestion_price"></span></span>
+                    </div>
+                    <div class="font12">
+                        规格
+                        <span>{{item.spt_unit_desc}}</span>
+                    </div>
+                </li>
+                <li  v-if="item.cpr_id != null || item.hasSalses == 'Y' || item.hasMorefree == 'Y'">
+                    <div class="ac_list" v-if="item.cpr_id != null">
+                        <img src="../images/shop_Discount@2x.png" />
+                        <span>{{item.cpr_desc}}</span>
+                    </div>
+                    <div class="ac_list" v-if="item.hasSalses == 'Y'">
+                        <img src="../images/Sales promotion@2x.png" alt="" />
+                        <span>{{item.sales.spr_name}}</span>
+                    </div>
+                    <div class="ac_list" v-if="item.hasMorefree == 'Y'">
+                        <img src="../images/Full reduction@2x.png" alt="" />
+                        <span>{{item.morefree.spr_name}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!--爆款商品列表-->
+        <div class="PageList" v-if="boomnum != 0">
+            <img src="../images/Blast@2x.png" alt="" />
+        </div>
+        <div class="groomList product" v-for="item in boomlist" v-bind:spt_id="item.spt_id">
+            <div class="itemLeft">
+                <img v-bind:src="item.spt_photo" alt="" />
+                <!--<img v-if="item.hasSalses == 'Y'" src="../images/product_abel@2x.png" alt="" />-->
+            </div>
+            <ul class="itemRight">
+                <li v-text="item.spt_name"></li>
+                <li>
+                    <div class="wholesale">
+                        批发价：
+							<span>￥
+								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.spt_wholesale_unit}}</span>
+								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.spt_wholesale_unit}}</span>
+							</span>
+                    </div>
+                    <div>
+                        零售价：
+                        <span>￥<span v-text="item.spt_suggestion_price"></span></span>
+                    </div>
+                    <div class="font12">
+                        规格
+                        <span>{{item.spt_unit_desc}}</span>
+                    </div>
+                </li>
+
+                <li v-if="item.cpr_id != null || item.hasSalses == 'Y' || item.hasMorefree == 'Y' ">
+                    <div class="ac_list" v-if="item.cpr_id != null">
+                        <img src="../images/shop_Discount@2x.png" />
+                        <span>{{item.cpr_desc}}</span>
+                    </div>
+                    <div class="ac_list" v-if="item.hasSalses == 'Y'">
+                        <img src="../images/Sales promotion@2x.png" alt="" />
+                        <span>{{item.sales.spr_name}}</span>
+                    </div>
+                    <div class="ac_list" v-if="item.hasMorefree == 'Y'">
+                        <img src="../images/Full reduction@2x.png" alt="" />
+                        <span>{{item.morefree.spr_name}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--批发商推荐列表-->
+        <div class="PageList">
+            <img src="../images/Wholesale merchants@2x.png" alt="" />
+        </div>
+        <div class="orderChose supplier" v-for="item in supplist" v-bind:csr_id="item.csr_id">
+            <div class="choseImg">
+                <img v-bind:src="item.csr_photo" alt="" />
+            </div>
+            <ul class="choseBody">
+                <li class="text-overflow2" v-text="item.csr_username"></li>
+                <li>月销{{item.sale_count}}笔</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../js/lib/application.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/home.js"></script>
+<script>
+    mui.init();
+
+</script>
+</body>
+</html>

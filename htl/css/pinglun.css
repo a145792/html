@@ -1,0 +1,54 @@
+.commentFixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index:10;
+    width: 100%;
+    background-color: #fff;
+    padding-top: 30px;
+}
+.commentDetail{
+    width: 100%;
+    height:44px;
+    line-height: 44px;
+    text-align: center;
+    position: relative;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333333;
+}
+.commentDetail>img{
+    width:20px;
+    height:20px;
+    position: absolute;
+    top:11px;
+    left:10px;
+}
+.commentList{
+    display: flex;
+    display: -webkit-flex;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+}
+.hongse .on{
+    color: #f54548;
+}
+.commentLi{
+    width: 25%;
+    text-align: center;
+    font-size: 13px;
+    color:#333333;
+}
+.commentNo{
+    width: 70%;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+    margin: 0 auto;
+}
+.commentNo>img{
+    width: 100%;
+}

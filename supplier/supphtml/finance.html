@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>财务管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <style>
+        .icon-cart>div{
+            border-top: 0;
+        }
+        .icon-cart .iconMotive{
+            text-align: right;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+    <div id="app">
+        <div class="mui-content">
+            <div class="finance-head">
+                <ul class="userMoney">
+                    <li>可用余额账户(元)</li>
+                    <li class="userSum" id="userSum" v-text="info.shopBalance"><span></span></li>
+                    <li class="font12">（可用余额为可用于提现的额度）</li>
+                </ul>
+                <ul class="orderMoney">
+                    <li>
+                        <p>待完成订单额度(元)</p>
+                        <p v-text="info.todayEndLucre"></p>
+                    </li>
+                    <li>
+                        <p>不可用额度(元)</p>
+                        <p v-text="info.todayToLucre"></p>
+                    </li>
+                    <li></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" id="salecount">
+                <div class="icon-cart">
+                    <div>
+                        <span>销售统计</span>
+                        <span class="iconMotive"></span>
+                        <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+                    </div>
+                </div>
+            </a>
+            <div class="icon-cart mat10 lastdate" style="border-bottom: 1px solid #EEEEEE;">
+                <div>
+                    <span>最后结算时间</span>
+                    <span class="iconMotive" v-text="info.lastpaymentDate"></span>
+                    <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+                </div>
+            </div>
+            <div class="icon-cart" id="acount">
+                <div>
+                    <span>资金结算账户</span>
+                    <span class="iconMotive">
+                        <span v-if="account.csr_payment_type == 'bank'" v-text="account.payway"></span>
+                        <span v-if="account.csr_payment_type == 'alipay'">支付宝</span>
+                        <span v-text="account.cno"></span>
+                    </span>
+                    <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+                </div>
+            </div>
+            <div class="icon-cart mat10" id="paytype">
+                <div>
+                    <span>结算方式</span>
+                    <span v-if="account.csr_accounttype == '0'" class="iconMotive">手动结算</span>
+                    <span v-if="account.csr_accounttype == '1'" class="iconMotive">自动结算</span>
+                    <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script src="../js/lib/mui.min.js"></script>
+    <script src="../js/lib/application.js"></script>
+    <script src="../js/lib/vue.min.js"></script>
+    <script src="../js/supp/finance.js"></script>
+</body>
+</html>

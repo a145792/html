@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>待完成订单</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <style>
+        .finance-head{
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+                <li class="finance-head">
+                    <ul class="userMoney">
+                        <li>待完成订单额度(元)</li>
+                        <li class="userSum"  id="userSum">14800.00<span>共2单</span></li>
+                    </ul>
+                    <div class="orderList mat10">
+                        <div class="icon-cart">
+                            <div>
+                                <img src="../images/order_title copy@2x.png" alt="" class="iconLeft">
+                                <span class="iconMotive">北京众胜鑫海批发有限公司</span>
+                                <span class="iconStatus">待提货</span>
+                            </div>
+                        </div>
+                        <div class="orderChose">
+                            <div class="choseImg">
+                                <img src="../images/c41847b21bd44981ad31b41ad5433f91.jpeg" alt="" />
+                            </div>
+                            <ul class="choseleft" >
+                                <li class="leftA">
+                                    <span class="text-overflow2 flex1">盛牛酱香白酒SADAS5瓶装大大说</span>
+                                    <div class="adrretA-font">
+                                        <p>¥<span class="font14">100</span></p>
+                                        <p>×<span>100</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="adrretA">
+                            <span>付款时间：2017-09-21 10:21:21</span>
+                            <span class="icon-textRight" style="color: #333333;">共计2件商品  合计：¥380.20 (含运费：<span>20</span>元)</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/DoneOrder.js"></script>
+</body>
+</html>

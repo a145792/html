@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>领取现金券</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+    <link rel="stylesheet" type="text/css" href="../css/active.css">
+    <style>
+        .top{
+            background-color: #ef5936;
+        }
+        body{
+            background-color: #FFFFFF;
+            padding-top: 0;
+        }
+        @media screen and (max-width:321px){
+            .mainImg{
+                top: 25%;
+                right: 36%;
+                color: #ffc000;
+            }
+            .mainImg>span{
+                font-size: 24px;
+            }
+        }
+        @media screen and (min-width: 321px) and (max-width:400px){
+            .mainImg{
+                top: 29%;
+                right: 36%;
+                color: #ffc000;
+            }
+            .mainImg>span{
+                font-size: 30px;
+            }
+        }
+        @media screen and (min-width: 401px) and (max-width:759px){
+            .mainImg{
+                top: 31%;
+                right: 36%;
+                color: #ffc000;
+            }
+            .mainImg>span{
+                font-size: 35px;
+            }
+        }
+        @media screen and (min-width: 760px) and (max-width:1200px){
+            .mainImg{
+                top: 59%;
+                right: 36%;
+                font-size: 32px;
+                color: #ffc000;
+            }
+            .mainImg>span{
+                font-size: 60px;
+            }
+        }
+        .moneySuccess>p{
+            font-size: 24px;
+            color: rgb(255,89,89);
+            text-align: center;
+        }
+        .Toptext{
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            width: 60%;
+            height: 310px;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <div style="position: relative">
+        <a href="JavaScript:history.back(-1)" class="" style="position: absolute;top:-2px;left: 10px;">
+            <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+        </a>
+        <div style="text-align: center ;font-size: 17px">领取现金券</div>
+    </div>
+</div>
+<div class="main">
+    <div class="Toptext">
+        <div class="position:relative">
+            <img src="../themes/images/bg_success.png" alt="" class="mainTop">
+            <div class="mainImg">
+                ¥<span id="money"></span>
+            </div>
+            <div class="moneySuccess">
+                <p>恭喜你的现金券</p>
+                <p>已领取成功</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/context.js"></script>
+<script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var money = getRequestParameter('money');
+        var ccr_id = getRequestParameter('ccr_id');
+        var isNoWx = getRequestParameter('isNoWx');
+        if(isNoWx==1){
+            $('.top').show();
+            $('body').css("padding-top","64px");
+        }else{
+            $(".top").hide();
+        }
+        $("#money").html(money);
+    })
+</script>
+</body>
+</html>

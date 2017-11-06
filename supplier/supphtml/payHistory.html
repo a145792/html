@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结算历史</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <style>
+        .icon-cart>div{
+            border-top: 0;
+        }
+        .mui-table-view>li:first-child>div{
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>  
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+                <li v-for="item in list">
+                    <div class="icon-cart mat10" style="border-bottom: 1px solid #EEEEEE;">
+                        <div>
+                            <span class="color999">金额：</span>
+                            <span class="iconMotive">¥<span class="font17" v-text="item.sos_settlemoney"></span></span>
+                            <span class="iconState">{{item.sos_settlestatus | getStatus}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="shopState">
+                            <li class="flex">
+                                <span class="flex1">发起时间：</span>
+                                <span>{{item.sos_createtime | FMtime19}}</span>
+                            </li>
+                            <li class="flex">
+                                <span class="flex1">结算流水：</span>
+                                <span v-text="item.sos_settle_no"></span>
+                            </li>
+                            <li class="flex">
+                                <span class="flex1">结算周期：</span>
+                                <span>{{item.sos_prvsettleTime}}{{item.sos_settletime}}</span>
+                            </li>
+                            <li class="flex">
+                                <span class="flex1">结算账户：</span>
+                                <span>{{item.sos_settle_name}} {{item.sos_payment}}  {{item.sos_settleaccount}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="icon-btn-order">
+                        <a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 Cancel finpic" v-bind:pic="item.sos_settlePic">
+                            查看结算凭证
+                        </a>
+                        <a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" phone="4009005919">
+                            联系客服
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+    <script src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script src="../js/lib/mui.min.js"></script>
+    <script src="../js/lib/vue.min.js"></script>
+    <script src="../js/lib/application.js"></script>
+    <script src="../js/supp/payHistory.js"></script>
+</body>
+</html>
