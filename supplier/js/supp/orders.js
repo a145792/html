@@ -268,7 +268,6 @@ mui.init({
     }
 });
 
-/** 下拉刷新具体业务实现*/
 function pulldownRefresh(){
     setTimeout(function() {
         suppOrderList(vm.csr_id,vm.status,1)
@@ -288,9 +287,6 @@ function pulldownRefresh(){
     
 }
 
-/*
- * 上拉加载具体业务实现
- */
 function pullupRefresh(){
     mui('#pullrefresh').pullRefresh().endPullupToRefresh(((vm.page >= vm.pageNumber))); 
     if(vm.page < vm.pageNumber){

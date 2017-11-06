@@ -80,7 +80,7 @@ mui.init({
     pullRefresh:{
         container: '#pullrefresh',
         down: {
-            auto:false,//可选,默认false.自动下拉刷新一次
+            auto:false,
             callback: pulldownRefresh
         },
         up:{
@@ -91,20 +91,33 @@ mui.init({
     }
 });
 
-//下拉刷新
-function pulldownRefresh(){
 
-    setTimeout(function () {
-        //实现更新页面的操作
-        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-    }, 1000);
+function pulldownRefresh(){
+    payHistory(vm.csr_id,1)
+            .then(res=>{
+            vm.list = res.data.item;
+            vm.page =  1;
+            var count = res.data.count;
+            vm.count = count;
+
+            var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
+            vm.pageNumber = pageNumber;
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+        })
+
+
 
 }
-//上拉加载
+
 function pullupRefresh(){
-    if(2222==2222){
-        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
-    }else{
-        mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+    mui('#pullrefresh').pullRefresh().endPullupToRefresh(((vm.page >= vm.pageNumber))); 
+    if(vm.page < vm.pageNumber){
+
+        payHistory(vm.csr_id,vm.page*1+1)
+            .then(res=>{
+                vm.list = vm.list.concat(res.data.item);
+                vm.page = vm.page*1 + 1;
+            })
+
     }
 }

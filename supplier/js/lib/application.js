@@ -2,11 +2,11 @@ document.write('<script language=javascript src="../js/lib/tripledes2.js"></scri
 //请求后台的总方法
 function fetchApi(params){
     params = {'params':encryptByDES(params.params)};
-	var  url = 'http://admin.jiuziran.com/api';
+	/*var  url = 'http://admin.jiuziran.com/api';
     if(getRequestParameter('origin')=='ios'){
 		url = 'http://114.55.73.221:8080/api';
-    }
-	//url = 'http://admin.jiuziran.com/api';
+    }*/
+	url = 'http://dev.jiuziran.com/api';
 	//url = 'http://127.0.0.1:8080/adminsystem/api';
 	return new  Promise(function (resolve, reject) {
 		$.ajax({

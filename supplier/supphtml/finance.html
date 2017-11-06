@@ -33,11 +33,11 @@
                     <li class="font12">（可用余额为可用于提现的额度）</li>
                 </ul>
                 <ul class="orderMoney">
-                    <li>
+                    <li class="wait_order" v-bind:money="info.todayEndLucre">
                         <p>待完成订单额度(元)</p>
                         <p v-text="info.todayEndLucre"></p>
                     </li>
-                    <li>
+                    <li class="not_order" v-bind:money="info.todayToLucre">
                         <p>不可用额度(元)</p>
                         <p v-text="info.todayToLucre"></p>
                     </li>
@@ -68,7 +68,7 @@
                         <span v-if="account.csr_payment_type == 'alipay'">支付宝</span>
                         <span v-text="account.cno"></span>
                     </span>
-                    <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+                    <!-- <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/> -->
                 </div>
             </div>
             <div class="icon-cart mat10" id="paytype">

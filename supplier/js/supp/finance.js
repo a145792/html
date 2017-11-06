@@ -8,9 +8,6 @@ var vm = new Vue({
 
 })
 
-
-
-
 $(function(){
     //顶部数字展示   唱的话会自动缩小字体
     smartSize();
@@ -20,6 +17,7 @@ $(function(){
 
     csrFinance(csr_id)
         .then(res=>{
+            console.log(res)
         $("#loadingdiv").remove();
         vm.info = res.data;
         vm.account = res.data.item[0];
@@ -41,25 +39,48 @@ $(function(){
         }else if(origin == 'ios'){
             window.webkit.messageHandlers.appToLastDate.postMessage(1);
         }
-    })
+    }) 
 
     //结算账户
-    mui(".mui-content").on('tap','#acount',function(){ 
+    /*mui(".mui-content").on('tap','#acount',function(){ 
         if(origin == 'adr'){
             APP.appToAcount();
         }else if(origin == 'ios'){
             window.webkit.messageHandlers.appToAcount.postMessage(1);
         }
-    })
+    })*/
 
     //结算方式
     mui(".mui-content").on('tap','#paytype',function(){ 
+        var type = vm.account.csr_accounttype;
         if(origin == 'adr'){
-            APP.appToPayType();
+            APP.appToPayType(type);
         }else if(origin == 'ios'){
-            window.webkit.messageHandlers.appToPayType.postMessage(1);
+            window.webkit.messageHandlers.appToPayType.postMessage(type);
         }
     })
+
+    //待支付金额
+    mui(".mui-content").on('tap','.wait_order',function(){ 
+        var money = $(this).attr('money');
+        if(origin == 'adr'){
+            APP.appToWaitOrder(money);
+        }else if(origin == 'ios'){
+            window.webkit.messageHandlers.appToWaitOrder.postMessage(money);
+        }
+    })
+
+    //不可用金额
+    mui(".mui-content").on('tap','.not_order',function(){ 
+        var money = $(this).attr('money');
+        if(origin == 'adr'){
+            APP.appToNotOrder(money);
+        }else if(origin == 'ios'){
+            window.webkit.messageHandlers.appToNotOrder.postMessage(money);
+        }
+    })
+
+
 
 
 })

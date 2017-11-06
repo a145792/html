@@ -19,7 +19,6 @@ $(function(){
 	//获取首页活动列表
 	getActivi()
 		.then(res=>{
-			console.log(res)
 			for(var i = 0; i < res.data.item.length; i++){
 				res.data.item[i].free_time = ''
 			}
@@ -99,6 +98,11 @@ $(function(){
 		.then(res=>{
 			vm.supplist = res.data.item;
 		})
+
+
+
+	//----------------------------------------------------------------------------------------------
+	
 
 	//活动点击事件
 	mui(".mui-content").on('tap','.activies',function(){ 
