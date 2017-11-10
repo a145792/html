@@ -28,18 +28,19 @@
                 <li class="sale activies" v-for="item in activies" v-bind:spr_prd_id="item.spr_prd_id" v-bind:sag_new_prd_id="item.sag_new_prd_id" v-bind:spr_prd_child_type="item.spr_prd_child_type" v-bind:spr_sup_id="item.spr_sup_id">
                     <div class="Timebg">
                         <span v-text="item.spr_name"></span>
-                        <span v-text="item.free_time"></span>
+                        <span v-text="item.spr_desc"></span>
                     </div>
                     <img v-bind:src="item.spr_pic" alt="" class="saleImg">
-                    <!--活动-->
-                    <img v-if="item.mav_type == 'sales'" src="../images/label_cuxiao@2x.png" alt="" class="salePosition"/>
-                    <img v-if="item.mav_type == 'morefree'" src="../images/label_manjian@2x.png" alt="" class="salePosition"/>
-                    <img v-if="item.mav_type == 'group'" src="../images/label_zuhe@2x.png" alt="" class="salePosition" />
+                    <div class="salePosition clearfix">
+                        <span v-text="item.free_time[3]">00</span>
+                        <span v-text="item.free_time[0]">00</span>
+                        <span v-text="item.free_time[1]">00</span>
+                        <span v-text="item.free_time[2]">00</span>
+                    </div>
                 </li>
                 <li class="clearfix"></li>
             </ul>
         </div>
-
 
         <!--热销商品列表-->
         <div class="PageList">

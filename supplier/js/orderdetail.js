@@ -173,7 +173,11 @@ $(function(){
         
         closeConfirm();
 	})
-
+    //点取消事件
+    $(".abolish").on('click',function(){
+      //  e.stopPropagation();
+        closeConfirm();
+    })
 
     //弹出确认框
     function showConfirm(msg){

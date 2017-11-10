@@ -13,6 +13,14 @@
 			.mui-content{
 				padding-bottom: 50px;
 			}
+			.Imgbg>span {
+			   display: block;
+			   width: 100%;
+			   height: 100%;
+			   background-position: center center;
+			   background-size: cover;
+			   background-repeat: no-repeat;
+			}
 		</style>
 	</head>
 	<body>
@@ -31,9 +39,16 @@
 			<ul class="mui-table-view">
 				<div class="mui-card">
 					<!--内容区-->
-					<div class="mui-card-content">
-						<div class="Imgbg">
-							<img src="" alt="" :style="{backgroundImage: 'url(' + detail.spt_photo + ')'}"/>
+					<div class="mui-slider">
+					   <div class="mui-slider-group">
+					      <div class="mui-slider-item" v-for="item in photolist">
+					         <div class="Imgbg">
+					            <span v-bind:style="{backgroundImage:'url('+item+')'}"></span>
+					         </div>
+					      </div>
+					   </div>
+					   <div class="mui-slider-indicator">
+						   <div class="mui-indicator"  v-for="(item,index) in photolist" :class="{'mui-active':!index}"></div>
 						</div>
 					</div>
 					<!--页脚，放置补充信息或支持的操作-->
@@ -104,19 +119,19 @@
 						<li>
 							规格：<span>{{detail.spt_unit_desc}}</span>
 						</li>
-						<li>
+						<li v-if="detail.spt_wine_taste != null && detail.spt_wine_taste != ''">
 							香型：<span>{{detail.spt_wine_taste}}</span>
 						</li>
-						<li>
+						<li v-if="detail.spt_pro_address != null && detail.spt_pro_address != ''">
 							产地：<span>{{detail.spt_pro_address}}</span>
 						</li>
-						<li>
+						<li v-if="detail.spt_volume != null && detail.spt_volume != ''"> 
 							净含量：<span>{{detail.spt_volume}}ml</span>
 						</li>
-						<li>
+						<li v-if="detail.spt_is_limit == 'Y'">
 							限购数量：<span>{{detail.spt_limit_count}}{{detail.spt_wholesale_unit}}</span>
 						</li>
-						<li>
+						<li v-if="detail.spt_alcoholic_strength != null && detail.spt_alcoholic_strength != ''">
 							酒精度：<span>{{detail.spt_alcoholic_strength}}度</span>
 						</li>
 					</ul>
@@ -192,7 +207,6 @@
 				</div>
 			</div>
 
-
             <!--立即购买-->
             <div class="addBuy">
                 <div class="buyDetail">
@@ -239,7 +253,6 @@
 			 mui('.mui-scroll-wrapper').scroll({
 				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 			});
-			
 	</script>
 	
 

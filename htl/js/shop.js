@@ -21,7 +21,8 @@ var vm = new Vue({
         itemType:{},         //商品类型
         ste_id:'',           //当前选择的商品分类
         ismedia:0,           //是否变形  0 不变默认的   1变形 加class ismedia
-        allProductList:[]    //储存全部商品列表
+        allProductList:[],   //储存全部商品列表
+        couponlist:[]        //优惠券列表
     },
     //自定义拦截器
     filters:{
@@ -112,44 +113,6 @@ $(function(){
         $('.caseHeader').css("padding-top","0")
     }
 
-    
-    //按价格排序 加载店铺
-        /*getShopDetail(ccr_id,shop_id,2)
-            .then(res=>{
-                $(".loading").hide();
-
-                vm.shop = res.data
-                vm.productList = res.data.sim_items
-                vm.isFav = res.data.dsp_isfav
-
-                vm.footCount = res.data.disitems.length;
-
-            //获取店铺优惠券
-            getShopCoupon(shop_id)
-                .then(res=>{
-                    var couponlist = res.data.item;
-                    if(couponlist.length > 0){
-                        vm.isShowAdvert = 1;
-                    }
-                })
-
-            //获取购物车数量
-            if(ccr_id != ''){
-                getCartNum(ccr_id)
-                    .then(res=>{
-                        vm.cartcount = res.data.count;
-                    })
-            } 
-            
-            //获取产品类型
-            getItemType(shop_id)
-                .then(res=>{
-                    vm.itemType = res.data.items;
-                })
-
-    	})*/
-
-
     //分布加载策略
     //基本信息
     getShopDetailInfo(shop_id,ccr_id)
@@ -173,13 +136,16 @@ $(function(){
             })
 
             //获取店铺优惠券
-            getShopCoupon(shop_id)
+            getShopCoupon(shop_id,ccr_id)
                 .then(res=>{
                 var couponlist = res.data.item;
-            if(couponlist.length > 0){
-                vm.isShowAdvert = 1;
-            }
+                if(couponlist.length > 0){
+                    vm.isShowAdvert = 1;
+                    vm.couponlist = res.data.item;
+                    console.log(res.data.item)
+                }
             })
+            
 
             //获取购物车数量
             if(ccr_id != ''){
@@ -202,18 +168,39 @@ $(function(){
     
 
 //-------------------------------------------------进入领取页面--------------------
-    //点击优惠券
+    /*//点击优惠券
     $(document).on('click','.alertAdvert',function(){
         $('.AdvertDetail').fadeIn();
         $('.AdvertDetail-img').fadeIn();
     })
+
+
     $(document).on('click','.AdvertDetail',function(){
         $('.AdvertDetail-img').fadeOut();
         $('.AdvertDetail').fadeOut();
         $('.rightCase').removeClass("rightRun").addClass("rightNoRun");
         ModalHelper.beforeClose();
+    })*/
+    
+    //点击优惠券
+    $(document).on('click','.alertAdvert',function(){
+        $('.AdvertDetail').fadeIn();
+        $('.alertList').animate({bottom:"0"});
+        ModalHelper.afterOpen();
     })
-    $(document).on('click','.AdvertDetail-img',function(){
+    //关闭
+    var alertHeight;
+    $(document).on('click','.AdvertDetail',function(){
+        alertHeight=$(".alertList").height();
+        $('.alertList').animate({bottom:"-"+alertHeight+"px"});
+        $('.AdvertDetail').fadeOut();
+        if($(".rightRun").length>0){
+            $('.rightCase').removeClass("rightRun").addClass("rightNoRun");
+        }
+        ModalHelper.beforeClose();
+    })
+
+    /*$(document).on('click','.AdvertDetail-img',function(){
         if(ccr_id == ''){
             if(origin == 'adr'){
                 APP.appToLogin()
@@ -232,7 +219,48 @@ $(function(){
             window.location.href= getRootPath() + "/advert/advert.html?userId="+ccr_id+"&origin="+origin+"&isNoWx=1"+"&shop_id="+shop_id;
         }
 
+    })*/
+    //点击优惠券领取
+    $(document).on('click','.catCoupon',function(){
+        if(ccr_id == ''){
+            if(origin == 'adr'){
+                APP.appToLogin()
+            }else if(origin == 'ios'){
+                window.webkit.messageHandlers.appToLogin.postMessage(404)
+            }else if(origin == 'wxshop'){
+                window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb36c2d54f3a2ad60&redirect_uri=http://a.jiuziran.com/ForwardServlet?biz=toweb3&response_type=code&scope=snsapi_userinfo&state=0#wechat_redirect';
+            }
+            return
+        }
+        var cpr_id = $(this).attr('cpr_id');
+        console.log(cpr_id)
+        createNewCoupon(ccr_id,cpr_id)
+            .then(res=>{
+                console.log(res)
+                var code = res.code;
+                if(code = '0'){
+                    $(".alertTan").html("领取成功");
+                    for(var i = 0; i < vm.couponlist.length; i++){
+                        if(vm.couponlist[i].cpr_id == cpr_id){
+                            vm.couponlist[i].isShow = '0';
+                            vm.couponlist[i].tips = '已领取';
+                        }
+                    }
+                }else{
+                    $(".alertTan").html(res.message);
+                }
+                alertHeight=$(".alertList").height();
+                $('.alertList').animate({bottom:"-"+alertHeight+"px"});
+                $('.AdvertDetail').fadeOut();
+                
+                $(".alertTan").show();
+                setTimeout(function(){
+                    $('.alertTan').hide();
+                },1000);
+            })
     })
+
+    
 //--------------------------------------------------页面的事件----------------------------------------------------------------
 
     //加入购物车

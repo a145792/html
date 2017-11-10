@@ -68,7 +68,9 @@
 						</div>
 						<div class="icon-cart">
 							<div>
-								<span class="icon-textRight" style="color: #333333;">共计{{item.count}}件商品  合计：¥{{item.so_price}} (含运费：{{item.so_send_price | getPrice}}) 元</span>
+								<span class="icon-textRight" style="color: #333333;">共计{{item.count}}件商品  合计：¥{{item.so_price}} 
+								<span v-if="item.so_issend == 'Y'">(含运费：{{item.so_send_price | getPrice}}) </span>
+								元</span>
 							</div>
 						</div>
 						<!--待付款-->

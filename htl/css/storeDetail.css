@@ -528,7 +528,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 200;
+    z-index: 95;
     display: none;
 }
 .AdvertDetail-img{
@@ -589,7 +589,7 @@ body{
     position: fixed;
     bottom: 80px;
     right: 5px;
-    z-index: 99;
+    z-index: 92;
 }
 /*全部分类*/
 .rightCase{
@@ -685,3 +685,54 @@ body.modal-open {
     width: 80%;
     text-align: center;
 }
+/*现金弹出框*/
+.alertList{
+    position: fixed;
+    bottom: -374px;
+    left:0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index:97;
+    max-height: 374px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling:touch;
+}
+.alert-icon{
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+}
+.aletValue {
+    padding: 0 15px;
+}
+.valueList {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    display: -webkit-flex;
+    background: url(../themes/images/coupons@2x.png)no-repeat 0 0;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+.valuePrice {
+    flex: 1;
+    font-size: 18px;
+    padding: 10px;
+}
+.valuePrice ul {
+    font-size: 12px;
+    margin-top: 6px;
+}
+.value-moban, .value-moban-no {
+    width: 27%;
+    text-align: center;
+    border-left: 1px dashed #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+

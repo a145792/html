@@ -33,13 +33,13 @@
                     <li class="font12">（可用余额为可用于提现的额度）</li>
                 </ul>
                 <ul class="orderMoney">
-                    <li class="wait_order" v-bind:money="info.todayEndLucre">
+                    <li class="wait_order" v-bind:money="info.todayToLucre">
                         <p>待完成订单额度(元)</p>
-                        <p v-text="info.todayEndLucre"></p>
-                    </li>
-                    <li class="not_order" v-bind:money="info.todayToLucre">
-                        <p>不可用额度(元)</p>
                         <p v-text="info.todayToLucre"></p>
+                    </li>
+                    <li class="not_order" v-bind:money="info.todayEndLucre">
+                        <p>不可用额度(元)</p>
+                        <p v-text="info.todayEndLucre"></p>
                     </li>
                     <li></li>
                 </ul>
@@ -81,8 +81,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script src="../js/lib/jquery-1.7.1.min.js"></script>
     <script src="../js/lib/mui.min.js"></script>

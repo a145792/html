@@ -17,7 +17,6 @@ $(function(){
 
     csrFinance(csr_id)
         .then(res=>{
-            console.log(res)
         $("#loadingdiv").remove();
         vm.info = res.data;
         vm.account = res.data.item[0];
@@ -39,16 +38,7 @@ $(function(){
         }else if(origin == 'ios'){
             window.webkit.messageHandlers.appToLastDate.postMessage(1);
         }
-    }) 
-
-    //结算账户
-    /*mui(".mui-content").on('tap','#acount',function(){ 
-        if(origin == 'adr'){
-            APP.appToAcount();
-        }else if(origin == 'ios'){
-            window.webkit.messageHandlers.appToAcount.postMessage(1);
-        }
-    })*/
+    })
 
     //结算方式
     mui(".mui-content").on('tap','#paytype',function(){ 
@@ -59,7 +49,7 @@ $(function(){
             window.webkit.messageHandlers.appToPayType.postMessage(type);
         }
     })
-
+    
     //待支付金额
     mui(".mui-content").on('tap','.wait_order',function(){ 
         var money = $(this).attr('money');
@@ -80,12 +70,19 @@ $(function(){
         }
     })
 
-
-
-
 })
 
+    //修改结算方式
+    function channgType(type){
+        vm.account.csr_accounttype = type;
+    }
 
+    //客户端获取
+    function getArgs(){
+        var json = {};
+        json.info = vm.info;
+        return json;
+    }
 
 mui.init({
 

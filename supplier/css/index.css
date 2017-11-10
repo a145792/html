@@ -182,11 +182,12 @@ input{
 	position: relative;
 	padding: 1.07em;
 	align-items: center;
-	line-height: 1.785em;
+	line-height: 1.585em;
 	box-sizing: border-box;
 	-webkit-box-sizing:border-box;
 	/*padding-right: 0;*/
 	border-bottom: 1px solid #EEEEEE;
+	padding-right: 0.5em;
 }
 
 .pageSale>li:nth-child(odd){
@@ -217,16 +218,17 @@ input{
 }
 .Timebg>span:last-child{
 	display: block;
-	font-size: 0.857em;
-	color: #DC3C4F;
+	font-size: 12px;
+	color: #999999;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 .sale>.Timebg{
 	flex: 1;
-	padding-top: 0.557em;
+	padding-top: 1.5em;
 	width: 1px;
+	margin-right: 5px;
 }
 .sale>.saleImg{
 	width:5em;
@@ -236,11 +238,21 @@ input{
 	position: absolute;
 	top:0;
 	left:0;
-	height: 1.7857em;
+	line-height: normal;
 	width: auto;
+	padding-left: 1.07em;
+	padding-top: 10px;
 }
-.sale>.salePosition .zuhe{
-	height: 1.7857em;
+.salePosition>span{
+	display: inline-block;
+	width: 20px;
+	height:16px;
+	text-align: center;
+	line-height: 16px;
+	background-color: #333333;
+	color: #FFFFFF;
+	font-size: 12px;
+	border-radius: 2px;
 }
 @media (min-width: 320px) and (max-width:359px){
 	.page-media>li:first-child{
@@ -257,11 +269,11 @@ input{
 	.Timebg>span:last-child{
 		display: block;
 		font-size: 12px;
-		color: #DC3C4F;
+		color: #999999;
 	}
 	.sale>.Timebg{
 		flex: 1;
-		padding-top: 2px;
+		padding-top: 12px;
 	}
 	.sale>.saleImg{
 		width:40px;
@@ -271,8 +283,10 @@ input{
 		position: absolute;
 		top:0;
 		left:0;
-		height: 18px;
+		line-height: normal;
 		width: auto;
+		padding-left: 1.07em;
+		padding-top: 5px;
 	}
 
 }
@@ -291,11 +305,12 @@ input{
 	.Timebg>span:last-child{
 		display: block;
 		font-size: 12px;
-		color: #DC3C4F;
+		color: #999999;
 	}
 	.sale>.Timebg{
 		flex: 1;
-		padding-top: 7px;
+		padding-top: 15px;
+		line-height: 1.385em;
 	}
 	.sale>.saleImg{
 		width:55px;
@@ -305,8 +320,10 @@ input{
 		position: absolute;
 		top:0;
 		left:0;
-		height: 20px;
 		width: auto;
+		line-height: normal;
+		padding-left: 1.07em;
+		padding-top: 10px;
 	}
 }
 
@@ -550,6 +567,13 @@ ul.itemRight>li:nth-child(3){
 .choseBody>li:last-child{
 	font-size: 12px;
 	color: #999999;
+}
+.man-hiddden{
+   overflow: hidden;
+   height:20px;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
 }
 /*单选框样式*/
 .icon-radio{

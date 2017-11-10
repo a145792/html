@@ -13,13 +13,15 @@ var vm = new Vue({
 		sale_time:'0天0:0:0',	
 		free_time:'0天0:0:0',
 		first_coupon_name:'',  //第一个优惠券名称
-        buy_num:0              //购买数量
+        buy_num:0,              //购买数量
+        photolist:[],		//轮播图
 	}
 
 })
 
-$(function(){
 
+
+$(function(){
     //获取弹出矿的高度
     var addHeight=$(".addBuy").height();
     $(".addBuy").css("bottom","-"+addHeight+"px");
@@ -35,10 +37,27 @@ $(function(){
 	//获取商品详情
 	getSuppDetail(spt_id,user_id)
 		.then(res=>{
-			$("#loadingdiv").remove();
-			vm.detail=res.data;
+			var detail = res.data;
+			console.log(detail)
+			getPromotionInfo(spt_id)
+				.then(res=>{
+					detail.spt_is_promotion = res.data.item[0].spt_is_promotion;
+					detail.spt_promotion_price = res.data.item[0].spt_promotion_price;
+					vm.detail = detail;
+					$("#loadingdiv").remove();
+				})
+			
             vm.buy_num = res.data.spt_minunit;
 			vm.couponList=res.data.couponList;
+			var photos = res.data.photolist;
+			vm.photolist = photos.split(',');
+			vm.$nextTick(function () {
+			   var slider = mui("#slider");
+			   var gallery = mui('.mui-slider');
+			   gallery.slider({
+			      interval:0//自动轮播周期，若为0则不自动播放，默认为0；
+			   });
+			})
 			var name = '';
 			if(res.data.couponList.length > 0){
 				name = res.data.couponList[0].cpr_desc;

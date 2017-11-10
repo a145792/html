@@ -59,10 +59,10 @@ $(function(){
     orderDetailNew(so_id)
 		.then(res=>{
         $("#loadingdiv").remove();
-			console.log(res)
+            console.log(res)
 			vm.order = res.data;
             issend = res.data.so_issend;
-            uad_id = res.data.uad_id;
+            uad_id = res.data.so_uad_id;
             so_dsp_id = res.data.so_dsp_id;
 			//发票id
 			var so_inc_id = res.data.so_inc_id;
@@ -76,6 +76,7 @@ $(function(){
             //请求订单地址
             getOrderUad(so_dsp_id,uad_id,issend)
                 .then(res=>{
+                    console.log(res)
                     vm.uad = res.data.item[0];
                 })
 
@@ -112,9 +113,8 @@ $(function(){
     mui(".mui-content").on('tap','.imSend',function(e){
         e.stopPropagation();
         to_status = 'Send';
-        showConfirm("确认已经发货？");
+        showConfirm("确认发货？");
     })
-
 
     //修改运费
     mui(".mui-content").on('tap','.promptBtn',function(e){
@@ -135,11 +135,8 @@ $(function(){
                     var so_source_price = parseFloat(vm.order.so_source_price);
                     var so_send_price = parseFloat(vm.order.so_send_price);
                     var new_send_price = parseFloat(e.value);
-                    console.log(so_price + '--' + so_source_price)
                     so_price = so_price - so_send_price + new_send_price;
                     so_source_price = so_source_price - so_send_price + new_send_price;
-
-                    console.log(so_price + '--' + so_source_price)
 
                     updateOrderSendPrice(so_id,so_price,so_source_price,new_send_price)
                         .then(res=>{
@@ -162,7 +159,7 @@ $(function(){
     })
 
 
-    $(document).on('click','.sureli',function(){
+    $('.sureli').on('click',function(){
         updateOrderStatus(so_id,to_status)
             .then(res=>{
                 if(res.code == 0){

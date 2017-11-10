@@ -6,7 +6,10 @@ var vm = new Vue({//此处采用vue.js
 		addMedia:true,		//切换列表样式
 		supp:{},			//供应商详情
 		endTime:'0天0:0:0',
-		csr_id:''
+		csr_id:'',
+		groupList:[],
+		seleList:[],
+		hasActiviProduct:false  //是否有活动商品
 	},
 	filters:{
 		//格式化时间
@@ -14,15 +17,7 @@ var vm = new Vue({//此处采用vue.js
 			var amjson = eval('(' + amjson + ')')
 			var s = "";
 			for(var i = 0; i < amjson.length; i++){
-				//if(i == 0){
 					s += '满'+ amjson[i].full + '减' + amjson[i].min + " ";
-				//}
-				//if(i == 1){
-					//s += ',' + '满'+ amjson[i].full + '减' + amjson[i].min;
-				//}
-				//if(i == 2){
-					//s += ' ...'
-				//}
 			}
 			return s;
 		}
@@ -40,8 +35,7 @@ $(function(){
 	//获取店铺详情
 	supplierDetail(csr_id,vm.order)
 		.then(res=>{
-			vm.supp = res.data;
-			$("#loadingdiv").remove();
+			var supp = res.data;
 			if(res.data.spr_id != null){
 				var s = res.data.spr_create_time;
 				if(s && s.length && s.length > 18){
@@ -53,6 +47,31 @@ $(function(){
 					vm.endTime = getBackTime(secs--);
 				},1000)
 			}
+			setPromotionInfo(res.data.items)
+				.then(res=>{
+					console.log(res)
+					supp.items = res;
+					vm.supp = supp;
+					$("#loadingdiv").remove();
+				})
+		})
+
+	//获取活动商品
+	suppActivityProduct(csr_id)
+		.then(res=>{
+			if(res.data.groupList.length > 0 || res.data.seleList.length > 0){
+				vm.hasActiviProduct = true;
+			}
+
+			setPromotionInfo(res.data.groupList)
+				.then(res=>{
+					vm.groupList = res;
+				})
+
+			setPromotionInfo(res.data.seleList)
+				.then(res=>{
+					vm.seleList = res;
+				})
 		})
 
 	//商品点击事件

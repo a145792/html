@@ -43,6 +43,13 @@ var vm = new Vue({//此处采用vue.js
             }else{
                 return n;
             }
+        },
+        //格式化时间
+        FMtime:function(time){
+            if(!isUndef(time) && !isNull(time) && time.length > 19){
+                time = time.substring(0,19)
+            }
+            return time
         }
     }
 });
@@ -129,7 +136,7 @@ $(function(){
         var so_id = $(this).attr('so_id');
         c_type = 'Send';
         c_so_id = so_id;
-        showConfirm("确认已经发货？");
+        showConfirm("确认发货？");
     })
 
     //确认退款
@@ -201,7 +208,7 @@ $(function(){
 
 
    
-    $(document).on('click','.sureli',function(){
+    $('.sureli').on('click',function(){
 
         updateOrderStatus(c_so_id,c_type)
             .then(res=>{

@@ -43,13 +43,15 @@ $(function(){
             $("#loadingdiv").remove();
             console.log(res)
             var count = res.data.count;
+            if(count==0){
+                empty("../No-settlement-history@2x.png");
+            }
             vm.count = count;
             vm.list = res.data.item;
 
             var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
             vm.pageNumber = pageNumber;
         })
-
 
     //点击结算凭证
     mui(".mui-content").on('tap','.finpic',function(e){ 
@@ -104,8 +106,6 @@ function pulldownRefresh(){
             vm.pageNumber = pageNumber;
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
         })
-
-
 
 }
 

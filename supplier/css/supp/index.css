@@ -33,8 +33,18 @@ a{
     cursor:pointer;
 }
 a:hover{
-    text-decoration:none;
-    color: transparent;
+	text-decoration:none;
+	color: transparent;
+}
+a:active{
+	text-decoration:none;
+	color: #333333;
+}
+a.mui-btn-primary:hover {
+	color: #333333;
+}
+a.icon-btn535:hover {
+	color: #DC3C4F;
 }
 .lt{
 	float: left;
@@ -779,7 +789,15 @@ ul.itemRight>li:nth-child(3){
 	width: 50%;
 	z-index: 5;
 }
-
+.empty{
+	width: 100%;
+}
+.empty>img{
+	display: block;
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 100px;
+}
 /*财务管理*/
 .finance-head{
 	width: 100%;
@@ -912,4 +930,9 @@ ul.itemRight>li:nth-child(3){
 	background: rgba(0,0,0,.5);
 	z-index: 99;
 	display: none;
+}
+
+.mui-table-view:before,.mui-table-view:after{
+	-webkit-transform: scaleY(0);
+	transform: scaleY(0);
 }

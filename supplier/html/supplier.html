@@ -13,6 +13,18 @@
             a:active{
                 color: #999;
             }
+            .bg535-cofff{
+			   font-size: 12px;
+			   color: #FFFFFF;
+			   background-color: #f53548;
+			   border-radius: 2px;
+			   margin-left: 5px;
+			   padding: 0 3px;
+			}
+			.choseBody>li:last-child{
+			   font-size: 13px;
+			   margin-top: 5px;
+			}
         </style>
 	</head>
 	<!-- ?user_id=307&csr_id=5&origin=adr -->
@@ -77,6 +89,45 @@
 					        </div>
 					        
 				  		</div>
+
+				  		<!--活动商品-->
+						<div v-if="hasActiviProduct">
+							<div class="PageList">
+							   <img src="../images/store_activity@2x.png" alt="" />
+							</div>
+							<div class="orderChose supplier" v-for="item in groupList">
+							    <div class="itemLeft">
+							        <img v-bind:src="item.spt_photo" alt="" />
+							    </div>
+							    <ul class="choseBody">
+							        <li class="text-overflow2" v-text="item.spt_name"></li>
+							        <li class="man-hiddden">
+								        <span class="icon535">¥
+								        	<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span>
+								        	<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span>
+								        </span>
+								        <span class="bg535-cofff" v-text="item.spr_name"></span>
+							        </li>
+							        <li class="">月销{{item.sale_count}}笔</li>
+							    </ul>
+							</div>
+							<div class="orderChose supplier" v-for="item in seleList">
+							    <div class="itemLeft">
+							        <img v-bind:src="item.spt_photo" alt="" />
+							    </div>
+							    <ul class="choseBody">
+							        <li class="text-overflow2" v-text="item.spt_name"></li>
+							        <li class="man-hiddden">
+								        <span class="icon535">¥
+								        	<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span>
+								        	<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span>
+								        </span>
+								        <span class="bg535-cofff" v-text="item.spr_name"></span>
+							        </li>
+							        <li class="">月销{{item.sale_count}}笔</li>
+							    </ul>
+							</div>
+						</div>
 				  		
 				  </ul>
 			 </div>

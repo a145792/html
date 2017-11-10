@@ -29,7 +29,7 @@ function getRootPath(){
     return 'http://dev.jiuziran.com/supplier/'
 }
 
-//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 
 //商品详情
 function getSuppDetail(spt_id,user_id){
@@ -115,11 +115,23 @@ function suppOrderList(csr_id,status,page){
             .then(res=>res)
 }
 
-
+//供应商条件查询订单列表
+function suppSerchOrders(csr_id,status,so_is_callurce,begin,end,page){
+    var params = {"params":"{'biz':'com.supp.supp.order.search','data':{'csr_id':'"+csr_id+"','status':'"+status+"','so_is_callurce':'"+so_is_callurce+"','begin':'"+begin+"','end':'"+end+"','page':'"+page+"','limit':'10'}}"}
+        return fetchApi(params)
+            .then(res=>res)
+}
 
 //供应商详情0 综合 1销量 2价格 3上新
 function supplierDetail(csr_id,order){
     var params = {"params":"{'biz':'com.supp.supplier.detail','data':{'csr_id':'"+csr_id+"','order':'"+order+"'}}"}
+        return fetchApi(params)
+            .then(res=>res)
+}
+
+//供应商内活动商品
+function suppActivityProduct(csr_id){
+    var params = {"params":"{'biz':'com.supp.activi.product','data':{'csr_id':'"+csr_id+"'}}"}
         return fetchApi(params)
             .then(res=>res)
 }
@@ -229,6 +241,55 @@ function payHistory(csr_id,page){
     return fetchApi(params)
         .then(res=>res)
 }
+
+//销售统计
+function saleInfo(csr_id,startTime,endTime){
+    var params = {"params":"{'biz':'com.supp.finance.saleInfo','data':{'dsp_id':'"+csr_id+"','startTime':'"+startTime+"','endTime':'"+endTime+"'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//获取是否促销和促销价格
+function getPromotionInfo(ids){
+    var params = {"params":"{'biz':'com.supp.product.sales','data':{'ids':'"+ids+"'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//同一设置商品是否促销和促销价格
+function setPromotionInfo(list){
+    if(!list || list.length == 0){
+        return;
+    }
+    var ids = '';
+    for(var i = 0; i < list.length; i++){
+        ids += list[i].spt_id
+        if(i != list.length -1){
+            ids += ',';
+        }
+    }
+    return new  Promise(function (resolve, reject) {
+        var params = {"params":"{'biz':'com.supp.product.sales','data':{'ids':'"+ids+"'}}"}
+        fetchApi(params)
+            .then(res=>{
+                var code = res.code;
+                var sales = res.data.item;
+                if(code == '0'){
+                    for(var i = 0; i < sales.length; i++){
+                        for(var j = 0; j < list.length; j++){
+                            if(sales[i].spt_id == list[j].spt_id){
+                                list[j].spt_is_promotion = sales[i].spt_is_promotion;
+                                list[j].spt_promotion_price = sales[i].spt_promotion_price;
+                            }
+                        }
+                    }
+                }
+                resolve(list)
+                reject(list)
+            })
+    })
+}
+
 //-----------------------------------------------全局------------------------------------------------
 // 数据为空页面
 function no_Detail(data){
@@ -252,6 +313,17 @@ function no_Detail(data){
         $("body").append(crr);
     }else{
         $("body").append(crr);
+    }
+}
+function empty(data){
+    var err='<div class="empty">'+
+        '< img src='+data +' alt="">'+
+        '</div>';
+    if($(".empty") ){
+        $(".empty").remove();
+        $(".mui-table-view").append(err);
+    }else{
+        $(".mui-table-view").append(err);
     }
 }
 //成功提示

@@ -38,6 +38,12 @@ $(function(){
 					secs = parseInt(secs / 1000) + vm.activies[i].spr_number*24*60*60;
 					
 					vm.activies[i].free_time = getBackTime(secs--);
+
+					vm.activies[i].free_time=vm.activies[i].free_time.split("天");
+					var crr=[],arr=[];
+					crr=vm.activies[i].free_time[0];
+					arr=vm.activies[i].free_time[1].split(":");
+					vm.activies[i].free_time=arr.concat(crr);
 				}
 
 			},1000);
@@ -66,7 +72,11 @@ $(function(){
 					}
 				}
 			}
-			vm.hotlist = hotlist;
+			setPromotionInfo(hotlist)
+				.then(res=>{
+					vm.hotlist = hotlist;
+				})
+			
 		})
 
 	//获取爆款商品
@@ -90,7 +100,11 @@ $(function(){
 					}
 				}
 			}
-			vm.boomlist = boomlist;
+			
+			setPromotionInfo(boomlist)
+				.then(res=>{
+					vm.boomlist = boomlist;
+				})
 		})
 
 	//获取供应商列表

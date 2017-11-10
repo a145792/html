@@ -11,8 +11,8 @@ function fetchApi(params){
     //console.log(url)
     return new Promise(function (resolve, reject) {
 		$.ajax({
-			//url:'http://114.55.73.221:8080/api',
-            url:url,
+			url:'http://dev.jiuziran.com/api',
+            //url:url,
             //url:'http://127.0.0.1:8080/adminsystem/api',
 			data:params,
 			type:"post",
@@ -291,11 +291,12 @@ function getAddressById(uad_id){
     return fetchApi(params)
         .then(res=>res)
 }
+
 //==================================== 广告======================================================================
 
 //获取店铺优惠券列表
-function getShopCoupon(shop_id){
-    var params = {"params":"{'biz':'com.api.shop.couponlist','data':{'shop_id':'"+shop_id+"'}}"}
+function getShopCoupon(shop_id,user_id){
+    var params = {"params":"{'biz':'com.api.shop.couponlist','data':{'shop_id':'"+shop_id+"','user_id':'"+user_id+"'}}"}
         return fetchApi(params)
             .then(res=>res)
 }

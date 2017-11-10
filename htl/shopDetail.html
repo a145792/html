@@ -565,8 +565,29 @@
     <!--广告背景-->
     <div class="AdvertDetail"></div>
     <!--广告-->
-    <div>
-        <img src="themes/images/Popup%20window.png" alt="" class="AdvertDetail-img">
+    <!--<div>-->
+        <!--< img src="themes/images/Popup%20window.png" alt="" class="AdvertDetail-img">-->
+    <!--</div>-->
+    <div class="alertList">
+        <div class="alert-icon">店铺优惠券</div>
+        <div class='aletValue' v-for="item in couponlist">
+            <div class="valueList">
+                <div class="valuePrice">
+                    <span style="font-size: 20px;" v-if="item.cpr_value_type == 1">¥<span style="font-size: 30px;">{{item.cpr_cash}}</span></span>
+                    <span style="font-size: 30px;" v-if="item.cpr_value_type == 0">{{item.cpr_cash}}<span style="font-size: 20px;">折</span></span>
+                    <ul>
+                        <li v-text="item.cpr_name"></li>
+                        <li v-text="item.cpr_desc"></li>
+                    </ul>
+                </div>
+                <div v-if="item.isShow == 1" class="value-moban catCoupon" v-bind:cpr_id="item.cpr_id">
+                    <span>立即领取</span>
+                </div>
+                <div class="value-moban-no" v-if="item.isShow != 1">
+                    <span>{{item.tips}}</span>
+                </div>
+            </div>
+        </div>
     </div>
     <!--联系商家-->
     <div class="colorFixed">

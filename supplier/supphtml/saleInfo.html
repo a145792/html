@@ -23,7 +23,7 @@
         #end-date {
             outline: none;
             border: 0;
-            line-height: 40px;
+            line-height: normal;
             color: #FFFFFF;
             padding: 0;
             margin: 0;
@@ -58,50 +58,50 @@
                     <ul class="userMoney " style="padding-bottom: 0">
                         <li class="userTime">订单收益(元)：
                             <!--<span class="beginTime">2017-09-01</span>至<span class="lastTime">2019-09-02</span>-->
-                            <input type="text" id="end-date" data-options='{"type":"YYYY-MM-DD","beginYear":2017,"endYear":2222}' value="">
+                            <input type="text" id="end-date" data-options='{"type":"YYYY-MM-DD","beginYear":2017,"endYear":2222}' v-bind:value="time">
                             <img src="../images/Sales statistics_arrow@2x.png" alt="">
                         </li>
-                        <li class="userSum" id="userSum">100.00<span>共2单</span></li>
+                        <li class="userSum" id="userSum">{{info.sptLurce}}<span>共{{count}}单</span></li>
                     </ul>
                     <ul class="DateMoney">
                         <li>
                             <p>近7日收益(元)</p>
-                            <p>1230.4</p>
+                            <p v-text="info.OneWeekOfsptLurce"></p>
                         </li>
                         <li>
                             <p>近30日收益(元)</p>
-                            <p>1230.4</p>
+                            <p v-text="info.thirtyDayOfsptLurce"></p>
                         </li>
                         <li>
                             <p>近90日收益(元)</p>
-                            <p>1230.4</p>
+                            <p v-text="info.ninetyDayOfsptLurce"></p>
                         </li>
                     </ul>
-                    <div class="orderList mat10">
+                    <div class="orderList mat10 order" v-for="item in orders" v-bind:soid="item.so_id">
                         <div class="icon-cart">
                             <div>
                                 <img src="../images/order_title copy@2x.png" alt="" class="iconLeft">
-                                <span class="iconMotive">北京众胜鑫海批发有限公司</span>
-                                <span class="iconStatus">已完成</span>
+                                <span class="iconMotive" v-text="item.csr_username"></span>
+                                <span class="iconStatus">{{item.so_status | getStatus}}</span>
                             </div>
                         </div>
-                        <div class="orderChose">
+                        <div class="orderChose" v-for="detail in item.detail">
                             <div class="choseImg">
-                                <img src="../images/c41847b21bd44981ad31b41ad5433f91.jpeg" alt="" />
+                                <img v-bind:src="detail.spt_photo" alt="" />
                             </div>
                             <ul class="choseleft" >
                                 <li class="leftA">
-                                    <span class="text-overflow2 flex1">盛牛酱香白酒SADAS5瓶装大大说</span>
+                                    <span class="text-overflow2 flex1" v-text="detail.spt_name"></span>
                                     <div class="adrretA-font">
-                                        <p>¥<span class="font14">100</span></p>
-                                        <p>×<span>100</span></p>
+                                        <p>¥<span class="font14" v-text="detail.spt_price"></span></p>
+                                        <p>×<span v-text="detail.sod_number"></span></p>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                         <div class="adrretA">
-                            <span>完成时间：2017-09-21 10:21:21</span>
-                            <span class="icon-textRight" style="color: #333333;">共计2件商品  合计：¥380.20 (含运费：<span>20</span>元)</span>
+                            <span>完成时间：{{item.so_modify_time | FMtime}}</span>
+                            <span class="icon-textRight" style="color: #333333;">共计{{item.count}}件商品  合计：¥{{item.so_price}} (含运费：<span>{{item.so_send_price}}</span>元)</span>
                         </div>
                     </div>
                 </li>
@@ -114,7 +114,7 @@
 <script src="../js/lib/mui.min.js"></script>
 <script src="../js/lib/vue.min.js"></script>
 <script src="../js/lib/application.js"></script>
-<script src="../js/supp/saleList.js"></script>
+<script src="../js/supp/saleInfo.js"></script>
 <script src="../js/supp/dataHour.js"></script>
 </body>
 </html>
