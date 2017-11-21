@@ -61,6 +61,9 @@ a.icon-btn535:hover {
 .mat10{
 	margin-top: 10px;
 }
+.mat5{
+	margin-top: 5px;
+}
 .font12{
 	font-size: 12px;
 }
@@ -935,4 +938,22 @@ ul.itemRight>li:nth-child(3){
 .mui-table-view:before,.mui-table-view:after{
 	-webkit-transform: scaleY(0);
 	transform: scaleY(0);
+}
+/*orders页面新增*/
+.mat-list{
+	border: 1px solid #999999;
+	border-radius: 2px;
+	color: #999999;
+	float: left;
+	padding: 0 3px;
+	margin-right:10px;
+	line-height: initial;
+	font-size: 12px;
+}
+.mat-active{
+	border-color: #DC3C4F;
+	color: #DC3C4F;
+}
+.mat-one{
+	padding: 0 5px;
 }

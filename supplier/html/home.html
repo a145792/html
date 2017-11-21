@@ -31,11 +31,8 @@
                         <span v-text="item.spr_desc"></span>
                     </div>
                     <img v-bind:src="item.spr_pic" alt="" class="saleImg">
-                    <div class="salePosition clearfix">
-                        <span v-text="item.free_time[3]">00</span>
-                        <span v-text="item.free_time[0]">00</span>
-                        <span v-text="item.free_time[1]">00</span>
-                        <span v-text="item.free_time[2]">00</span>
+                    <div class="salePosition clearfix" v-if="item.free_time != null">
+                        <span v-text="item.free_time[3]"></span><span class="time-icon">:</span><span v-text="item.free_time[0]"></span><span class="time-icon">:</span><span v-text="item.free_time[1]"></span><span class="time-icon">:</span><span v-text="item.free_time[2]"></span>
                     </div>
                 </li>
                 <li class="clearfix"></li>
@@ -58,18 +55,18 @@
                     <div class="wholesale">
                         批发价：
 							<span>￥
-								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.spt_wholesale_unit}}</span>
-								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.spt_wholesale_unit}}</span>
+								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
+								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.unit}}</span>
 							</span>
                     </div>
-                    <div>
+                    <div v-if="item.spt_suggestion_price != null">
                         零售价：
                         <span>￥<span v-text="item.spt_suggestion_price"></span></span>
                     </div>
-                    <div class="font12">
+                    <!-- <div class="font12">
                         规格
                         <span>{{item.spt_unit_desc}}</span>
-                    </div>
+                    </div> -->
                 </li>
                 <li  v-if="item.cpr_id != null || item.hasSalses == 'Y' || item.hasMorefree == 'Y'">
                     <div class="ac_list" v-if="item.cpr_id != null">
@@ -103,18 +100,18 @@
                     <div class="wholesale">
                         批发价：
 							<span>￥
-								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.spt_wholesale_unit}}</span>
-								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.spt_wholesale_unit}}</span>
+								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
+								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.unit}}</span>
 							</span>
                     </div>
-                    <div>
+                    <div v-if="item.spt_suggestion_price != null">
                         零售价：
                         <span>￥<span v-text="item.spt_suggestion_price"></span></span>
                     </div>
-                    <div class="font12">
+                    <!-- <div class="font12">
                         规格
                         <span>{{item.spt_unit_desc}}</span>
-                    </div>
+                    </div> -->
                 </li>
 
                 <li v-if="item.cpr_id != null || item.hasSalses == 'Y' || item.hasMorefree == 'Y' ">

@@ -6,11 +6,33 @@
 		<script src="../js/lib/jquery-1.7.1.min.js"></script>
 		<script src="../js/lib/application.js"></script>
 		<script>
+			function setNum2(){
+				setTimeout(function(){
+					return 2;
+				},3000)
+			}
+
+		 	function setNum(){
+		 		return new Promise(function(resolve,reject){
+		 			setTimeout(function(){
+		 				resolve(2);
+		 				//reject(3);异常回调
+		 			},3000)
+		 		})
+		 	}
+
 			$(function(){
-				var 
-				$("#texth").html('aaa');
+				
+				var s = 0;
+				setNum()
+					.then(res=>{
+						s = res;
+						console.log(s)
+					})
+				//s = setNum2();
+				//console.log(s)
+
 			})
-			
 		</script>
 	</head>
 <body>

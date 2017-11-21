@@ -58,7 +58,6 @@ $(function(){
     //点击订单
     mui(".mui-content").on('tap','.order',function(e){ 
         var so_id = $(this).attr('so_id');
-        console.log(so_id)
         if(origin == 'adr'){
             APP.appToOrder(so_id);
         }else if(origin == 'ios'){
@@ -76,7 +75,7 @@ function pageInit(){
             var count = res.data.count;
             vm.count = count;
             if(count==0){
-                empty("../images-such-orders_03.png");
+                empty("../images/No-such-orders_03.png");
             }
             var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
             vm.pageNumber = pageNumber;
@@ -120,7 +119,6 @@ function pullupRefresh(){
 
         suppSerchOrders(vm.csr_id,'ToPickUp,Refund,PlatfromRefund,ToSend,Send,TheEnd','','','',vm.page*1+1)
             .then(res=>{
-                console.log(res)
                 vm.orders = vm.orders.concat(res.data.item);
                 vm.page = vm.page*1 + 1;
             })

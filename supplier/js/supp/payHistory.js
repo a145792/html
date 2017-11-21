@@ -41,10 +41,9 @@ $(function(){
     payHistory(csr_id,1)
         .then(res=>{
             $("#loadingdiv").remove();
-            console.log(res)
             var count = res.data.count;
             if(count==0){
-                empty("../No-settlement-history@2x.png");
+                empty("../images/No-settlement-history@2x.png");
             }
             vm.count = count;
             vm.list = res.data.item;
@@ -92,7 +91,6 @@ mui.init({
         }
     }
 });
-
 
 function pulldownRefresh(){
     payHistory(vm.csr_id,1)

@@ -57,7 +57,6 @@ $(function(){
     //点击订单
     mui(".mui-content").on('tap','.order',function(e){ 
         var so_id = $(this).attr('so_id');
-        console.log(so_id)
         if(origin == 'adr'){
             APP.appToOrder(so_id);
         }else if(origin == 'ios'){
@@ -72,11 +71,10 @@ var time = myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
 function pageInit(){
     suppSerchOrders(vm.csr_id,'TheEnd','',time,time,1)
         .then(res=>{
-            console.log(res)
             smartSize();
             var count = res.data.count;
             if(count==0){
-                empty("../images-such-orders_03.png");
+                empty("../images/No-such-orders_03.png");
             }
             vm.count = count;
 
@@ -111,6 +109,7 @@ function pulldownRefresh(){
     pageInit();
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); 
 }
+
 //上拉加载
 function pullupRefresh(){
     mui('#pullrefresh').pullRefresh().endPullupToRefresh(((vm.page >= vm.pageNumber))); 
@@ -118,7 +117,6 @@ function pullupRefresh(){
 
         suppSerchOrders(vm.csr_id,'TheEnd','',time,time,vm.page*1+1)
             .then(res=>{
-                console.log(res)
                 vm.orders = vm.orders.concat(res.data.item);
                 vm.page = vm.page*1 + 1;
             })

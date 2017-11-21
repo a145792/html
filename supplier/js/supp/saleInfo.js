@@ -93,7 +93,7 @@ function pageInit(begin,end){
             var count = res.data.count;
             vm.count = count;
             if(count==0){
-                empty("../images-such-orders_03.png");
+                empty("../images/No-such-orders_03.png");
             }
 
             var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
@@ -150,7 +150,6 @@ function pullupRefresh(){
 
         suppSerchOrders(vm.csr_id,'','Y',getBeginTime(),getEndTime(),vm.page*1+1)
             .then(res=>{
-                console.log(res)
                 vm.orders = vm.orders.concat(res.data.item);
                 vm.page = vm.page*1 + 1;
             })

@@ -9,6 +9,11 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../css/supp/index.css">
 		<link rel="stylesheet" href="../css/supp/MyOrder.css">
+		<style>
+		   .mui-popup{
+		      top:30%;
+		   }
+		</style>
 	</head>
 	<body><!-- ?csr_id=3&origin=adr -->
 	<div id="loadingdiv">
@@ -50,17 +55,17 @@
 							<div class="choseImg">
 								<img v-bind:src="detail.spt_photo" alt="" />
 							</div>
-							<ul class="choseleft" >
-								<li class="leftA">
-									<span class="text-overflow2 flex1">{{detail.spt_name}}</span>
-									<div class="adrretA-font">
-										<p>¥<span class="font14">{{detail.spt_price}}</span></p>
-										<p>×<span v-text="detail.sod_number"></span></p>
-									</div>
-								</li>
+							<ul class="choseBody">
+							   <li class="text-overflow2" v-text="detail.spt_name"></li>
+							   <li>规格：<span v-text="detail.sod_spec_desc"></span></li>
+							</ul>
+							<ul class="choseFoot">
+							   <li><span class="font12">¥<span class="font14">{{detail.spt_price}}</span></span></li>
+							   <li>×<span  v-text="detail.sod_number">></span></li>
 							</ul>
 						</div>
 						<div class="adrretA">
+							<span v-if="status != '0'">支付方式：{{item.so_pay_mode | getPayMode}}</span>
 							<span>下单时间：{{item.so_create_time | FMtime}}</span>
 							<span class="icon-textRight" style="color: #333333;">共计{{item.count}}件商品  合计：¥{{item.so_price}} 
 							<span v-if="item.so_issend == 'Y'">(含运费：{{item.so_send_price | getPrice}}元)</span>

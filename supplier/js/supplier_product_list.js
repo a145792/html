@@ -5,11 +5,8 @@ var vm = new Vue({//此处采用vue.js
 		order:0,			//商品排序方式0 综合 1销量 2价格 3上新
 		addMedia:true,		//切换列表样式
 		supp:{},			//供应商详情
-		endTime:'0天0:0:0',
 		csr_id:'',
-		groupList:[],
-		seleList:[],
-		hasActiviProduct:false  //是否有活动商品
+		type:''
 	},
 	filters:{
 		//格式化时间
@@ -24,23 +21,20 @@ var vm = new Vue({//此处采用vue.js
 	}
 });
 
-
-
 $(function(){
 	var origin = getRequestParameter('origin');
 	var user_id = getRequestParameter('user_id');
 	var csr_id = getRequestParameter('csr_id');
+	var type = getRequestParameter('type');
 	vm.csr_id = csr_id;
+	vm.type = type;
 
 	//获取店铺详情
-	supplierDetail(csr_id,vm.order)
+	supplierDetail2(csr_id,vm.order,type)
 		.then(res=>{
 			var supp = res.data;
 			if(res.data.spr_id != null){
 				var s = res.data.spr_create_time;
-				if(res.data.spr_number == 0){
-					s = res.data.mav_endtime;
-				}
 				if(s && s.length && s.length > 18){
 					s = s.substr(0,18)
 				}
@@ -58,23 +52,7 @@ $(function(){
 				})
 		})
 
-	//获取活动商品
-	suppActivityProduct(csr_id)
-		.then(res=>{
-			if(res.data.groupList.length > 0 || res.data.seleList.length > 0){
-				vm.hasActiviProduct = true;
-			}
-
-			setPromotionInfo(res.data.groupList)
-				.then(res=>{
-					vm.groupList = res;
-				})
-
-			setPromotionInfo(res.data.seleList)
-				.then(res=>{
-					vm.seleList = res;
-				})
-		})
+	
 
 	//商品点击事件
 	mui(".mui-content").on('tap','.product',function(){
@@ -129,7 +107,7 @@ mui.init({
 
 /** 下拉刷新具体业务实现*/
 function pulldownRefresh(){
-	supplierDetail(vm.csr_id,vm.order)
+	supplierDetail2(vm.csr_id,vm.order,vm.type)
 		.then(res=>{
 			vm.supp = res.data;
 

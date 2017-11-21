@@ -1,4 +1,4 @@
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 var vm = new Vue({
 	el:'#app',
@@ -15,8 +15,21 @@ var vm = new Vue({
 		first_coupon_name:'',  //第一个优惠券名称
         buy_num:0,              //购买数量
         photolist:[],		//轮播图
+        specs:[],			//商品规格列表
+        spec:{},			//当前选择的商品规格
+        parentProduct:[],	//本商品组成的组合商品
+        chirldProduct:[],	//本商品的组成商品单元
+        groupInfo:{},		//组合活动信息
+	},
+	methods:{
+		changespec(spec_id){
+			for(var i = 0; i < vm.specs.length; i++){
+				if(vm.specs[i].spec_id == spec_id){
+					vm.spec = vm.specs[i];
+				}
+			}
+		}
 	}
-
 })
 
 
@@ -38,19 +51,25 @@ $(function(){
 	getSuppDetail(spt_id,user_id)
 		.then(res=>{
 			var detail = res.data;
-			console.log(detail)
 			getPromotionInfo(spt_id)
 				.then(res=>{
-					detail.spt_is_promotion = res.data.item[0].spt_is_promotion;
-					detail.spt_promotion_price = res.data.item[0].spt_promotion_price;
+					console.log(res)
+					detail.spt_price = res.data.item[0].spt_price;
+					detail.unit = res.data.item[0].unit;
 					vm.detail = detail;
 					$("#loadingdiv").remove();
 				})
-			
-            vm.buy_num = res.data.spt_minunit;
+			vm.specs = res.data.specs;
+			vm.spec = res.data.specs[0];
+            vm.buy_num = res.data.specs[0].spec_unit_number;
 			vm.couponList=res.data.couponList;
 			var photos = res.data.photolist;
-			vm.photolist = photos.split(',');
+			if(photos){
+				vm.photolist = photos.split(',');
+			}else{
+				vm.photolist = ["../images/Bitmap@2x"];
+			}
+			
 			vm.$nextTick(function () {
 			   var slider = mui("#slider");
 			   var gallery = mui('.mui-slider');
@@ -73,6 +92,9 @@ $(function(){
 					vm.hasSalses = 'Y';
 					vm.sales = saandfree[i];
 					var s = saandfree[i].spr_create_time;
+					if(saandfree[i].spr_number == 0){
+						s = saandfree[i].mav_endtime;
+					}
 					if(s){
 						if(s.length){
 							if(s.length > 18){
@@ -94,6 +116,9 @@ $(function(){
 					var obj = formatMorefree(saandfree[i])
 					vm.morefree = obj;
 					var s = saandfree[i].spr_create_time;
+					if(saandfree[i].spr_number == 0){
+						s = saandfree[i].mav_endtime;
+					}
 					if(s){
 						if(s.length){
 							if(s.length > 18){
@@ -114,6 +139,20 @@ $(function(){
 			}
 			//vm.canCart = canCart;
 
+		})
+
+	//获取商品的组合信息
+	getGroupInfo(spt_id)
+		.then(res=>{
+			vm.groupInfo = res.data.groupInfo;
+			setPromotionInfo(res.data.parentProduct)
+				.then(res=>{
+					vm.parentProduct = res;
+				})
+			setPromotionInfo(res.data.chirldProduct)
+				.then(res=>{
+					vm.chirldProduct = res;
+				})
 		})
 
 
@@ -137,30 +176,48 @@ $(function(){
         }
 	})
 
+	//切换商品规格
+	//$().onclick = function(){
+	/*$(document).on('click','.spec',function(){
+		var spec_id = $(this).attr('spec_id');
+		for(var i = 0; i < vm.specs.length; i++){
+			if(vm.specs[i].spec_id == spec_id){
+				vm.spec = vm.specs[i];
+			}
+		}
+	})*/
+
 	//加入购物车
 	$('#addToCart').on('click',function(){
-		/*if(vm.canCart == 'N'){
-            mui.toast('不能加入购物车');
+		if(vm.spec.spec_is_promotion == 'Y'){
+            mui.toast('促销商品不能加入购物车');
 			return;
-		}*/
-        if(parseInt(vm.detail.spt_minunit) > parseInt(vm.detail.spt_stock)){
-            mui.toast('库存不足');
-            return;
-        }
+		}
 
-		addToCart(user_id,spt_id,vm.detail.csr_id,vm.detail.spt_minunit)
+		addToCart(user_id,spt_id,vm.detail.csr_id,vm.spec.spec_unit_number,vm.spec.spec_id)
 			.then(res=>{
 				if(res.code == 0){
 					successTips("加入购物车成功");
                     if(origin == 'adr'){
-                        APP.appToCart(vm.detail.spt_minunit);
+                        APP.appToCart(vm.spec.spec_unit_number);
                     }else if(origin == 'ios'){
-                        window.webkit.messageHandlers.appToCart.postMessage(vm.detail.spt_minunit);
+                        window.webkit.messageHandlers.appToCart.postMessage(vm.spec.spec_unit_number);
                     }
 				}else{
 					failTips(res.message);
 				}
 			})
+			
+	})
+
+	//点击商品
+	$(document).on('click','.product',function(){
+		var spt_id = $(this).attr('spt_id');
+		if(origin == 'adr'){
+            APP.appToProduct(spt_id);
+        }else if(origin == 'ios'){
+            window.webkit.messageHandlers.appToProduct.postMessage(spt_id);
+        }
 	})
 
 	/*//立即购买
@@ -181,12 +238,20 @@ $(function(){
         $(".zhezhao").fadeIn();
         $(".addBuy").animate({bottom:"0"});
     })
+    $('#onCheck').on('click',function(){
+		$(".addBuy").css("display","block")
+        $(".zhezhao").fadeIn();
+        $(".addBuy").animate({bottom:"0"});
+    })
 
     //关闭购买框
     $(".zhezhao,.chahao").on('click',function(){
 		$(".addBuy").css("display","none")
-        $(".zhezhao").fadeOut();
-        $(".addBuy").animate({bottom:"-"+addHeight+"px"});
+	      $(".zhezhao").fadeOut();
+	      $(".addBuy").animate({bottom:"-"+addHeight+"px"});
+			if($(".Alert_active").css("display")=="block"){
+			   $(".Alert_active").animate({bottom:"-"+groupHeight+"px"});
+			}
     })
 
     //数量减
@@ -197,6 +262,7 @@ $(function(){
         }
         vm.buy_num = num;
     })
+
     //数量加
     $('.add').on('click',function(){
         var num = vm.buy_num*1 + 1;
@@ -205,6 +271,7 @@ $(function(){
         }
         vm.buy_num = num;
     })
+
     //点击输入数量
     var interval;
     var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
@@ -214,27 +281,37 @@ $(function(){
             document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
         }, 100);
     })
+
 	$("#numValue").blur(function(){
 		clearInterval(interval);//清除计时器
 		//document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
 	})
     //确认购买
     $('.ripple').on('click',function(e){
-        if(!checkBuyNum(vm.buy_num)){
-            return;
-        }
-		$(".addBuy").css("display","none")
-        $(".zhezhao").fadeOut();
-        $(".addBuy").animate({bottom:"-"+addHeight});
 
-        var json = {};
-        json.spt_id = spt_id;
-        json.spt_num = vm.buy_num;
-        if(origin == 'adr'){
-            APP.appToBuy(spt_id,vm.buy_num);
-        }else if(origin == 'ios'){
-            window.webkit.messageHandlers.appToBuy.postMessage(json);
-        }
+        checkNum(spt_id,vm.buy_num,vm.detail.csr_id,vm.spec.spec_id)
+        	.then(res=>{
+        		var code = res.code;
+        		if(code == 0){
+					$(".addBuy").css("display","none")
+			        $(".zhezhao").fadeOut();
+			        $(".addBuy").animate({bottom:"-"+addHeight});
+
+			        var json = {};
+			        json.spt_id = spt_id;
+			        json.spt_num = vm.buy_num;
+			        json.spec_id = vm.spec.spec_id;
+			        if(origin == 'adr'){
+			            APP.appToBuy(spt_id,vm.buy_num,vm.spec.spec_id);
+			        }else if(origin == 'ios'){
+			            window.webkit.messageHandlers.appToBuy.postMessage(json);
+			        }
+        		}else{
+        			failTips(res.message)
+        		}
+        	})
+
+		
     })
 
     //领券
@@ -267,13 +344,13 @@ $(function(){
             return false;
         }
         num = parseInt(num);
-        if(num > vm.detail.spt_stock){
+        if(num > vm.spec.spec_stock){
             mui.toast('库存不足!');
             return false;
         }
-        if( num < vm.detail.spt_minunit){
-            if(num != vm.detail.spt_minunit){
-                mui.toast('最小起批数量为'+vm.detail.spt_minunit+'!');
+        if( num < vm.spec.spec_unit_number){
+            if(num != vm.spec.spec_stock){
+                mui.toast('最小起批数量为'+vm.spec.spec_unit_number+'!');
                 return false;
             }
         }
@@ -314,31 +391,24 @@ $(function(){
 
 	});
 
+	//获取推荐活动高度
+	var groupHeight=$(".Alert_active").height();
+	$(".Alert_active").css("bottom","-"+groupHeight+"px");
 
+	//点击推荐活动
+	$('.active-alert').on('click',function(){
+		groupHeight=$(".Alert_active").height();
+		$(".Alert_active").css("bottom","-"+groupHeight+"px");
+	   $(".zhezhao").fadeIn();
+	   $(".Alert_active").css("display","block")
+	   $(".Alert_active").animate({bottom:"0"});
+	})
 
+  
+  
 })
 
 
-
-/*var sty = 0; 
-document.querySelector('.mui-scroll-wrapper').addEventListener('scroll', function(e) {
-   var tr = $ ('.mui-scroll').css ('-webkit-transform')
-   var values = tr.split('(')[1].split(')')[0].split(',');
-   var x = values[5];
-   if(x<0 && Number(x)<-64){
-      //大于64px的样式
-   	  if(sty == 1){
-   	  	//sty = 0;
-   	  	console.log('a')
-   	  }
-   }else{
-      //小于64px的样式
-   	  if(sty == 0){
-   	  	//sty = 1;
-   	  	console.log('b')
-   	  }
-   }
-});*/
 
 /**
  * 格式化满减信息,处理中间的json

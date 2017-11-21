@@ -17,7 +17,7 @@ $(function(){
 	var origin = getRequestParameter('origin');
 
 	//获取首页活动列表
-	getActivi()
+	getActivi(user_id)
 		.then(res=>{
 			for(var i = 0; i < res.data.item.length; i++){
 				res.data.item[i].free_time = ''
@@ -31,6 +31,9 @@ $(function(){
 			setInterval(function(){
 				for(var i = 0; i < vm.activies.length; i++){
 					s = vm.activies[i].spr_create_time;
+					if(vm.activies[i].spr_number == 0){
+						s = vm.activies[i].mav_endtime;
+					}
 					if(s && s.length && s.length > 18){
 						s = s.substr(0,18);
 					}
@@ -38,12 +41,12 @@ $(function(){
 					secs = parseInt(secs / 1000) + vm.activies[i].spr_number*24*60*60;
 					
 					vm.activies[i].free_time = getBackTime(secs--);
-
 					vm.activies[i].free_time=vm.activies[i].free_time.split("天");
 					var crr=[],arr=[];
 					crr=vm.activies[i].free_time[0];
 					arr=vm.activies[i].free_time[1].split(":");
 					vm.activies[i].free_time=arr.concat(crr);
+					
 				}
 
 			},1000);
@@ -53,7 +56,7 @@ $(function(){
 
 	
 	//获取销量最高的10个商品
-	getHotProduct()
+	getHotProduct(user_id)
 		.then(res=>{
 			$("#loadingdiv").remove();
 			var hotlist = res.data.item;
@@ -80,7 +83,7 @@ $(function(){
 		})
 
 	//获取爆款商品
-	getBoomProduct()
+	getBoomProduct(user_id)
 		.then(res=>{
 			var boomlist = res.data.item;
 			if(boomlist.length){
@@ -129,7 +132,6 @@ $(function(){
 		json.spr_prd_id = spr_prd_id;
 		json.spr_prd_child_type = spr_prd_child_type;
 		json.spr_sup_id = spr_sup_id;
-		console.log(json)
 		if(origin == 'adr'){
             APP.appToActivi(JSON.stringify(json));
         }else if(origin == 'ios'){

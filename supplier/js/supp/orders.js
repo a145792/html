@@ -44,6 +44,17 @@ var vm = new Vue({//此处采用vue.js
                 return n;
             }
         },
+        getPayMode:function(m){
+            if(m == '0'){
+                return '微信支付';
+            }else if(m == '1'){
+                return '支付宝';
+            }else if(m == '5'){
+                return '货到付款';
+            }else{
+                return '';
+            }
+        },
         //格式化时间
         FMtime:function(time){
             if(!isUndef(time) && !isNull(time) && time.length > 19){

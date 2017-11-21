@@ -54,18 +54,17 @@
 					<!--页脚，放置补充信息或支持的操作-->
 					<ul class="commList">
 						<li class="commName" v-text="detail.spt_name"></li>
+						<li class="text-overflow2">{{detail.spt_reminder}}</li>
 						<li>
 							批发价：
-							<span class="commPrice">¥
-							<span v-if="detail.spt_is_promotion == 'Y'" v-text="detail.spt_promotion_price"></span>
-							<span v-if="detail.spt_is_promotion != 'Y'" v-text="detail.spt_price"></span>
+							<span class="commPrice">¥<span v-text="detail.spt_price"></span>/{{detail.unit}}
 							</span>
-							<span class="color999">(建议零售价：¥{{detail.spt_suggestion_price}})</span>
+							<span class="color999" v-if="detail.spt_suggestion_price != null">(建议零售价：¥{{detail.spt_suggestion_price}})</span>
 						</li>
 						<li class="commFlex">
 							<span>月销量：{{detail.sale_count}}</span>
-							<span>库存：{{detail.spt_stock}}</span>
-							<span>起批数量：{{detail.spt_minunit}}{{detail.spt_wholesale_unit}}</span>
+							<!-- <span>库存：{{detail.spt_stock}}</span>
+							<span>起批数量：{{detail.spt_minunit}}{{detail.spt_wholesale_unit}}</span> -->
 						</li>
 					</ul>
 				</div>
@@ -89,36 +88,58 @@
 					</div>
 				</div>-->
             	<!--满减活动-->
-                <div class="discount" v-if="hasMorefree == 'Y'">
-                    <div>
-                        <img src="../images/Full reduction@2x.png" alt="" class="iconLeft"/>
-                        <ul>
-                            <li v-text="morefreeName"></li>
-                            <li v-for="item in morefree">满{{item.full}}减{{item.min}} </li>
-                        </ul>
-                        <!--<span class="iconMotive">{{morefree.detal}}</span>-->
-                        <div class="iconTime">活动剩余 <span>{{free_time}}</span></div>
-                    </div>
-                </div>
-				<div class="icon-cart" v-if="hasSalses == 'Y'">
-					<div>
-						<img src="../images/Sales promotion@2x.png" alt="" class="iconLeft"/>
-						<span class="iconMotive">{{sales.spr_name}}</span>
-						<div class="iconTime">活动剩余 <span>{{sale_time}}</span></div>
-					</div>
+                <!--满减活动-->
+           <div class="discount" v-if="hasMorefree == 'Y'">
+               <div>
+                   <img src="../images/Full reduction@2x.png" alt="" class="iconLeft"/>
+                   <ul>
+                       <li v-text="morefreeName"></li>
+                   </ul>
+                   <!--<span class="iconMotive">{{morefree.detal}}</span>-->
+                   <div class="iconTime">活动剩余 <span>{{free_time}}</span></div>
+               </div>
+               <div class="discount_span">
+				   <span v-for="item in morefree">满{{item.full}}减{{item.min}} </span>
+			   </div>
+           </div>
+			<div class="icon-cart" v-if="hasSalses == 'Y'">
+				<div>
+					<img src="../images/Sales promotion@2x.png" alt="" class="iconLeft"/>
+					<span class="iconMotive">{{sales.spr_name}}</span>
+					<div class="iconTime">活动剩余 <span>{{sale_time}}</span></div>
+				</div>
+			</div>
+
+			<!--已选-->
+			<div class="codding">
+			   <div id="onCheck">
+			      <div class="flex1">
+			         <span class="iconMotive">
+			             <span class="mar10">已选</span>
+			            <span class="color535" v-text="spec.spec_unit_desc"></span>
+			         </span>
+			         <span class="codding-flex">本商品只配送{{detail.spt_dis}}</span>
+			      </div>
+			     <img src="../images/order_point@2x.png" alt="" class="iconRight">
+			   </div>
+			</div>
+
+				<!--是否组成父级商品-->
+				<div v-show="parentProduct.length > 0" class="icon-cart active-alert">
+				   <div>
+				      <span class="iconMotive">推荐活动</span>
+				      <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+				   </div>
 				</div>
 				
 				<!--供应商-->
 				<div class="supplier">
 					<div class="icon-cart">
 						<div>
-							<span class="iconMotive">供应商 {{detail.csr_username}}</span>
+							<span class="iconMotive">供应商： {{detail.csr_username}}</span>
 						</div>
 					</div>
 					<ul>
-						<li>
-							规格：<span>{{detail.spt_unit_desc}}</span>
-						</li>
 						<li v-if="detail.spt_wine_taste != null && detail.spt_wine_taste != ''">
 							香型：<span>{{detail.spt_wine_taste}}</span>
 						</li>
@@ -128,14 +149,39 @@
 						<li v-if="detail.spt_volume != null && detail.spt_volume != ''"> 
 							净含量：<span>{{detail.spt_volume}}ml</span>
 						</li>
-						<li v-if="detail.spt_is_limit == 'Y'">
+						<!-- <li v-if="detail.spt_is_limit == 'Y'">
 							限购数量：<span>{{detail.spt_limit_count}}{{detail.spt_wholesale_unit}}</span>
-						</li>
+						</li> -->
 						<li v-if="detail.spt_alcoholic_strength != null && detail.spt_alcoholic_strength != ''">
 							酒精度：<span>{{detail.spt_alcoholic_strength}}度</span>
 						</li>
 					</ul>
 				</div>
+
+				<!--组成商品-->
+				<div class="ware" v-show="chirldProduct.length > 0">
+				   <div class="icon-cart">
+				      <div>
+				         <span class="iconMotive" v-text="groupInfo.spr_name"></span>
+				         <span style="color:#999999"></span>
+				      </div>
+				   </div>
+				   <ul class="activeList">
+				      <li class="product" v-for="item in chirldProduct" v-bind:spt_id="item.spt_id">
+				         <div class="active-group">
+				            <div class="ImgbgA">
+				               <img v-bind:src="item.spt_photo" alt="">
+				            </div>
+				            <div class="text-overflow2" v-text="item.spt_name"></div>
+				            <span class="group-price">¥<span>{{item.spt_price}}</span></span>
+				         </div>
+				         <div class="group-add">
+				            <img src="../images/combination_add@2x.png" alt="">
+				         </div>
+				      </li>
+				   </ul>
+				</div>
+
 				<!--详情介绍-->
 				<div class="supplier">
 					<div class="icon-cart">
@@ -163,13 +209,13 @@
 					<img src="../images/order_title copy 3@2x.png" />
 					<p>店铺</p>
 				</button>
-				<!--<button v-if="canCart == 'N'" class="orderMarke" id="addToCart" style="color: #FFFFFF;background-color: #cccccc">
+				<button v-if="spec.spec_is_promotion == 'Y'" id="addToCart" style="color: #FFFFFF;background-color: #cccccc">
 				   加入购物车
-				</button>-->
-				<button class="orderMarke" id="addToCart">
+				</button>
+				<button v-if="spec.spec_is_promotion != 'Y'" class="orderMarke" id="addToCart">
 					加入购物车
 				</button>
-				<button class=" orderGet" id="allToBuy">
+				<button class="orderGet" id="allToBuy">
 					立即购买
 				</button>
 			</div>
@@ -216,16 +262,26 @@
                     <div class="datailName">
                         <span class="text-overflow2" v-text="detail.spt_name"></span>
                         <span class="commPrice font12">¥
-                            <span style="font-size: 15px" v-if="detail.spt_is_promotion == 'Y'" v-text="detail.spt_promotion_price"></span>
-                            <span style="font-size: 15px" v-if="detail.spt_is_promotion != 'Y'" v-text="detail.spt_price"></span>
+                            <span style="font-size: 15px"v-text="spec.spec_price"></span>
                         </span>
                     </div>
                     <img src="../images/close@2x.png" alt="" class="chahao">
                 </div>
+                <ul class="format">
+				   <!-- <li class="mat-list" v-bind:class="{'mat-active':item.spec_id == spec.spec_id}" v-for="item in specs">
+				      <span class="mat-one" @click="changespec(item.spec_id)" v-text="item.spec_unit_desc" v-bind:spec_id="item.spec_id"></span>
+				   </li>-->
+				   <li class="mat-list" v-bind:class="{'mat-active':item.spec_id == spec.spec_id}" v-for="item in specs">
+				   		<span @click="changespec(item.spec_id)" v-bind:spec_id="item.spec_id">
+						   <span class="mat-one-535" v-if="item.spec_is_promotion == 'Y'">促</span>
+						   <span class="mat-one-333" v-text="item.spec_unit_desc"></span>
+						</span>
+					</li>
+				</ul>
                 <div class="buyNumber">
                     <div class="NumDetail">
                         <span>购买数量</span>
-                        <span>剩余{{detail.spt_stock}}件，起批量{{detail.spt_minunit}}件</span>
+                        <span>剩余量:{{spec.spec_stock}}, 起批量:{{spec.spec_unit_number}}</span>
                     </div>
                     <div class="NumAdd">
                         <button class="minus"></button>
@@ -237,6 +293,41 @@
                     <button class="ripple">确定</button>
                 </div>
             </div>
+
+            <!--推荐活动弹出框-->
+			<div class="Alert_active">
+				<div class="icon-cart">
+					<div>
+						<span class="iconMotive" style="text-align: center;">推荐活动</span>
+					</div>
+				</div>
+				<div class="active-product product" v-for="item in parentProduct"  v-bind:spt_id="item.spt_id">
+					<div class="icon-cart">
+						<div>
+							<span class="iconMotive" style="color: #333333" v-text="item.spr_name"></span>
+						</div>
+					</div>
+					<div class="icon-cart">
+						<div>
+							<span class="iconMotive" style="color: #999999" v-text="item.spr_desc"></span>
+						</div>
+					</div>
+					<ul class="activeList">
+						<li v-for="prod in item.chirld">
+							<div class="active-group">
+								<div class="ImgbgA">
+									<img v-bind:src="prod.spt_photo" alt="">
+								</div>
+								<div class="text-overflow2" v-text="prod.spt_name"></div>
+								<span class="group-price">¥<span>{{prod.spt_price}}</span></span>
+							</div>
+							<div class="group-add">
+								<img src="../images/combination_add@2x.png" alt="">
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 
             <!--遮罩层-->
             <div class="zhezhao" style="display: none"></div>

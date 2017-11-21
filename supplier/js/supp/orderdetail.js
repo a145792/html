@@ -5,6 +5,7 @@ var vm = new Vue({
     	order:{},      //订单详情
     	invoice:{},	   //发票信息	
         uad:{},        //收货地址或提货地址
+        sod_send_scope:null,
     },
     filters:{
         //订单状态
@@ -31,10 +32,24 @@ var vm = new Vue({
                 return '已退款';
             }
         },
+        getPayMode:function(m){
+            if(m == '0'){
+                return '微信支付';
+            }else if(m == '1'){
+                return '支付宝';
+            }else if(m == '5'){
+                return '货到付款';
+            }else{
+                return '';
+            }
+        },
         getPrice:function(n){
             if(isUndef(n) || isNull(n)){
                 return '0';
             }else{
+                if(n < 0){
+                    n = -n;
+                }
                 return n;
             }
         },
@@ -58,25 +73,25 @@ $(function(){
     var so_dsp_id = "";
     orderDetailNew(so_id)
 		.then(res=>{
+        console.log(res)
         $("#loadingdiv").remove();
-            console.log(res)
 			vm.order = res.data;
             issend = res.data.so_issend;
             uad_id = res.data.so_uad_id;
             so_dsp_id = res.data.so_dsp_id;
+
+            vm.sod_send_scope = res.data.detail[0].sod_send_scope;
 			//发票id
 			var so_inc_id = res.data.so_inc_id;
 			if(so_inc_id){
 				invoiceDetail(so_inc_id)
 					.then(res=>{
-						console.log(res)
 						vm.invoice = res.data.item[0];
 					})
 			}
             //请求订单地址
             getOrderUad(so_dsp_id,uad_id,issend)
                 .then(res=>{
-                    console.log(res)
                     vm.uad = res.data.item[0];
                 })
 
@@ -87,7 +102,6 @@ $(function(){
     mui(".mui-content").on('tap','.phone',function(e){ 
         e.stopPropagation();
         var phone = $(this).attr('phone');
-        console.log(phone)
         if(origin == 'adr'){
             APP.appToPhone(phone);
         }else if(origin == 'ios'){
@@ -140,7 +154,6 @@ $(function(){
 
                     updateOrderSendPrice(so_id,so_price,so_source_price,new_send_price)
                         .then(res=>{
-                            console.log(res)
                             if(res.code == '0'){
                                 successTips('修改成功')
                                 vm.order.so_price = so_price;

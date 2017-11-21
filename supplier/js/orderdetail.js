@@ -5,6 +5,7 @@ var vm = new Vue({
     	order:{},      //订单详情
     	invoice:{},	   //发票信息	
         uad:{},        //收货地址或提货地址
+        send_scope:null,
     },
     filters:{
         //订单状态
@@ -35,7 +36,21 @@ var vm = new Vue({
             if(isUndef(n) || isNull(n)){
                 return '0';
             }else{
+                if(n < 0){
+                    n = -n;
+                }
                 return n;
+            }
+        },
+        getPayMode:function(m){
+            if(m == '0'){
+                return '微信支付';
+            }else if(m == '1'){
+                return '支付宝';
+            }else if(m == '5'){
+                return '货到付款';
+            }else{
+                return '';
             }
         },
         //格式化时间
@@ -58,11 +73,13 @@ $(function(){
     var so_dsp_id = "";
 	orderDetail(so_id)
 		.then(res=>{
+            console.log(res)
             $("#loadingdiv").remove();
 			vm.order = res.data.item[0];
             issend = res.data.item[0].so_issend;
             uad_id = res.data.item[0].uad_id;
             so_dsp_id = res.data.item[0].so_dsp_id;
+            vm.send_scope = res.data.item[0].product_item[0].sod_send_scope;
 			//发票id
 			var so_inc_id = res.data.item[0].so_inc_id;
 			if(so_inc_id){
@@ -72,7 +89,6 @@ $(function(){
 					})
 			}
             //请求订单地址
-            console.log(uad_id + '---' +  issend + "--" + so_dsp_id)
             getOrderUad(so_dsp_id,uad_id,issend)
                 .then(res=>{
                     vm.uad = res.data.item[0];

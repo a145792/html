@@ -39,15 +39,15 @@ function getSuppDetail(spt_id,user_id){
 }
 
 //加入购物车
-function addToCart(user_id,spt_id,sct_spt_id,sct_number){
-    var params = {"params":"{'biz':'com.supp.cart.addCart','data':{'sct_dsp_id':'"+user_id+"','sct_item_id':'"+spt_id+"','sct_number':'"+sct_number+"','sct_spt_id':'"+sct_spt_id+"'}}"}
+function addToCart(user_id,spt_id,sct_spt_id,sct_number,sct_spec_id){
+    var params = {"params":"{'biz':'com.supp.cart.addCart','data':{'sct_dsp_id':'"+user_id+"','sct_item_id':'"+spt_id+"','sct_number':'"+sct_number+"','sct_spt_id':'"+sct_spt_id+"','sct_spec_id':'"+sct_spec_id+"'}}"}
         return fetchApi(params)
-            .then(res=>res) 
+            .then(res=>res)  
 }
 
 //销量最高的10个商品
-function getHotProduct(){
-    var params = {"params":"{'biz':'com.supp.home.hot.product','data':{}}"}
+function getHotProduct(user_id){
+    var params = {"params":"{'biz':'com.supp.home.hot.product','data':{'user_id':'"+user_id+"'}}"}
         return fetchApi(params)
             .then(res=>res) 
 }
@@ -67,8 +67,8 @@ function createNewCoupon(userId,cpr_id){
 }
 
 //根据二级分类查询商品列表
-function getProductListSteId(ste_id,page){
-    var params = {"params":"{'biz':'com.supp.child.type.product','data':{'ste_id':'"+ste_id+"','page':'"+page+"','limit':'10'}}"}
+function getProductListSteId(ste_id,scope_id,order,page){
+    var params = {"params":"{'biz':'com.supp.child.type.product','data':{'ste_id':'"+ste_id+"','page':'"+page+"','scope_id':'"+scope_id+"','order':'"+order+"','limit':'10'}}"}
         return fetchApi(params)
             .then(res=>res) 
 }
@@ -125,6 +125,13 @@ function suppSerchOrders(csr_id,status,so_is_callurce,begin,end,page){
 //供应商详情0 综合 1销量 2价格 3上新
 function supplierDetail(csr_id,order){
     var params = {"params":"{'biz':'com.supp.supplier.detail','data':{'csr_id':'"+csr_id+"','order':'"+order+"'}}"}
+        return fetchApi(params)
+            .then(res=>res)
+}
+
+//供应商详情0 综合 1销量 2价格 3上新
+function supplierDetail2(csr_id,order,type){
+    var params = {"params":"{'biz':'com.supp.supplier.detail','data':{'csr_id':'"+csr_id+"','order':'"+order+"','type':'"+type+"'}}"}
         return fetchApi(params)
             .then(res=>res)
 }
@@ -206,7 +213,6 @@ function orderDetailNew(so_id){
             .then(res=>res)
 }
 
-
 //获取订单收货地址或提货地址
 function getOrderUad(so_dsp_id,uad_id,issend){
     var params = {"params":"{'biz':'com.supp.order.getuad','data':{'so_dsp_id':'"+so_dsp_id+"','uad_id':'"+uad_id+"','issend':'"+issend+"'}}"}
@@ -215,15 +221,15 @@ function getOrderUad(so_dsp_id,uad_id,issend){
 }
 
 //获取爆款商品
-function getBoomProduct(){
-    var params = {"params":"{'biz':'com.supp.boom.product','data':{}}"}
+function getBoomProduct(user_id){
+    var params = {"params":"{'biz':'com.supp.boom.product','data':{'user_id':'"+user_id+"'}}"}
     return fetchApi(params)
        .then(res=>res)
 }
 
 //获取首页活动
-function getActivi(){
-    var params = {"params":"{'biz':'com.shop.activi.index','data':{}}"}
+function getActivi(user_id){
+    var params = {"params":"{'biz':'com.shop.activi.index','data':{'user_id':'"+user_id+"'}}"}
     return fetchApi(params)
        .then(res=>res)
 }
@@ -249,6 +255,20 @@ function saleInfo(csr_id,startTime,endTime){
         .then(res=>res)
 }
 
+//商品的组合信息
+function getGroupInfo(spt_id){
+    var params = {"params":"{'biz':'com.api.supp.group.info','data':{'spt_id':'"+spt_id+"'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//校验商品数量
+function checkNum(sct_item_id,sct_number,sct_dsp_id,sct_spec_id){
+    var params = {"params":"{'biz':'com.api.cart.check','data':{'sct_item_id':'"+sct_item_id+"','sct_number':'"+sct_number+"','sct_dsp_id':'"+sct_dsp_id+"','sct_spec_id':'"+sct_spec_id+"'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
 //获取是否促销和促销价格
 function getPromotionInfo(ids){
     var params = {"params":"{'biz':'com.supp.product.sales','data':{'ids':'"+ids+"'}}"}
@@ -259,7 +279,10 @@ function getPromotionInfo(ids){
 //同一设置商品是否促销和促销价格
 function setPromotionInfo(list){
     if(!list || list.length == 0){
-        return;
+        return new  Promise(function (resolve, reject) {
+            resolve(list)
+            reject(list)
+        })
     }
     var ids = '';
     for(var i = 0; i < list.length; i++){
@@ -278,8 +301,9 @@ function setPromotionInfo(list){
                     for(var i = 0; i < sales.length; i++){
                         for(var j = 0; j < list.length; j++){
                             if(sales[i].spt_id == list[j].spt_id){
-                                list[j].spt_is_promotion = sales[i].spt_is_promotion;
-                                list[j].spt_promotion_price = sales[i].spt_promotion_price;
+                                list[j].spt_is_promotion = 'N';
+                                list[j].spt_price = sales[i].spt_price;
+                                list[j].unit = sales[i].unit;
                             }
                         }
                     }
@@ -317,7 +341,7 @@ function no_Detail(data){
 }
 function empty(data){
     var err='<div class="empty">'+
-        '< img src='+data +' alt="">'+
+        '<img src='+data +' alt="">'+
         '</div>';
     if($(".empty") ){
         $(".empty").remove();
@@ -350,7 +374,7 @@ function failTips(data){
 
 //获取秒数的时间格式
 function getBackTime(t){
-    t = Math.abs(t);
+    //t = Math.abs(t);
     var s = Math.floor(t%60) < 10 ? '0' : '';
     var m = Math.floor(t/60%60) < 10 ? '0' : '';
     var h = Math.floor(t/60/60%24) < 10 ? '0' : '';
@@ -395,7 +419,7 @@ function getRequestParameter(name){
 /*
  * @description     根据某个字段实现对json数组的排序
  * @param   array   要排序的json数组对象
- * @param   field   排序字段（此参数必须为字符串）
+ * @param   field   排序字段（此参数必须 为字符串）
  * @param   reverse 是否倒序（默认为false）
  * @return  array   返回排序后的json数组
 */

@@ -49,10 +49,13 @@ $(function(){
             window.webkit.messageHandlers.appToPayType.postMessage(type);
         }
     })
-    
+
     //待支付金额
     mui(".mui-content").on('tap','.wait_order',function(){ 
         var money = $(this).attr('money');
+        if(!money){
+            money = 0;
+        }
         if(origin == 'adr'){
             APP.appToWaitOrder(money);
         }else if(origin == 'ios'){
@@ -63,6 +66,9 @@ $(function(){
     //不可用金额
     mui(".mui-content").on('tap','.not_order',function(){ 
         var money = $(this).attr('money');
+        if(!money){
+            money = 0;
+        }
         if(origin == 'adr'){
             APP.appToNotOrder(money);
         }else if(origin == 'ios'){

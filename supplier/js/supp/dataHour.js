@@ -188,10 +188,9 @@
                 }
                 if(id == 'd-hours'){
                     var day1 = createDate.bissextile($('#d-year .active').text(),$('#d-hours .active').text());
-                    console.log(day1)
+                    
                     if(day1 != ($('#d-minutes li').length-2)){
                         var thisActive1 = $('#d-minutes .active').text();
-                        console.log(thisActive1)
 
                         thisActive1 > day1&&(thisActive1 = day1);
                         var str1 = '';

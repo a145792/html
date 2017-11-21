@@ -6,7 +6,9 @@ var vm = new Vue({//此处采用vue.js
         productlist:[],
         count:0,
         page:1,
-        pageNumber:0
+        pageNumber:0,
+        scope_id:'',
+        order:''
     }
 });
 
@@ -18,14 +20,22 @@ $(function(){
 	vm.ste_id = ste_id;
 
 	//获取该类型的商品列表
-	getProductListSteId(ste_id,1)
+	getProductListSteId(ste_id,vm.scope_id,vm.order,1)
 		.then(res=>{
-			$("#loadingdiv").remove();
+			
 			var list = res.data.items;
 			list = formatList(list);
-			vm.productlist = list;
+
+			
 			var count = res.data.count;
 			vm.count = count;
+			if(count > 0){
+				setPromotionInfo(list)
+					.then(res=>{
+						vm.productlist = list;
+						$("#loadingdiv").remove();
+					})
+			}
 			var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
 			vm.pageNumber = pageNumber;
 			if(vm.count==0){
@@ -34,7 +44,6 @@ $(function(){
 				$(".no-shuju").remove();
 			}
 		})
-
 
 	//商品点击事件
 	mui(".mui-content").on('tap','.product',function(){ 
@@ -47,6 +56,37 @@ $(function(){
 	})
 
 })
+
+//改变区域id和排序
+function search(scope_id,order){
+	vm.productlist = []
+	vm.page = 1;
+	vm.scope_id = scope_id;
+	vm.order = order;
+	
+	getProductListSteId(vm.ste_id,vm.scope_id,vm.order,1)
+	.then(res=>{
+		
+		var list = res.data.items;
+		list = formatList(list);
+		
+		var count = res.data.count;
+		vm.count = count;
+		if(count > 0){
+			setPromotionInfo(list)
+				.then(res=>{
+					vm.productlist = list;
+				})
+		}
+		var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
+		vm.pageNumber = pageNumber;
+		if(vm.count==0){
+            no_Detail("../images/No-the-goods_03.png");
+		}else{
+			$(".no-shuju").remove();
+		}
+	})
+}
 
 
 function formatList(list){
@@ -100,15 +140,17 @@ mui.init({
 	  mui('#pullrefresh').pullRefresh().endPullupToRefresh((vm.page >= vm.pageNumber)); 
 	  
 	  if(vm.page < vm.pageNumber){
-	  		getProductListSteId(vm.ste_id,vm.page*1+1)
+	  		getProductListSteId(vm.ste_id,vm.scope_id,vm.order,vm.page*1+1)
 	  			.then(res=>{
 	  				var list = res.data.items;
 					list = formatList(list);
-					vm.productlist = vm.productlist.concat(list);
-					vm.page = vm.page*1 + 1;
+					setPromotionInfo(list)
+						.then(res=>{
+							vm.productlist = vm.productlist.concat(list);
+							vm.page = vm.page*1 + 1;
+						})
+					
 	  			})
 	  }
 	  
-	  
-	 //}, 1500);
  }	

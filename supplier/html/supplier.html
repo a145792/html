@@ -10,9 +10,9 @@
 		<link rel="stylesheet" href="../css/index.css">
 		<link rel="stylesheet" href="../css/wholesalers.css">
         <style>
-            a:active{
-                color: #999;
-            }
+        	a:active,a:hover{
+			    color: #999;
+			}
             .bg535-cofff{
 			   font-size: 12px;
 			   color: #FFFFFF;
@@ -79,8 +79,7 @@
 					              <div class="listName text-overflow2" v-text="item.spt_name"></div>
 					              <div style="background: #fff;padding:0 10px;">
 					                <span class="Icon535">¥
-					                <span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span>
-					                <span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span>
+					                <span  class="text">{{item.spt_price}}</span>
 					                </span>
 					                <span class="Icon999">月售{{item.sale_count}}笔</span>
 					                <div class="clearfix"></div>
@@ -140,7 +139,7 @@
 				<li v-if="supp.spr_id != null">
 					<div>
 						<span class="blue-activity lt">满减 </span>
-						<span class="Time-activity rt">活动剩余 {{endTime}}</span>
+						<span v-if="endTime != null" class="Time-activity rt">活动剩余 {{endTime}}</span>
 						<div class="clearfix"></div>
 					</div>
 					<div class="text-overflow2 mat10">{{supp.am_json | getFree}}</div>

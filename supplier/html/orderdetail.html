@@ -61,7 +61,7 @@
 	                <span class="text-overflow2">
 	                <span v-if="order.so_issend == 'Y'">收货地址:</span>
 	                <span v-if="order.so_issend == 'N'">提货地址:</span>
-	                 {{uad.province}} / {{uad.city}} / {{uad.district}} / {{uad.detail}}</span>
+	                {{uad.province}} / {{uad.city}} / {{uad.district}} / {{uad.detail}}</span>
 	           </div>
 				<div class="locusImg">
 	                <img src="../images/order_address_line@2x@2x.png" alt="">
@@ -82,11 +82,10 @@
 					</div>
 					<ul class="choseBody">
 						<li class="text-overflow2" v-text="item.sod_name"></li>
-						<li>规格&nbsp;<span>{{item.spt_unit_desc}}</span></li>
+						<li>规格: <span>{{item.sod_spec_desc}}</span></li>
 					</ul>
-				
 					<ul class="choseFoot">
-						<li>批发价: <span class="font12 color535">¥<span class="font14">{{item.sod_price}}</span></span></li>
+						<li><span class="font12">¥<span class="font14">{{item.sod_price}}</span></span></li>
 						<li>×<span v-text="item.sod_number"></span></li>
 					</ul>
 				</div>
@@ -99,6 +98,13 @@
 					<span class="iconMotive">{{order.so_create_time | FMtime}}</span>
 				</div>
 			</div>
+			<!-- 配送时间 -->
+			<div class="icon-cart" v-if="order.so_issend == 'Y' && send_scope != null">
+				<div>
+					<span>配送时间：</span>
+					<span class="iconMotive">{{send_scope}}</span>
+				</div>
+			</div>
 			<!--配送方式-->
 			<div class="icon-cart">
 				<div>
@@ -107,11 +113,18 @@
 					<span class="iconMotive" v-if="order.so_issend == 'N'">买家自提</span>
 				</div>
 			</div>
+			<!--支付方式-->
+			<div v-if="order.so_status != 'ToPaid'" class="icon-cart">
+			   <div>
+			      <span>支付方式：</span>
+			      <span class="iconMotive">{{order.so_pay_mode | getPayMode}}</span>
+			   </div>
+			</div>
 			<!--发票信息-->
 			<a href="javascript:void(0);" v-if="order.so_inc_id == null">
 				<div class="icon-cart">
 					<div>
-						<span class="iconMotive">发票信息</span>无发票
+						<span class="iconMotive">发票信息</span><span class="color999">无发票</span>
 						<img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
 					</div>
 				</div>
@@ -161,7 +174,7 @@
 				</div>
 				<!--待发货-->
 				<div class="icon-btn-order" v-if="order.so_status == 'ToSend'">
-					<a href="#refund" class="mui-btn mui-btn-primary icon-btn535 ">
+					<a v-if="order.so_pay_mode != '5'" href="#refund" class="mui-btn mui-btn-primary icon-btn535 ">
 						退款
 					</a>
 					<a href="javascript:void(0);" class="mui-btn mui-btn-primary phone" v-bind:phone="order.csr_mobile">
@@ -179,7 +192,7 @@
 				</div>
 				<!--待提货-->
 				<div class="icon-btn-order" v-if="order.so_status == 'ToPickUp'">
-					<a href="#refund" class="mui-btn mui-btn-primary icon-btn535">
+					<a  v-if="order.so_pay_mode != '5'" href="#refund" class="mui-btn mui-btn-primary icon-btn535">
 						退款
 					</a>
 					<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="order.csr_mobile">
