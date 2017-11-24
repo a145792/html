@@ -108,6 +108,7 @@ mui.init({
 function pulldownRefresh(){
     pageInit();
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); 
+    mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
 }
 
 //上拉加载

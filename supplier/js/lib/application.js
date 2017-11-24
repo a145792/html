@@ -1,12 +1,12 @@
 document.write('<script language=javascript src="../js/lib/tripledes2.js"></script>');
 //请求后台的总方法
-function fetchApi(params){
+function fetchApi(params){ 
     params = {'params':encryptByDES(params.params)};
-	/*var  url = 'http://admin.jiuziran.com/api';
+	var  url = 'http://admin.jiuziran.com/api';
     if(getRequestParameter('origin')=='ios'){
 		url = 'http://114.55.73.221:8080/api';
-    }*/
-	url = 'http://dev.jiuziran.com/api';
+    }
+	//url = 'http://dev.jiuziran.com/api';
 	//url = 'http://127.0.0.1:8080/adminsystem/api';
 	return new  Promise(function (resolve, reject) {
 		$.ajax({
@@ -443,10 +443,25 @@ function jsonSort(array, field, reverse) {
 
 function smartSize(){
     var h=window.getComputedStyle(document.getElementById("userSum")).height;
-    var w=window.getComputedStyle(document.getElementById("userSum")).width;
-    if( parseInt(h) >"74"||parseInt(w)>document.body.clientWidth ){
+    if( parseInt(h) >"74"){
+        document.getElementById("userSum").style.fontSize="50px"
+    }else if(parseInt(h) >"148"){
         document.getElementById("userSum").style.fontSize="32px"
     }
 }
 
+/*onerror=handleErr
+var txt=""
 
+function handleErr(msg,url,l){
+    txt="本页中存在错误。\n\n"
+    txt+="错误：" + msg + "\n"
+    txt+="URL: " + url + "\n"
+    txt+="行：" + l + "\n\n"
+    txt+="点击“确定”继续。\n\n"
+    if(getRequestParameter('debug') == 'Y'){
+        console.log('aaa')
+        failTips(txt)
+        return true
+    }
+}*/

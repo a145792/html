@@ -25,7 +25,6 @@ $(function(){
 			
 			var list = res.data.items;
 			list = formatList(list);
-
 			
 			var count = res.data.count;
 			vm.count = count;
@@ -35,7 +34,9 @@ $(function(){
 						vm.productlist = list;
 						$("#loadingdiv").remove();
 					})
-			}
+			}else{
+				$("#loadingdiv").remove();
+			}	
 			var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
 			vm.pageNumber = pageNumber;
 			if(vm.count==0){

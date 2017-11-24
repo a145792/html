@@ -22,7 +22,8 @@ var vm = new Vue({
         ste_id:'',           //当前选择的商品分类
         ismedia:0,           //是否变形  0 不变默认的   1变形 加class ismedia
         allProductList:[],   //储存全部商品列表
-        couponlist:[]        //优惠券列表
+        couponlist:[],        //优惠券列表
+        ccr_id:''
     },
     //自定义拦截器
     filters:{
@@ -77,23 +78,13 @@ var vm = new Vue({
 
 })
 
-window.onload=function(){
-    $('.alertAdvert').addClass("animatedtemo");
-    setInterval(function(){
-        if($('.alertAdvert').hasClass("animatedtemo")){
-            $('.alertAdvert').removeClass("animatedtemo");
-        }else{
-            $('.alertAdvert').addClass("animatedtemo");
-        }
-    },2000);
-}
-
 $(function(){
 
     //ios无限刷新问题
     var lock = true;
     var isNoWx="";
     var ccr_id = getRequestParameter('ccr_id')
+    vm.ccr_id = ccr_id
     var shop_id = getRequestParameter('shop_id')
     var latitude = getRequestParameter('latitude')
     var longitude = getRequestParameter('longitude')
@@ -142,10 +133,8 @@ $(function(){
                 if(couponlist.length > 0){
                     vm.isShowAdvert = 1;
                     vm.couponlist = res.data.item;
-                    console.log(res.data.item)
                 }
             })
-            
 
             //获取购物车数量
             if(ccr_id != ''){
@@ -183,7 +172,7 @@ $(function(){
     })*/
     
     //点击优惠券
-    $(document).on('click','.alertAdvert',function(){
+    $(document).on('click','.getCoupon',function(){
         $('.AdvertDetail').fadeIn();
         $('.alertList').animate({bottom:"0"});
         ModalHelper.afterOpen();
@@ -222,7 +211,7 @@ $(function(){
     })*/
     //点击优惠券领取
     $(document).on('click','.catCoupon',function(){
-        if(ccr_id == ''){
+        if(vm.ccr_id == ''){
             if(origin == 'adr'){
                 APP.appToLogin()
             }else if(origin == 'ios'){
@@ -234,7 +223,7 @@ $(function(){
         }
         var cpr_id = $(this).attr('cpr_id');
         console.log(cpr_id)
-        createNewCoupon(ccr_id,cpr_id)
+        createNewCoupon(vm.ccr_id,cpr_id)
             .then(res=>{
                 console.log(res)
                 var code = res.code;
@@ -257,10 +246,11 @@ $(function(){
                 setTimeout(function(){
                     $('.alertTan').hide();
                 },1000);
+                ModalHelper.beforeClose();
             })
     })
 
-    
+
 //--------------------------------------------------页面的事件----------------------------------------------------------------
 
     //加入购物车
@@ -268,7 +258,7 @@ $(function(){
         var sim_id = $(this).attr('sim_id')
         var shop_id = $(this).attr('shop_id')
         e.stopPropagation();
-        if(ccr_id == ''){
+        if(vm.ccr_id == ''){
             if(origin == 'adr'){
                 APP.appToLogin()
             }else if(origin == 'ios'){
@@ -278,7 +268,7 @@ $(function(){
             }
             return
         }
-        addToCart(ccr_id,shop_id,1,sim_id)
+        addToCart(vm.ccr_id,shop_id,1,sim_id)
             .then(res=>{
                 var code = res.code
                 if(code == 0){
@@ -790,6 +780,10 @@ function GetSlideDirection(startX, startY, endX, endY) {
     return result;
 }
 
+
+function setUser(ccr_id){
+    vm.ccr_id = ccr_id;
+}
 
 
 

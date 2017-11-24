@@ -85,7 +85,7 @@
 						<img v-bind:src="item.spt_photo" alt="" />
 					</div>
 					<ul class="choseBody">
-						<li class="text-overflow2" v-text="item.sod_name"></li>
+						<li><div class="text-overflow2" v-text="item.sod_name"></div></li>
 						<li>规格: <span>{{item.sod_spec_desc}}</span></li>
 					</ul>
 				
@@ -181,7 +181,7 @@
 				</div>
 			</div>
 			<!--订单按钮-->
-			<div class="icon-foot-btn">
+			<div class="icon-foot-btn" v-if="order.so_status != 'TheEnd'">
 				<!--待付款-->
 				<div v-if="order.so_status == 'ToPaid'" class="icon-btn-order">
 					<a href="javascript:void(0)" class="mui-btn mui-btn-primary phone" v-bind:phone="order.dsp_mobile">

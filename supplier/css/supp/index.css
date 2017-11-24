@@ -534,6 +534,7 @@ ul.itemRight>li:nth-child(3){
 }
 .choseFoot>li:last-child{
 	text-align: right;
+	color: #999999;
 }
 .choseBody>li:last-child{
 	font-size: 12px;
@@ -852,7 +853,7 @@ ul.itemRight>li:nth-child(3){
 }
 .orderMoney>li:last-child{
 	position: absolute;
-	border-left: 1px solid #999999;
+	border-left: 1px solid #EEEEEE;
 	width:1px;
 	height:35px;
 	top:0;

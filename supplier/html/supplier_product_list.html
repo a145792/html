@@ -18,7 +18,6 @@
 			   color: #FFFFFF;
 			   background-color: #f53548;
 			   border-radius: 2px;
-			   margin-left: 5px;
 			   padding: 0 3px;
 			}
 			.choseBody>li:last-child{
@@ -27,7 +26,6 @@
 			}
         </style>
 	</head>
-	<!-- ?user_id=307&csr_id=5&origin=adr -->
 	<body>
 
 	<div id="loadingdiv">
@@ -60,7 +58,9 @@
 					            <span :style="{backgroundImage: 'url(' + item.spt_photo + ')'}"></span>
 					          </div>
 					          <div class="Listflex">
-					              <div class="listName text-overflow2" v-text="item.spt_name"></div>
+					              <div class="listName ">
+									 <div class="text-overflow2" v-text="item.spt_name" style="line-height: normal;"></div>
+								  </div>
 					              <div style="background: #fff;padding:0 10px;">
 					                <span class="Icon535">¥
 					                <span class="text">{{item.spt_price}}</span>

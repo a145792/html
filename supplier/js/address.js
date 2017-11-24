@@ -14,7 +14,6 @@ $(function(){
 
     init();
 
-
     //点击选择地址
     mui(".mui-content").on('tap','.address',function(){ 
         var uad_id = $(this).attr('uad_id');

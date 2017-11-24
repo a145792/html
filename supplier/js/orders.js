@@ -46,9 +46,9 @@ var vm = new Vue({//此处采用vue.js
         },
         getPayMode:function(m){
             if(m == '0'){
-                return '微信支付';
-            }else if(m == '1'){
                 return '支付宝';
+            }else if(m == '1'){
+                return '微信支付';
             }else if(m == '5'){
                 return '货到付款';
             }else{
@@ -100,6 +100,7 @@ $(function(){
 
                 var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
                 vm.pageNumber = pageNumber;
+                vm.page = 1;
 
                 vm.orders = res.data.item;
                 vm.status = status;
@@ -109,6 +110,7 @@ $(function(){
                     $(".no-shuju").remove();
                 }
                 mui('#pullrefresh').pullRefresh().scrollTo(0,0);
+                mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
             })
     })
 
@@ -275,8 +277,6 @@ function cleanOrder(so_id){
     }
 }
 
-
-
 mui.init({
     pullRefresh:
     {
@@ -305,12 +305,13 @@ function pulldownRefresh(){
             var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
             vm.pageNumber = pageNumber;
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+            mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
         })
       
     
 }
 
-/*
+ /*
  * 上拉加载具体业务实现
  */
 function pullupRefresh(){

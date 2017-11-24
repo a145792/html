@@ -88,7 +88,7 @@ function pageInit(begin,end){
             }
         })
 
-    suppSerchOrders(vm.csr_id,'','Y',getBeginTime(),getEndTime(),1)
+    suppSerchOrders(vm.csr_id,'','Y',getBeginTime(2),getEndTime(2),1)
         .then(res=>{
             var count = res.data.count;
             vm.count = count;
@@ -105,17 +105,21 @@ function pageInit(begin,end){
 
 }
 
-function getBeginTime(){
+function getBeginTime(type){
     var s = vm.time.split('至')[0];
     var myDate = new Date(s.replace("-","/").replace("-","/"));
-    myDate = (new Date(myDate - 86400000))
+    if(type){
+        myDate = (new Date(myDate - 86400000))
+    }
 
     return myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
 }
-function getEndTime(){
+function getEndTime(type){
     var s = vm.time.split('至')[1];
     var myDate = new Date(s.replace("-","/").replace("-","/"));
-    myDate = (new Date(myDate - 86400000))
+    if(type){
+        myDate = (new Date(myDate - 86400000))
+    }
 
     return myDate.getFullYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate();
 }
@@ -138,10 +142,9 @@ mui.init({
 });
 
 function pulldownRefresh(){
-
     pageInit(getBeginTime(),getEndTime());
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); 
-
+    mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
 }
 
 function pullupRefresh(){

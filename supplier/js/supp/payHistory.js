@@ -40,6 +40,7 @@ $(function(){
 
     payHistory(csr_id,1)
         .then(res=>{
+            console.log(res)
             $("#loadingdiv").remove();
             var count = res.data.count;
             if(count==0){
@@ -103,6 +104,7 @@ function pulldownRefresh(){
             var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
             vm.pageNumber = pageNumber;
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+            mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
         })
 
 }

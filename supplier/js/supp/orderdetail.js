@@ -34,9 +34,9 @@ var vm = new Vue({
         },
         getPayMode:function(m){
             if(m == '0'){
-                return '微信支付';
-            }else if(m == '1'){
                 return '支付宝';
+            }else if(m == '1'){
+                return '微信支付';
             }else if(m == '5'){
                 return '货到付款';
             }else{
@@ -109,11 +109,6 @@ $(function(){
         }
     })
 
-
-
-
-
-
     var to_status = '';
 
     //确认退款
@@ -132,7 +127,7 @@ $(function(){
 
     //修改运费
     mui(".mui-content").on('tap','.promptBtn',function(e){
-        e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+        e.detail.gesture.preventDefault();
         var btnArray = ['取消', '确定'];
         mui.prompt('', '', '修改运费', btnArray, function(e) {
             if (e.index == 1) {
@@ -171,7 +166,6 @@ $(function(){
         document.querySelector('.mui-popup-input input').type='number'
     })
 
-
     $('.sureli').on('click',function(){
         updateOrderStatus(so_id,to_status)
             .then(res=>{
@@ -209,7 +203,6 @@ $(function(){
 
 function changeStatus(s){
 	vm.order.so_status = s;
-
 }
 
 

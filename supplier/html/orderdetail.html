@@ -81,7 +81,7 @@
 						<img v-bind:src="item.spt_photo" alt="" />
 					</div>
 					<ul class="choseBody">
-						<li class="text-overflow2" v-text="item.sod_name"></li>
+						<li><div class="text-overflow2" v-text="item.sod_name"></div></li>
 						<li>规格: <span>{{item.sod_spec_desc}}</span></li>
 					</ul>
 					<ul class="choseFoot">
@@ -148,7 +148,7 @@
 					<span>-¥<span>{{order.so_coupon_price | getPrice}}</span></span>
 				</li>
 				<li class="flex">
-					<span class="flex1">促销优惠：</span>
+					<span class="flex1" v-if="">活动优惠：</span>
 					<span>-¥<span>{{order.so_act_price | getPrice}}</span></span>
 				</li>
 			</ul>

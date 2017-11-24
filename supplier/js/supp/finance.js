@@ -4,8 +4,19 @@ var vm = new Vue({
     data:{
         info:{},            //数据载体
         account:{}         //账户信息和结算信息
+    },
+    filters:{
+        getPrice:function(n){
+            if(isUndef(n) || isNull(n)){
+                return '0';
+            }else{
+                if(n < 0){
+                    n = -n;
+                }
+                return n;
+            }
+        }
     }
-
 })
 
 $(function(){

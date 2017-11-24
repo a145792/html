@@ -44,17 +44,21 @@
 	width: 1px;
 }
 .choseName ul{
-	line-height: 20px;
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
 }
 .choseName ul li:first-child{
 	overflow: hidden;
 	white-space: nowrap;
     text-overflow: ellipsis;
+	flex: 1;
+	margin-right: 10px;
 }
-.choseName ul li:last-child{
+.choseName ul li:last-child a{
 	font-size: 12px;
 	color: #999999;
-	align-self:flex-end;
 }
 .choseName ul li:last-child img{
 	width: 15px;
@@ -122,4 +126,52 @@
 	border-radius: 2px;
 	padding:2px 7px ;
 	color: #FFFFFF;
+}
+/*改版*/
+.media .listIcon{
+	width:100px;
+	height: 100px;
+}
+.media .Listflex{
+	display: inline-flex;
+	flex-flow: column;
+	justify-content: flex-end;
+}
+.media .listName{
+	height: auto;
+	flex-grow: inherit;
+}
+.man-hiddden>span:last-child{
+	margin-left: 10px;
+}
+
+.supplier  .itemLeft{
+	width: 100px;
+	height: 100px;
+}
+.orderChose .choseBody{
+	display: inline-flex;
+	flex-flow: column;
+	justify-content: flex-end;
+}
+.choseBody{
+	height: auto;
+}
+.supplier .choseBody>li:first-child{
+	height: auto;
+	flex-grow: inherit;
+	font-size: 15px;
+	font-weight: normal;
+}
+.xuanhuan{
+	overflow: hidden;
+}
+.xuanhuan .Icon535{
+	font-weight: bold;
+}
+ .Icon535 .text, .icon535>span{
+	font-size: 16px;
+}
+.supp2{
+	align-items: center
 }

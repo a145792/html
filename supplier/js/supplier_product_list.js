@@ -52,8 +52,6 @@ $(function(){
 				})
 		})
 
-	
-
 	//商品点击事件
 	mui(".mui-content").on('tap','.product',function(){
 		var spt_id = $(this).attr('spt_id');
@@ -63,7 +61,6 @@ $(function(){
             window.webkit.messageHandlers.appToProduct.postMessage(spt_id);
         }
 	})
-
 
     mui(".mui-content").on('tap','#activi',function(){
         mui('#shopAlert').popover('toggle');
@@ -92,8 +89,6 @@ $(function(){
 	})
 
 })
-
-
 
 mui.init({
 	pullRefresh:{

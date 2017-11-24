@@ -69,7 +69,7 @@ $(function(){
 })
 
 function pageInit(){
-    suppSerchOrders(vm.csr_id,'ToPickUp,Refund,PlatfromRefund,ToSend,Send,TheEnd','','','',1)
+    suppSerchOrders(vm.csr_id,'ToPickUp,Refund,PlatfromRefund,ToSend,Send','','','',1)
         .then(res=>{
             smartSize();
             var count = res.data.count;
@@ -97,7 +97,6 @@ mui.init({
             callback: pulldownRefresh
         },
         up: {
-
             contentrefresh: '正在加载...',
             contentnomore:'没有更多数据了',
             callback: pullupRefresh
@@ -107,17 +106,16 @@ mui.init({
 
 //下拉刷新
 function pulldownRefresh(){
-
     pageInit();
     mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); 
-
+    mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
 }
 //上拉加载
 function pullupRefresh(){
     mui('#pullrefresh').pullRefresh().endPullupToRefresh(((vm.page >= vm.pageNumber))); 
     if(vm.page < vm.pageNumber){
 
-        suppSerchOrders(vm.csr_id,'ToPickUp,Refund,PlatfromRefund,ToSend,Send,TheEnd','','','',vm.page*1+1)
+        suppSerchOrders(vm.csr_id,'ToPickUp,Refund,PlatfromRefund,ToSend,Send','','','',vm.page*1+1)
             .then(res=>{
                 vm.orders = vm.orders.concat(res.data.item);
                 vm.page = vm.page*1 + 1;

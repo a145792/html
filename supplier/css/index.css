@@ -123,6 +123,9 @@ input{
 .mui-table-view{
 	background-color: #F3F5F7;
 }
+.mui-table-view:before,.mui-table-view:after{
+	height: 0;
+}
 /*弹出加入购物车*/
 .getShop{
 	position: fixed;
@@ -180,7 +183,7 @@ input{
 	font-size: 0.14em;
 	color: #333333;
 	position: relative;
-	padding: 1.07em;
+	padding: 0.8em;
 	align-items: center;
 	line-height: 1.585em;
 	box-sizing: border-box;
@@ -236,7 +239,7 @@ input{
 	left:0;
 	line-height: normal;
 	width: auto;
-	padding-left: 1.07em;
+	padding-left:0.8em;
 	padding-top: 10px;
 }
 .salePosition>span{
@@ -292,7 +295,7 @@ input{
 		left:0;
 		line-height: normal;
 		width: auto;
-		padding-left: 1.07em;
+		padding-left: 0.8em;
 		padding-top: 5px;
 	}
 
@@ -329,7 +332,7 @@ input{
 		left:0;
 		width: auto;
 		line-height: normal;
-		padding-left: 1.07em;
+		padding-left: 0.8em;
 		padding-top: 10px;
 	}
 }
@@ -350,11 +353,11 @@ input{
 	background: #FFFFFF;
 	border-top: 1px solid #EEEEEE;
 	display: flex;
-	margin-top: 10px;
+	display: -webkit-flex;
 }
 .itemLeft{
-	width: 58px;
-	height: 58px;
+	width: 134px;
+	height: 134px;
 	border-radius: 4px;
 	background: url(../images/Bitmap@2x.png)no-repeat 0 0;
 	background-size: cover;
@@ -376,41 +379,47 @@ input{
 .itemRight{
 	flex: 1;
 	width: 1px;
+	display: inline-flex;
+	flex-flow: column;
+	justify-content: flex-end;
 }
 ul.itemRight>li:first-child{
-	font-size: 14px;
+	font-size: 15px;
 	color: #333333;
 	letter-spacing: 0;
-	display: block;
-	overflow: hidden;
-	white-space: nowrap;
-    text-overflow: ellipsis;
     padding-right: 10px;
 	font-weight: bold;
+	flex-grow: inherit;
+}
+ul.itemRight>li:first-child>div{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	word-break: break-all;
+	overflow: hidden;
+	line-height: 18px;
 }
 ul.itemRight>li:nth-child(2){
-	font-size: 14px;
+	font-size: 13px;
 	color: #999999;	
 	letter-spacing: 0;
-	margin-top: 18px;
-    padding-bottom: 5px;
     line-height: 20px;
 }
-ul.itemRight>li:nth-child(3){
-	border-top: 1px solid #EEEEEE;
-    padding-top: 5px;
-}
+/*ul.itemRight>li:nth-child(3){*/
+	/*border-top: 1px solid #EEEEEE;*/
+    /*padding-top: 5px;*/
+/*}*/
 .wholesale{
-	font-size: 14px;
-	color: #000000;
+	font-size: 13px;
+	color: #333333;
 }
 .wholesale>span{
 	font-size: 11px;
-	color: rgb(220,60,79);
+	color: #F53548;
+	font-weight: bold;
 }
 .wholesale>span>span{
-	font-size: 14px;
-	color: rgb(220,60,79);
+	font-size: 17px;
 }
 .retailsale>span{
 	font-size: 11px;
@@ -421,7 +430,7 @@ ul.itemRight>li:nth-child(3){
 .ac_list{
 	display: flex;
 	align-content: center;
-	line-height: 20px;
+	line-height: 18px;
 }
 .ac_list>img{
 	width: 14px;
@@ -590,8 +599,21 @@ ul.itemRight>li:nth-child(3){
 	font-size: 12px;
 	color: #999999;
 }
+
 .supplier .choseBody>li:first-child,.supplier .choseFoot>li:first-child{
 	font-weight: bold;
+	height: auto;
+	flex-grow: inherit;
+}
+.supplier .choseBody{
+	height: auto;
+	display: inline-flex;
+	flex-flow: column;
+	justify-content: flex-end;
+}
+.supplier .choseImg{
+	width: 100px;
+	height: 100px;
 }
 .man-hiddden{
    overflow: hidden;

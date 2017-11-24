@@ -46,9 +46,9 @@ var vm = new Vue({//此处采用vue.js
         },
         getPayMode:function(m){
             if(m == '0'){
-                return '微信支付';
-            }else if(m == '1'){
                 return '支付宝';
+            }else if(m == '1'){
+                return '微信支付';
             }else if(m == '5'){
                 return '货到付款';
             }else{
@@ -69,6 +69,9 @@ $(function(){
     var origin = getRequestParameter('origin');
     var csr_id = getRequestParameter('csr_id');
     var status = getRequestParameter('status');
+    if(!status || status == ''){
+        status = 0;
+    }
 
     vm.csr_id = csr_id;
     vm.status = status;
@@ -92,7 +95,6 @@ $(function(){
             
         })
 
-
     //切换订单类型
     $(document).on('tap','.orderstatus',function(){
         var status = $(this).attr('status');
@@ -104,6 +106,7 @@ $(function(){
 
                 var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
                 vm.pageNumber = pageNumber;
+                vm.page = 1;
 
                 vm.orders = res.data.item;
                 vm.status = status;
@@ -112,6 +115,8 @@ $(function(){
                 }else{
                     $(".no-shuju").remove();
                 }
+                mui('#pullrefresh').pullRefresh().scrollTo(0,0);
+                mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
             })
     })
 
@@ -157,6 +162,15 @@ $(function(){
         c_so_id = so_id;
         c_type = 'PlatfromRefund';
         showConfirm("确认退款？");
+    })
+
+    //完成订单
+    mui(".mui-content").on('tap','.toEnd',function(e){ 
+        e.stopPropagation();
+        var so_id = $(this).attr('so_id');
+        c_so_id = so_id;
+        c_type = 'TheEnd';
+        showConfirm("客户已经取货,确认完成订单?");
     })
 
     //修改运费
@@ -271,7 +285,7 @@ function setOrderStatus(so_id,status){
 
 
 
-mui.init({
+var s = mui.init({
     pullRefresh:{
         container: '#pullrefresh',
         down: {
@@ -285,28 +299,26 @@ mui.init({
         }
     }
 });
+s();
 
 function pulldownRefresh(){
-    setTimeout(function() {
-        suppOrderList(vm.csr_id,vm.status,1)
-            .then(res=>{
-            vm.orders = res.data.item;
-            vm.page =  1;
-            var count = res.data.count;
-            vm.count = count;
+    suppOrderList(vm.csr_id,vm.status,1)
+        .then(res=>{
+        vm.orders = res.data.item;
+        vm.page =  1;
+        var count = res.data.count;
+        vm.count = count;
 
-            var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
-            vm.pageNumber = pageNumber;
-            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-        })
-    },350);
-
-      
+        var pageNumber = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
+        vm.pageNumber = pageNumber;
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+        mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+    })
     
 }
 
 function pullupRefresh(){
-    mui('#pullrefresh').pullRefresh().endPullupToRefresh(((vm.page >= vm.pageNumber))); 
+    mui('#pullrefresh').pullRefresh().endPullupToRefresh((vm.page >= vm.pageNumber)); 
     if(vm.page < vm.pageNumber){
 
         suppOrderList(vm.csr_id,vm.status,vm.page*1+1)

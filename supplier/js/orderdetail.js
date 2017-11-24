@@ -44,9 +44,9 @@ var vm = new Vue({
         },
         getPayMode:function(m){
             if(m == '0'){
-                return '微信支付';
-            }else if(m == '1'){
                 return '支付宝';
+            }else if(m == '1'){
+                return '微信支付';
             }else if(m == '5'){
                 return '货到付款';
             }else{

@@ -11,8 +11,8 @@ function fetchApi(params){
     //console.log(url)
     return new Promise(function (resolve, reject) {
 		$.ajax({
-			url:'http://dev.jiuziran.com/api',
-            //url:url,
+			//url:'http://dev.jiuziran.com/api',
+            url:url,
             //url:'http://127.0.0.1:8080/adminsystem/api',
 			data:params,
 			type:"post",

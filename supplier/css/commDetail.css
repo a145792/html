@@ -25,13 +25,9 @@
 	padding: 10px;
 }
 .commName{
-	font-size: 15px;
+	font-size: 16px;
 	color: #333333;
     letter-spacing: 0;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 	font-weight: bold;
 }
 .commList>li:nth-child(2){
@@ -218,7 +214,6 @@
 }
 .NumDetail>span,.datailName>span{
 	width:100%;
-	display: block;
 }
 .datailName>span:first-child{
 	line-height: 18px;

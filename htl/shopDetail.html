@@ -238,6 +238,15 @@
 			height: 0;
 			overflow: hidden;
 		}
+        .getIcon{
+            padding: 0 10px;
+            height: 25px;
+            line-height: 25px;
+            border-radius: 34px;
+            border: 1px solid #979797;
+            float: right;
+            margin-top: 8.5px;
+        }
     </style>
 </head>
 <body>
@@ -338,6 +347,12 @@
                     <a class="youhui" href="javascript:void(0)" id="toDisCount">
                         <span>优惠买单</span>
                     </a>
+                </div>
+            </a>
+            <a href="javascript:void(0)" v-if="isShowAdvert == 1">
+                <div class="iconList getCoupon">
+                    <span class="text-overflow lt" style="max-width: 70%">领取优惠券</span>
+                    <span class="getIcon">领取</span>
                 </div>
             </a>
         </div>
@@ -559,9 +574,9 @@
         <span>加入购物车成功</span>
     </div>
     <!--弹出广告-->
-    <div v-if="isShowAdvert == 1" class="alertAdvert">
+    <!-- <div v-if="isShowAdvert == 1" class="alertAdvert">
         <img src="themes/images/Get%20a%20coupon@2x.png" alt="">
-    </div>
+    </div> -->
     <!--广告背景-->
     <div class="AdvertDetail"></div>
     <!--广告-->

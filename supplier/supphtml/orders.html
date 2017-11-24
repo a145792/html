@@ -56,11 +56,11 @@
 								<img v-bind:src="detail.spt_photo" alt="" />
 							</div>
 							<ul class="choseBody">
-							   <li class="text-overflow2" v-text="detail.spt_name"></li>
+							   <li><div class="text-overflow2" v-text="detail.sod_name"></div></li>
 							   <li>规格：<span v-text="detail.sod_spec_desc"></span></li>
 							</ul>
 							<ul class="choseFoot">
-							   <li><span class="font12">¥<span class="font14">{{detail.spt_price}}</span></span></li>
+							   <li><span class="font12">¥<span class="font14">{{detail.sod_price}}</span></span></li>
 							   <li>×<span  v-text="detail.sod_number">></span></li>
 							</ul>
 						</div>
@@ -99,6 +99,9 @@
 						<div v-if="item.so_status == 'ToPickUp'" class="icon-btn-order">
 							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 phone" v-bind:phone="item.dsp_mobile">
 								联系商家
+							</a>
+							<a href="javascript:void(0)" class="mui-btn mui-btn-primary icon-btn535 toEnd" v-bind:so_id="item.so_id">
+								完成订单
 							</a>
 						</div>
 						<!--待供应商退款-->

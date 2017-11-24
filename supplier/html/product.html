@@ -118,7 +118,7 @@
 			             <span class="mar10">已选</span>
 			            <span class="color535" v-text="spec.spec_unit_desc"></span>
 			         </span>
-			         <span class="codding-flex">本商品只配送{{detail.spt_dis}}</span>
+			         <span v-if="detail.spt_dis != null && detail.spt_dis != ''" class="codding-flex">本商品只配送{{detail.spt_dis}}</span>
 			      </div>
 			     <img src="../images/order_point@2x.png" alt="" class="iconRight">
 			   </div>
@@ -209,7 +209,7 @@
 					<img src="../images/order_title copy 3@2x.png" />
 					<p>店铺</p>
 				</button>
-				<button v-if="spec.spec_is_promotion == 'Y'" id="addToCart" style="color: #FFFFFF;background-color: #cccccc">
+				<button v-if="spec.spec_is_promotion == 'Y'" class="orderMarke" id="addToCart" style="color: #FFFFFF;background-color: #cccccc">
 				   加入购物车
 				</button>
 				<button v-if="spec.spec_is_promotion != 'Y'" class="orderMarke" id="addToCart">

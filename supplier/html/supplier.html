@@ -18,7 +18,6 @@
 			   color: #FFFFFF;
 			   background-color: #f53548;
 			   border-radius: 2px;
-			   margin-left: 5px;
 			   padding: 0 3px;
 			}
 			.choseBody>li:last-child{
@@ -51,7 +50,7 @@
 			 <div class="mui-scroll">
 				  <!--数据列表-->
 				  <ul class="mui-table-view">
-				  		<div class="orderChose">
+				  		<div class="orderChose supp2">
 				  			<div class="choseImg">
 				  				<img v-bind:src="supp.csr_photo" alt="" />
 				  			</div>
@@ -76,7 +75,9 @@
 					            <span :style="{backgroundImage: 'url(' + item.spt_photo + ')'}"></span>
 					          </div>
 					          <div class="Listflex">
-					              <div class="listName text-overflow2" v-text="item.spt_name"></div>
+					              <div class="listName ">
+									 <div class="text-overflow2" v-text="item.spt_name" style="line-height: normal;"></div>
+								  </div>
 					              <div style="background: #fff;padding:0 10px;">
 					                <span class="Icon535">¥
 					                <span  class="text">{{item.spt_price}}</span>
@@ -94,37 +95,39 @@
 							<div class="PageList">
 							   <img src="../images/store_activity@2x.png" alt="" />
 							</div>
-							<div class="orderChose supplier" v-for="item in groupList">
+							<div class="orderChose supplier product" v-for="item in groupList" v-bind:spt_id="item.spt_id">
 							    <div class="itemLeft">
 							        <img v-bind:src="item.spt_photo" alt="" />
 							    </div>
 							    <ul class="choseBody">
-							        <li class="text-overflow2" v-text="item.spt_name"></li>
-							        <li class="man-hiddden">
-								        <span class="icon535">¥
-								        	<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span>
-								        	<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span>
-								        </span>
-								        <span class="bg535-cofff" v-text="item.spr_name"></span>
-							        </li>
-							        <li class="">月销{{item.sale_count}}笔</li>
-							    </ul>
+							        <li>
+									   <div class="text-overflow2" v-text="item.spt_name"></div>
+									</li>
+									<li>
+									   <span class="bg535-cofff" v-text="item.spr_name"></span>
+									</li>
+								    <li class="man-hiddden">
+								       <span class="icon535">¥<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span><span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span></span>
+								   		<span>月销{{item.sale_count}}笔</span>
+								    </li>
+								 </ul>
 							</div>
-							<div class="orderChose supplier" v-for="item in seleList">
+							<div class="orderChose supplier product" v-for="item in seleList" v-bind:spt_id="item.spt_id">
 							    <div class="itemLeft">
 							        <img v-bind:src="item.spt_photo" alt="" />
 							    </div>
 							    <ul class="choseBody">
-							        <li class="text-overflow2" v-text="item.spt_name"></li>
-							        <li class="man-hiddden">
-								        <span class="icon535">¥
-								        	<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span>
-								        	<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span>
-								        </span>
-								        <span class="bg535-cofff" v-text="item.spr_name"></span>
-							        </li>
-							        <li class="">月销{{item.sale_count}}笔</li>
-							    </ul>
+								      <li>
+									   <div class="text-overflow2" v-text="item.spt_name"></div>
+									  </li>
+									<li>
+									   <span class="bg535-cofff" v-text="item.spr_name"></span>
+									</li>
+								    <li class="man-hiddden">
+								       <span class="icon535">¥<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}</span><span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}</span></span>
+								   		<span>月销{{item.sale_count}}笔</span>
+								    </li>
+								 </ul>
 							</div>
 						</div>
 				  		

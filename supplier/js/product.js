@@ -26,6 +26,7 @@ var vm = new Vue({
 			for(var i = 0; i < vm.specs.length; i++){
 				if(vm.specs[i].spec_id == spec_id){
 					vm.spec = vm.specs[i];
+					vm.buy_num = vm.specs[i].spec_unit_number;
 				}
 			}
 		}
@@ -53,7 +54,6 @@ $(function(){
 			var detail = res.data;
 			getPromotionInfo(spt_id)
 				.then(res=>{
-					console.log(res)
 					detail.spt_price = res.data.item[0].spt_price;
 					detail.unit = res.data.item[0].unit;
 					vm.detail = detail;
@@ -138,7 +138,6 @@ $(function(){
 				}*/
 			}
 			//vm.canCart = canCart;
-
 		})
 
 	//获取商品的组合信息

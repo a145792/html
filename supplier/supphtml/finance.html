@@ -16,6 +16,18 @@
             text-align: right;
             color: #999999;
         }
+        .lastdate{
+            position: relative;
+        }
+        .lastdate:before{
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 10px;
+            height: 1px;
+            background-color: #EEEEEE;
+        }
     </style>
 </head>
 <body>
@@ -29,17 +41,17 @@
             <div class="finance-head">
                 <ul class="userMoney">
                     <li>可用余额账户(元)</li>
-                    <li class="userSum" id="userSum" v-text="info.shopBalance"><span></span></li>
+                    <li class="userSum" id="userSum">{{info.shopBalance | getPrice}}</li>
                     <li class="font12">（可用余额为可用于提现的额度）</li>
                 </ul>
                 <ul class="orderMoney">
                     <li class="wait_order" v-bind:money="info.todayToLucre">
                         <p>待完成订单额度(元)</p>
-                        <p v-text="info.todayToLucre"></p>
+                        <p>{{info.todayToLucre | getPrice}}</p>
                     </li>
                     <li class="not_order" v-bind:money="info.todayEndLucre">
                         <p>不可用额度(元)</p>
-                        <p v-text="info.todayEndLucre"></p>
+                        <p>{{info.todayEndLucre | getPrice}}</p>
                     </li>
                     <li></li>
                 </ul>
@@ -53,7 +65,7 @@
                     </div>
                 </div>
             </a>
-            <div class="icon-cart mat10 lastdate" style="border-bottom: 1px solid #EEEEEE;">
+            <div class="icon-cart mat10 lastdate" >
                 <div>
                     <span>最后结算时间</span>
                     <span class="iconMotive" v-text="info.lastpaymentDate"></span>

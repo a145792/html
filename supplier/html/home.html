@@ -21,7 +21,11 @@
     </div>
 </div>
 <div id="app"><!-- ?user_id=307&origin=adr -->
-    <div class="mui-content">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view">
         <!--主页 顶部宣传-->
         <div class="pageHeader">
             <ul class="pageSale" v-bind:class="{'page-media':actnum % 2 != 0}"><!-- page-media为奇数时 -->
@@ -50,18 +54,19 @@
                 <!--<img v-if="item.hasSalses == 'Y'" src="../images/product_abel@2x.png" alt="" />-->
             </div>
             <ul class="itemRight">
-                <li v-text="item.spt_name"></li>
+                <li>
+                    <div v-text="item.spt_name"></div>
+                </li>
                 <li>
                     <div class="wholesale">
                         批发价：
-							<span>￥
-								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
+							<span>¥<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
 								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.unit}}</span>
 							</span>
                     </div>
                     <div v-if="item.spt_suggestion_price != null">
                         零售价：
-                        <span>￥<span v-text="item.spt_suggestion_price"></span></span>
+                        <span>¥<span v-text="item.spt_suggestion_price"></span></span>
                     </div>
                     <!-- <div class="font12">
                         规格
@@ -95,18 +100,19 @@
                 <!--<img v-if="item.hasSalses == 'Y'" src="../images/product_abel@2x.png" alt="" />-->
             </div>
             <ul class="itemRight">
-                <li v-text="item.spt_name"></li>
+                <li>
+                    <div v-text="item.spt_name"></div>
+                </li>
                 <li>
                     <div class="wholesale">
                         批发价：
-							<span>￥
-								<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
+							<span>¥<span v-if="item.spt_is_promotion != 'Y'">{{item.spt_price}}／{{item.unit}}</span>
 								<span v-if="item.spt_is_promotion == 'Y'">{{item.spt_promotion_price}}／{{item.unit}}</span>
 							</span>
                     </div>
                     <div v-if="item.spt_suggestion_price != null">
                         零售价：
-                        <span>￥<span v-text="item.spt_suggestion_price"></span></span>
+                        <span>¥<span v-text="item.spt_suggestion_price"></span></span>
                     </div>
                     <!-- <div class="font12">
                         规格
@@ -141,11 +147,15 @@
                 <img v-bind:src="item.csr_photo" alt="" />
             </div>
             <ul class="choseBody">
-                <li class="text-overflow2" v-text="item.csr_username"></li>
+                <li>
+                    <div class="text-overflow2" v-text="item.csr_username"></div>
+                </li>
                 <li>月销{{item.sale_count}}笔</li>
             </ul>
         </div>
+    </ul>
     </div>
+</div>
 </div>
 <script src="../js/lib/application.js"></script>
 <script src="../js/lib/mui.min.js"></script>

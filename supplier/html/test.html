@@ -6,38 +6,85 @@
 		<script src="../js/lib/jquery-1.7.1.min.js"></script>
 		<script src="../js/lib/application.js"></script>
 		<script>
-			function setNum2(){
-				setTimeout(function(){
-					return 2;
-				},3000)
-			}
-
-		 	function setNum(){
-		 		return new Promise(function(resolve,reject){
-		 			setTimeout(function(){
-		 				resolve(2);
-		 				//reject(3);异常回调
-		 			},3000)
-		 		})
-		 	}
-
-			$(function(){
-				
-				var s = 0;
-				setNum()
-					.then(res=>{
-						s = res;
-						console.log(s)
-					})
-				//s = setNum2();
-				//console.log(s)
-
+		$(function(){
+			var origin = getRequestParameter('origin');
+			$("#btn1").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToCartPage();
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToCartPage.postMessage(1);
+		        }
 			})
+			$("#btn2").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToIndexPage();
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToIndexPage.postMessage(1);
+		        }
+			})
+			$("#btn3").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToSupp(3);
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToSupp.postMessage(3);
+		        }
+			})
+			$("#btn4").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToProduct(16);
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToProduct.postMessage(16);
+		        }
+			})
+			$("#btn5").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToProductList(40,'盛牛酱香');
+		        }else if(origin == 'ios'){
+		        	var json = {};
+		        	json.ste_id='40';
+		        	json.ste_name='盛牛酱香';
+		            window.webkit.messageHandlers.appToProductList.postMessage(json);
+		        }
+			})
+			$("#btn6").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToOrders();
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToOrders.postMessage(1);
+		        }
+			})
+			$("#btn7").on('click',function(){
+				if(origin == 'adr'){
+		            APP.appToComment();
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToComment.postMessage(1);
+		        }
+			})
+			$("#btn8").on('click',function(){
+				var json = {};
+				json.head = '分享商品';
+				json.context = '我是一个分享测试';
+				json.photo = 'http://pics.jiuziran.com/FsZ4lucXpwUeLIO8ZIs6ZWlHry0g';
+				json.url = 'http://dev.jiuziran.com/supplier/html/product.html?spt_id=16';
+				if(origin == 'adr'){
+		            APP.appToShare(JSON.stringify(json));
+		        }else if(origin == 'ios'){
+		            window.webkit.messageHandlers.appToShare.postMessage(json);
+		        }
+			})
+		})
 		</script>
 	</head>
 <body>
 
 <h1 id="texth"></h1>
 </body>
-
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn1">跳转购物车</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn2">批发商城首页</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn3">跳转供应商详情c</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn4">跳转商品详情s</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn5">跳转商品分类页面</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn6">跳转我的订单页面</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn7">跳转评价管理</button><br/>
+	<button style="width: 200px;height: 100px;font-size:32px;" id="btn8">跳转分享</button><br/>
 </html>
