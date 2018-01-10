@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/every.css">
+    <link rel="stylesheet" type="text/css" href="css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="css/shop-search.css">
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="empty-no" v-if="key != '' && list.length <= 0">
+        <img src='themes/images/Temporarily%20no%20data@2x.png' alt="">
+    </div>
+    <div class="shop-search">
+        <div>
+            <!--<a href="javascript:void(0)" class="search-back">-->
+                <!--<img src="themes/images/arrow_back@2x.png" alt="">-->
+            <!--</a>-->
+            <input type="text" placeholder="请输入关键词直接搜索" class="input_search_key" id="gover_search_key" @keyup="search()" v-model="key">
+            <div class="search-icon">
+                <img src="themes/images/search@2x@3x.png" alt="">
+            </div>
+            <button type="submit" class="search_btn">搜索</button>
+        </div>
+    </div>
+    <div class="search-list">
+        
+        <div class="item productDetail media" v-for="item in list">
+            <div style="background-color: #fff;" class="mab10">
+                <div class="Cimg">
+                    <img v-bind:src="item.sim_photo" alt="" class="W100" >
+                </div>
+                <div class="mediaP0">
+                    <div class="text-overflow color333 fontW500 W100 W90 lt" v-text="item.sim_name"></div>
+                    <div class=" text-overflow lt">
+                        <span class="color535 mar5">¥{{item.sim_target_price}}</span>
+                        <span style="text-decoration: line-through" class="color999">¥{{item.sim_source_price}}</span>
+                    </div>
+                    <div class="color999 text-overflow font12 lt" style="width: 100%;">
+                        <span class="mar5">{{item.good_count * 100}}条好评</span>
+                        <span>好评率{{item.good_percet * 100}}%</span>
+                    </div>
+                    <a href="javascript:void(0)" @click="addToCart(item.sim_id)" class="itemA toBuyCart lt">
+                        <img  src="themes/images/Combined Shape Copy@2x.png" alt="" class="itemAImg">
+                    </a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--弹出框-->
+    <div class="alertTan">
+        <span>加入购物车成功</span>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/lib/context.js"></script>
+<script type="text/javascript" src="js/lib/vue.min.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/lib/tripledes2.js"></script>
+</body>
+</html>

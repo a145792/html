@@ -1,0 +1,273 @@
+@charset "utf-8";
+.orderChose{
+    border-top: 0;
+}
+.choseImg{
+    width: 60px;
+    height: 60px;
+}
+.mui-table-view>li:first-child{
+    margin-top: 0;
+}
+.invenName{
+    flex: 1;
+    display: inline-flex;
+    flex-flow: column;
+    align-content: space-around;
+    font-size: 15px;
+    color: #333333;
+}
+.invenName>li:first-child{
+    flex: 1;
+}
+.invenName>li:first-child>span{
+    line-height: 18px;
+}
+.invenBtn{
+    width: 100%;
+    height: 44px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #EEEEEE;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    color: #DC3C4F;
+}
+.invenBtn>img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+/*商品管理*/
+.story-Chose .choseImg{
+    width: 100px;
+    height: 100px;
+}
+.story-Chose{
+    display: flex;
+    display: -webkit-flex;
+    padding: 10px;
+    background: #FFFFFF;
+    font-size: 14px;
+    color: #333333;
+    border-top: 1px solid #EEEEEE;
+}
+.storyName , .storyList{
+    display: inline-flex;
+    width:100%;
+}
+.storyName .text-overflow2{
+    margin-right: 10px;
+}
+.storyList>span{
+    text-align: left;
+    font-size: 12px;
+    color: #999999;
+}
+.storyList>span:first-child{
+    text-align: left;
+    font-size: 12px;
+    color: #999999;
+    margin-right :10px
+}
+/*业务员管理*/
+.slaeList{
+    border-top: 1px solid #EEEEEE;
+    padding: 10px;
+    padding-top:0;
+    background-color: #FFFFFF;
+    font-size: 14px;
+    color: #333333;
+}
+.slaeList:first-child{
+    border-top: 0;
+}
+.saleNews{
+    width: 100%;
+    height: 44px;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+}
+.saleName{
+    font-size: 17px;
+    flex: 1;
+    margin-right: 10px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.saleImg{
+    width: 12px;
+    height: 12px;
+    margin-left: 5px;
+}
+.newsList>li{
+    color: #999999;
+    line-height: 22px;
+    width: 100%;
+}
+.addSaleMan{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+.addSaleMan .invenBtn{
+    background-color: #DC3C4F;
+    border-top: 0;
+    color: #FFFFFF;
+    font-size: 17px;
+}
+/*配置服务店铺*/
+.mui-table-view .borderT1:first-child{
+    border-top:0 ;
+}
+.assigned{
+    flex: 1;
+    width: 1px;
+    margin-right: 10px;
+    display: inline-flex;
+    flex-flow: column;
+    align-content: space-around;
+}
+.assigned>span{
+    font-weight: bold;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.assigned-new{
+    font-size: 12px;
+    color: #999999;
+}
+.assigned-new>li{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.box-input{
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    display: none;
+}
+.check-box{
+    width:18px;
+    height:18px;
+    display:inline-block;
+    cursor:pointer;
+    margin-top: 21px;
+}
+.check-box input[type="checkbox"].box-input + span{
+    width:18px;
+    height:18px;
+    display:inline-block;
+    border: 1px solid #979797;
+    border-radius: 27px;
+}
+.check-box input[type="checkbox"].box-input:checked + span{
+    width:18px;
+    height:18px;
+    display:inline-block;
+    background:url("../../images/Configure%20the%20service%20shop_check@2x@2x.png") no-repeat;
+    background-position:0 0;
+    background-size:  cover;
+    border: 0;
+}
+.assigned-fixed{
+    width: 100%;
+    background: #DC3C4F;
+    display: flex;
+    display: -webkit-flex;
+    font-size: 13px;
+    color: #FFFFFF;
+    position: fixed;
+    top: 35px;
+    left: 0;
+    z-index: 100;
+}
+.assigned-fixed>li{
+    flex: 1;
+    text-align: center;
+}
+.assigned-fixed>li>span{
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    border-bottom: 3px solid transparent;
+    opacity: 0.7;
+}
+.assigned-fixed>li>span.active{
+    color: #FFFFFF;
+    opacity: 1;
+    border-bottom: 3px solid #FFFFFF;
+}
+.search{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #DC3C4F;
+    padding: 0 10px;
+    padding-top: 5px;
+    display: flex;
+    display: -webkit-flex;
+}
+.label-input{
+    width: 70%;
+    position: relative;
+    height: 29px;
+    flex: 1;
+}
+.label-seach{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #999999;
+    font-size: 15px;
+    border-radius: 74px;
+    float: left;
+    z-index: 101;
+}
+
+.label-seach>img{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+#story_seach{
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 74px;
+    background-color: #FFFFFF;
+    z-index: 100;
+}
+.seach-click{
+    font-size: 14px;
+    color: #DC3C4F;
+    background-color: #FFFFFF;
+    text-align: center;
+    width: 54px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+    border-radius: 10px;
+}

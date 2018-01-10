@@ -35,7 +35,7 @@
 	color: #999999;
 	margin: 5px 0;
 }
-.commList>li:nth-child(3){
+.commList>li:nth-child(4){
 	font-size: 14px;
 	color: #333333;
 	margin: 5px 0;
@@ -188,6 +188,10 @@
 	bottom: -176px;
 	left: 0;
 	z-index: 100;
+	transition-duration: 0.3s;
+	transition-property: all;
+	transition-timing-function: ease;
+	transition-delay: 0s;
 }
 .buyDetail{
 	display: flex;
@@ -251,7 +255,7 @@
 	display: inline-flex;
 	align-items: center;
 }
-.NumAdd>input{
+.NumAdd>span{
 	font-size: 14px;
 	height: 30px;
 	line-height: 30px;
@@ -324,4 +328,210 @@
 .mat-active .mat-one-535{
 	background-color: #F04646;
 	color: #FFFFFF;
+}
+
+/*新添样式*/
+.pull-cart{
+	height: 44px;
+	flex:1;
+	margin-right: 10px;
+	overflow: hidden;
+}
+.pull-cart>li{
+	float: left;
+}
+.pull-cart>li>span{
+	background: url("../images/shop_Discount Copy 7@2x.png") no-repeat ;
+	background-size: 100% 100%;
+	margin-right: 10px;
+	line-height: initial;
+	color: #FFFFFF;
+	white-space: nowrap;
+	font-size: 12px;
+	padding: 0 5px;
+}
+.activety-cart{
+	line-height: 44px;
+	background: #FFFFFF;
+	cursor: pointer;
+}
+.activety-cart>div,.location-cart>div{
+	margin-left: 10px;
+	border-top: 1px solid #EEEEEE;
+	padding-right: 10px;
+	display: flex;
+	align-items: flex-start;
+	font-size: 14px;
+	color: #333333;
+}
+.activety-list{
+	flex: 1;
+	width: 1px;
+	margin-right: 10px;
+	margin-top: 6px;
+	display: flex;
+	flex-flow: column;
+	margin-bottom: 10px;
+}
+.activety-list>li{
+	line-height: initial;
+	display: inline-flex;
+	align-items: center;
+	margin-top: 8px;
+}
+.activety-list-type{
+	overflow: hidden;
+	height: 16px;
+}
+.activety-list .iconLeft,.activety-list-type>span{
+	float: left;
+	font-size: 12px;
+	margin-right: 10px;
+	line-height: normal;
+}
+.activety-list>li>span{
+	font-size: 12px;
+	vertical-align: middle;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+/*新增送至*/
+.location-cart{
+	line-height: 44px;
+	background: #FFFFFF;
+	margin-top: 10px;
+}
+.location-cart>div{
+	border-top: 0;
+}
+.location-list{
+	flex: 1;
+	width: 1px;
+	margin-right: 10px;
+	display: flex;
+	flex-flow: column;
+	line-height: normal;
+	margin-top: 12px;
+	margin-bottom: 10px;
+}
+.location-name{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.location-no{
+	font-size: 12px;
+	color: #999999;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	word-break: break-all;
+	overflow: hidden;
+	margin-top: 5px;
+}
+.location-type{
+	font-size: 12px;
+	color: #999999;
+	margin-top: 5px;
+}
+.location-type>div{
+	float: left;
+	margin-right: 10px;
+}
+.location-type>div>img{
+	display: inline-block;
+	vertical-align: middle;
+	width: 12px;
+	height: 12px;
+}
+.location-type>div>span{
+	display: inline-block;
+	vertical-align: middle;
+}
+.alert_sales{
+	display: flex;
+	display: -webkit-flex;
+	margin: 0 10px;
+	margin-top: 5px;
+}
+.alert_sales .pull-cart{
+	height: auto;
+	line-height: 25px;
+}
+.alert_sales .iconLeft{
+	margin-top: 5px;
+}
+.sales_detail{
+	font-size: 12px;
+	color: #333333;
+	margin-top: 5px;
+}
+.alet-activety .activeList{
+	margin-top: 10px;
+	padding-bottom: 5px;
+}
+.location-click{
+	font-size: 13px;
+	height: 48px;
+	display: flex;
+	display: -webkit-flex;
+	padding: 0 10px;
+	align-items: center;
+	border-bottom: 1px solid #EEEEEE;
+}
+.location-icon{
+	display: inline-block;
+	width: 20px;
+	height:20px;
+	background: url("../images/order_address_icon@2x.png") no-repeat 0 0;
+	background-size: 100% 100%;
+	margin-right: 10px;
+}
+.location-click>span{
+	flex: 1;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	word-break: break-all;
+	overflow: hidden;
+}
+.location-active{
+	color: #DC3C4F;
+}
+.location-active .location-icon{
+	background: url("../images/distribution_location@2x.png") no-repeat 0 0;
+	background-size: 100% 100%;
+}
+.new-location{
+	font-size: 17px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 44px;
+	line-height: 44px;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #DC3C4F;
+}
+#location .mui-scroll{
+	padding-bottom: 44px;
+}
+#sales{
+	display: none;
+	position: fixed;
+	bottom: -380px;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	overflow-y: scroll;
+	background-color: #FFFFFF;
+	height: 375px;
+	transition-duration: 0.3s;
+	transition-property: all;
+	transition-timing-function: ease;
+	transition-delay: 0s;
 }

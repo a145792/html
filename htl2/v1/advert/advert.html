@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小喝两杯</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+    <link rel="stylesheet" type="text/css" href="../css/active.css">
+    <style>
+        .top{
+            background-color: #ef5936;
+            color: #FFFFFF;
+        }
+        body{
+            padding-bottom: 64px;
+            padding-top: 0;
+        }
+       
+    </style>
+</head>
+<body>
+<div id="app">
+        <div id="app_head" class="top" style="display: none">
+            <div style="position: relative">
+                <a href="JavaScript:history.back(-1)" class="" style="position: absolute;top:-2px;left: 10px;">
+                    <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+                </a>
+                <div style="text-align: center ;font-size: 17px">小喝两杯</div>
+            </div>
+        </div>
+        <div class="main">
+            <img src="../themes/images/top.png" alt="" class="mainTop">
+            <div class="mainBottom">
+                <img src="../themes/images/bg_counp.png" alt="">
+            </div>
+            <div class="mainHua">
+                <img src="../themes/images/Embellishment.png" alt="">
+                <span class="guding">更多优惠等你领取</span>
+            </div>
+            <!--代金券列表-->
+            <div class="cash">
+
+                <div class="cashList flex" v-for="item in list">
+                    <div class="flex-right" style="padding:10px 15px;padding-right: 0">
+                        <span class="zhuti">{{item.cpr_cash}}
+                        <span class="colorfff" v-if="item.cpr_value_type == 1">元现金券</span>
+                        <span class="colorfff" v-if="item.cpr_value_type == 0">折优惠券</span>
+                        </span>
+                        <ul class="mat10">
+                            <li class="text-overflow">
+                                <span>适用范围：</span>
+                                <span v-text="item.cpr_name"></span>
+                            </li>
+                            <li class="text-overflow2">
+                                <span>使用说明：</span>
+                                <span v-text="item.cpr_desc"></span>
+                            </li>
+                            <li class="text-overflow">
+                                <span>有效期：</span>
+                                <span>{{item.cpr_time_num}}天</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-if="item.isShow == 1" class="pull lingquA" v-bind:cpr_id="item.cpr_id" v-bind:cvalue="item.cpr_cash" onclick="toCoupon(this)">
+                        <span>立即领取</span>
+                    </div>
+                    <div v-if="item.isShow == 0" class="pull lingquB" style="display: block;">
+                        <span>无法领取</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--规则-->
+            <ul class="guize">
+                <li class="guizeFirst"><span class="hangxian" style="margin-right: 15px"></span>使用规则<span class="hangxian" style="margin-left: 15px"></span></li>
+                <li>1、同类型优惠券只能领取一张，在未使用之前不可重复领取。</li>
+                <li>2、优惠券只支持在“小喝两杯”App或小喝两杯微信商城中使用。</li>
+                <li>3、优惠券不做现金返还，过期不予以抵扣消费。</li>
+                <li>4、不同类型优惠券，可同时领取多张。</li>
+                <li>5、优惠券不支持叠加使用。</li>
+            </ul>
+        </div>
+        
+
+    <div class="mainFixed" style="display: none">
+        <div style="position:relative">
+            <input type="hidden" name="cpr_id" value="">
+            <input type="hidden" name="cvalue" value="">
+            <input type="number" placeholder="请输入手机号" name="mobile" class="mainInput" autofocus="autofocus">
+            <span class="photoCode" style="display: none">手机号码输入有误</span>
+        </div>
+        <div class="password">
+            <input type="number" name="code" placeholder="请输入验证码">
+            <span class="errorCode"  style="display: none">验证码输入错误</span>
+            <div class="passwordCode codeA" onclick="sendCodeFun()">
+                <span>获取验证码</span>
+            </div>
+            <div class="passwordCode codeB" style="display: none">
+                <span>重新发送(<span class="codeShu">60</span>)</span>
+            </div>
+        </div>
+        <div class="getJuan" onclick="lingqu()">
+            <span>立即领取</span>
+        </div>
+    </div>
+
+    <div class="bg_quanbu" onclick="quanbu()"></div>
+    <div class="renzheng" style="z-index: 80">
+        <div style="position: relative;width: 100%;height: 100%">
+            <table class="bg-div" cellspacing="0" cellpadding="0">
+                <tr style="height: 55px;line-height: normal">
+                    <td id="error_text" style="padding: 0 10px">你已成功离去过一张现金券，请抓紧使用，再来领取</td>
+                </tr>
+                <tr class="table-c" style="height:40px;line-height: normal">
+                    <td class="delete" onclick="deleteLL()">确定</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/context.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/advert.js"></script>
+	<script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+    <script>
+
+
+
+        //$(function(){
+
+
+
+            //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            $("input.inputframe").focus(function(){//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
+                interval = setInterval(function(){//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                },100)
+            }).blur(function(){//设定输入框失去焦点时的事件
+                clearInterval(interval);//清除计时器
+                document.body.scrollTop = bfscrolltop;将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            });
+
+
+            var ccr_id = getRequestParameter('userId');
+            var isNoWx = getRequestParameter('isNoWx');
+            var origin = getRequestParameter('origin');
+            /*$('.lingquA').on('click',function(){
+                showError('aaa')
+                //获取sid
+                var sid = $(this).attr('sid');
+                if(ccr_id == ''){
+                    //判断用户id
+                    $('input[name=sid]').val(sid);
+                    $('.mainFixed').show();
+                    $('.mainFixed').animate({bottom:"0"});//要加身份判断
+                    $('.bg_quanbu').show();//要加身份判断
+                }else{
+                    getCoupon(ccr_id,sid);
+                }
+            });*/
+            function toCoupon(that){
+
+                //获取sid
+                var cpr_id = $(that).attr('cpr_id');
+                var cvalue = $(that).attr('cvalue');
+                if(ccr_id == ''){
+                    //判断用户id
+                    $('input[name=cpr_id]').val(cpr_id);
+                    $('input[name=cvalue]').val(cvalue);
+                    $('.mainFixed').show();
+                    $('.mainFixed').animate({top:"30px"});//要加身份判断
+                    $('.bg_quanbu').show();//要加身份判断
+                    document.addEventListener('touchmove', function (event) {
+                        if($('.bg_quanbu').css('display')=='block'){
+                            event.preventDefault();
+                        }
+                    },false);
+                }else{
+                    getCoupon(ccr_id,cpr_id,cvalue);
+                }
+            }
+
+
+            /*$('.bg_quanbu').click(function(e){
+                if($('.mainFixed').css('top')!='-250px'){
+                    $('.mainFixed').animate({top:"-250px"});
+                    $('.bg_quanbu').hide();
+                    $('.mainFixed').hide();
+                }
+            });*/
+            function quanbu(){
+                if($('.mainFixed').css('top')!='-250px'){
+                    $('.mainFixed').animate({top:"-250px"});
+                    $('.bg_quanbu').hide();
+                    $('.mainFixed').hide();
+                }
+            }
+
+
+
+
+            //店家发送验证码
+            //$('.codeA').on('click',function(){
+            function sendCodeFun(){
+                var mobile = $('input[name=mobile]').val().trim();
+                var reg = /^1\d{10}$/;
+                if(!reg.test(mobile)){
+                    $(".photoCode").show();
+                    $(".mainInput").addClass('borderRed');   
+                    return;
+                }
+                
+                sendCode(mobile,'lCode')
+                    .then(res=>{
+                        var code = res.code;
+                        if(code == 0){
+                            var code=60;
+                            $('.codeA').hide();
+                            $('.codeB').show();
+                            var timer= setInterval(function(){
+                                code--;
+                                if(code>=0){
+                                    $('.codeShu').html(code);
+                                    timer;
+                                }else{
+                                    $('.codeA').show();
+                                    $('.codeB').hide();
+                                    $('.codeShu').html('60');
+                                    clearInterval(timer);
+                                }
+
+                            },1000);
+                        }else{
+                            showError(res.message)
+                        }
+                    })
+
+            };
+
+
+            //点击立即领取
+            //$(".getJuan").on('click',function(){
+            function lingqu(){
+                var cpr_id = $('input[name=cpr_id]').val();
+                var cvalue = $('input[name=cvalue]').val();
+                //获取验证码
+                var mobile = $('input[name=mobile]').val().trim();
+                var code = $("input[name=code]").val();
+                if(code.length != 4){
+                    $(".errorCode").show();
+                    $("input[name=code]").addClass('borderRed');   
+                    return;
+                }
+                //跳转快捷登录
+                codeLogin(mobile,code)
+                    .then(res=>{
+                        var code = res.code;
+                        if(code == 0){
+                            var cid = res.data.ccr_id;
+                            getCoupon(cid,cpr_id,cvalue);
+                        }else{
+                            showError(res.message)
+                        }
+                    })
+            }
+            
+
+
+        //})
+
+        //领券
+        function getCoupon(cid,cpr_id,cvalue){
+            //获取券信息
+            createNewCoupon(cid,cpr_id)
+                .then(res=>{
+                    var code = res.code;
+                    if(code == 0){
+                        var path = getRootPath();
+                        if(origin == 'wxshop'){
+                            window.location.href = path + '/advert/advertSuccess.html?money='+cvalue+"&isNoWx="+isNoWx;
+                        }else{
+                            window.location.href = path + '/advert/appadvertSuccess.html?money='+cvalue+"&isNoWx="+isNoWx;
+                        }
+
+                    }else{
+                        showError(res.message)
+                    }
+                })
+        }
+
+        //去除错误提示
+        $('input').focus(function(){
+            $(".mainInput").removeClass('borderRed')
+            $(".code").removeClass('borderRed')
+            $(".photoCode").hide();
+            $(".errorCode").hide();
+        })
+
+        // 点击取消模态
+        function deleteLL(){
+            $('.renzheng').hide();
+        }
+
+        //展示消息
+        function showError(error){
+            $("#error_text").html(error);
+            $('.renzheng').show();
+        }
+    </script>
+</body>
+</html>

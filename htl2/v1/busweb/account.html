@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结算账户</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="top">
+        <div style="position: relative"><!-- class="to_financial_a" -->
+            <a v-if="origin == 'ios'" href="javascript:" onclick="self.location=document.referrer;" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <a v-if="origin == 'adr'" href="javascript:history.go(-1)" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <div style="text-align: center ;font-size: 17px">结算账户</div>
+            <a id="to_bind_alipay_a" href="javascript:void(0)" class="top-right font14" style="position: absolute;top:2px;right: 10px;">
+                绑定支付宝
+            </a>
+        </div>
+    </div>
+    <div class="accountList" v-for="item in list">
+        <div class="check" v-if="item.bind_name != '支付宝'" v-bind:style="item.bind_name | getBankColor">
+            <div class="bank">
+                <img v-bind:src="item.bind_name | getBankImg" alt="" class="bankMark">
+                <div class="bankMing">
+                    <p class="font14" v-text="item.bind_name"></p>
+                    <p v-text="item.cardType"></p>
+                </div>
+                <div class="morenMarkA defaltcart" type="bank" v-bind:isdef="item.isdef" v-bind:bid="item.id">
+                    <img v-if="item.isdef == 1" src="../themes/images/check2@2x.png" alt="">
+                    <img v-if="item.isdef != 1" src="../themes/images/check@2x.png" alt="">
+                </div>
+            </div>
+            <div class="bankCode">
+                <span class="codeA">****</span>
+                <span class="codeA">****</span> 
+                <span class="codeA">****</span>
+                <span>{{item.num | getNum}}</span>
+            </div>
+        </div>
+        <div class="baoCheck" v-if="item.bind_name == '支付宝'">
+            <div class="bank">
+                <img src="../themes/images/zhifubao@2x.png" alt="" class="bankMark">
+                <div class="bankMing">
+                    <p class="font14 zhifubao" v-text="item.bind_name"></p>
+                </div>
+                <div class="morenMarkA defaltcart" type="alipay" v-bind:isdef="item.isdef" v-bind:bid="item.id">
+                    <img v-if="item.isdef == 1" src="../themes/images/check2@2x.png" alt="">
+                    <img v-if="item.isdef != 1" src="../themes/images/check@2x.png" alt="">
+                </div>
+            </div>
+            <div class="bankCode" style="padding-right: 0">
+                <span class="codeA">****</span>
+                <span class="codeA">****</span>
+                <span class="codeA">***</span>
+                <span>{{item.num | getNum}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="foot">
+        <img src="../themes/images/add_bank@2x.png" alt="">
+    </div>
+
+    <div class="renzheng">
+        <div style="position: relative;width: 100%;height: 100%">
+            <table class="bg-div" cellspacing="0" cellpadding="0" >
+                <tr>
+                    <td colspan=2">请你完成店铺资质认证</td>
+                </tr>
+                <tr class="table-c">
+                    <td class="delete">取消</td>
+                    <td class="toauth_td">去认证</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+    <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/context.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/account.js"></script>
+    <script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+    <script>
+        $(document).ready(function(){
+//          
+        })
+    </script>
+</body>
+</html>

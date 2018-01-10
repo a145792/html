@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详情</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="css/every.css">
+    <!-- ?ccr_id=4&shop_id=307&latitude=34.341568&longitude=108.940175&cty_id=610100&origin=wxshop -->
+    <style>
+        body{
+            cursor:pointer;
+            -webkit-tap-highlight-color:transparent;
+        }
+        .hHeight{
+            position: relative;
+        }
+        .Indextop{
+            height:30px;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+            padding-left:10px;
+            padding-top: 15px;
+            box-sizing:border-box;
+            -webkit-box-sizing:border-box;
+            z-index: 10;
+        }
+        .topImg{
+            position: fixed;
+            top:30px;
+        }
+        .topImg img{
+            width: 32px;
+            height:32px;
+            border-radius: 50%;
+            vertical-align: top;
+            z-index:10;
+        }
+        .shopcar_a span{
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 15px;
+            min-width:15px ;
+            line-height: 15px;
+            font-size: 10px;
+            color: #FFFFFF;
+            border-radius: 22px;
+            background-color: #f53548;
+            text-align: center;
+            padding:0 2px;
+            box-sizing:border-box;
+            -webkit-box-sizing:border-box;
+        }
+        #shoucang,.shoucang{
+            right:10px;
+        }
+        .back_i{
+            width: 32px;
+            height: 32px;
+            position: fixed;
+            top: 30px;
+            left: 10px;
+            z-index:10;
+              
+        }
+        .topImg-bg{
+            display: none;
+            position: fixed;
+            top: 30px;
+            z-index: 100;
+        }
+        .topImg-bgfff{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 66px;
+            background-color: #fff;
+            z-index:90;
+
+        }
+        .topImg-bg img{
+            height:32px;
+            border-radius: 50%;
+            vertical-align: top;
+            z-index:90;
+        }
+        .topImg{
+            position: fixed;
+            top:30px;
+        }
+        .topImg img{
+            width: 32px;
+            height:32px;
+            border-radius: 50%;
+            vertical-align: top;
+            z-index:10;
+        }
+        .shopcar_a{
+            right:50px;
+            color: #FFFFFF;
+        }
+        .shopcar_a span{
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 15px;
+            min-width:15px ;
+            line-height: 15px;
+            font-size: 10px;
+            color: #FFFFFF;
+            border-radius: 22px;
+            background-color: #f53548;
+            text-align: center;
+            padding:0 2px;
+            box-sizing:border-box;
+            -webkit-box-sizing:border-box;
+        }
+
+        #shoucang,.shoucang{
+            right:10px;
+        }
+        .back_i{
+            width: 32px;
+            height: 32px;
+            position: fixed;
+            top: 30px;
+            left: 10px;
+            z-index:10;
+              
+        }
+        .topImg-bg{
+            display: none;
+            position: fixed;
+            top: 30px;
+            z-index: 100;
+        }
+        .topImg-bgfff{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 66px;
+            background-color: #fff;
+            z-index:90;
+
+        }
+        .topImg-bg img{
+            height:32px;
+            border-radius: 50%;
+            vertical-align: top;
+            z-index:90;
+        }
+        .youhui{
+            float: right;
+            width: 80px;
+            height: 28px;
+            line-height: 28px;
+            background-color: #f53548;
+            color: #fff;
+            font-size: 12px;
+            text-align: center;
+            margin-right:5px ;
+            border-radius: 15px;
+            margin-top: 8px;
+        }
+        .shuxian{
+            width: 1px;
+            height: 20px;
+            border-left: 1px solid rgb(238, 238, 238);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 70px;
+            margin: auto;
+        }
+        .commentItem{ 
+            -webkit-user-select: none 
+        }
+        @-webkit-keyframes shake {
+            0% {
+                -webkit-transform: rotate(6deg) translate3d(0,0,0)
+            }
+
+            50% {
+                -webkit-transform: rotate(-6deg) translate3d(0,0,0)
+            }
+
+            100% {
+                -webkit-transform: rotate(6deg) translate3d(0,0,0)
+            }
+        }
+        .animatedtemo {
+            -webkit-animation-name: shake;
+            -webkit-animation-duration: 0.2s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+        }
+        @-webkit-keyframes rightA {
+            from {right:-90%;}
+            to {right:0;}
+        }
+        @-webkit-keyframes rightB {
+            from {right:0;}
+            to {right:-90%;}
+        }
+        .rightRun{
+            -webkit-animation:rightA 0.3s linear ;
+            animation-fill-mode : forwards;
+            -webkit-animation-fill-mode:forwards;
+        }
+        .rightNoRun{
+            -webkit-animation:rightB 0.3s linear ;
+            animation-fill-mode : forwards;
+            -webkit-animation-fill-mode:forwards;
+        }
+         .media .Cimg {
+            padding-right: 10px;
+            width: inherit;
+            height: inherit;
+            padding-bottom: 0;
+        }
+        .Cimg{    width: 100%;
+            padding-bottom: 100%;
+            height: 0;
+            overflow: hidden;
+        }
+        .getIcon{
+            padding: 0 10px;
+            height: 25px;
+            line-height: 25px;
+            border-radius: 34px;
+            border: 1px solid #979797;
+            float: right;
+            margin-top: 8.5px;
+        }
+    </style>
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading"  style="top:0;">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+
+<div id="app">
+    <div v-if="origin == 'wxshop'" class="skip-shop shopcar_div">
+        <div>
+            <img src="http://pics.jiuziran.com/Fo0S0OqX25qfoQfNl5Tlhr0kFEmi" alt="">
+            <span class="skip-text">{{cartcount}}</span>
+        </div>
+    </div>
+    <div class="header">
+        <div class="hHeight">
+            <img :src="shop.dsp_photo | getBigImg" alt="" class="hImg">
+            <a href="javascript:void(0)">
+                <img src="themes/images/shop_Album@2x.png" alt="" class="hPhoto ShopAlbumLs">
+            </a>
+            <a href="javascript:void(0)" class="topImg" id="back_a" style="display : none">
+                <img class="back_i" src="themes/images/Shop details_@2x.png" alt="" >
+            </a>
+
+            <!--搜索框-->
+            <a href="javascript:void(0)" @click="search()" class="topImg-sousuo">
+                <img src="themes/images/search@2x@3x.png" alt="" >
+                <span>茅台、盛牛</span>
+            </a>
+            
+            <a href="javascript:void(0)" class="topImg shopcar_a">
+                <div style="position: relative">
+                    <img src="themes/images/Shop details__cart@2x.png" alt="">
+                    <span v-if="cartcount != 0" v-text="cartcount"></span>
+                </div>
+            </a>
+            
+            <a href="javascript:void(0)" class="topImg shoucang" v-bind:isFav="isFav">
+                <img v-if="isFav == 0" src="themes/images/Shop details_Collection@2x.png" alt="">
+                <img v-if="isFav == 1" src="themes/images/Shop details_collected@2x.png" alt="">
+            </a>
+            <a href="javascript:void(0)" class="topImg-bg"></a>
+
+            <div class="topImg-bg topImg-bgfff"></div>
+            <div class="topImg-bg">
+                <img src="themes/images/Shop%20details_back_Slide%20down@2x.png" alt="" class="back_i">
+            </div>
+            <div class="topImg-bg" id="sousuoB" @click="search()">
+                <img  src="themes/images/search@2x@3x.png" alt="" >
+                <span>茅台、盛牛</span>
+            </div>
+            <div class="topImg-bg  shopcar_a">
+                <div style="position: relative">
+                    <img src="themes/images/Shop%20details__cart_Slide%20down@2x.png" alt="">
+                    <span v-if="cartcount != 0" v-text="cartcount"></span>
+                </div>
+            </div>
+            <div class="topImg-bg shoucang" v-bind:isFav="isFav">
+                <img v-if="isFav == 0" src="themes/images/Shop details_collection_Slide down@2x.png" alt="">
+                <img v-if="isFav == 1" src="themes/images/Shop details_collected_Slidedown@2x.png" alt="">
+            </div>
+        </div>
+        <!--店铺介绍-->
+        <div class="introduce">
+            <div>
+                <span class="mar5 text-overflow lt" style="font-size: 15px;color:#333;font-weight: 500;max-width: 80%;" v-text="shop.dsp_name"></span>
+                <img v-if="shop.dsp_isself == 1" src="themes/images/shopdetails_Self-support@2x.png" class="ziying lt">
+                <div class="clear"></div>
+            </div>
+            <div>
+                <img v-if="shop.dsp_star == 0" src="themes/images/shop_star0@2x.png" alt="" style="width:61px;">
+                <img v-if="shop.dsp_star == 1" src="themes/images/shop_star1@2x.png" alt="" style="width:61px;">
+                <img v-if="shop.dsp_star == 2" src="themes/images/shop_star2@2x.png" alt="" style="width:61px;">
+                <img v-if="shop.dsp_star == 3" src="themes/images/shop_star3@2x.png" alt="" style="width:61px;">
+                <img v-if="shop.dsp_star == 4" src="themes/images/shop_star4@2x.png" alt="" style="width:61px;">
+                <img v-if="shop.dsp_star == 5" src="themes/images/shop_star5@2x.png" alt="" style="width:61px;">
+            </div>
+            <div class="mat5">
+                <div style="font-size: 13px;letter-spacing: 3px;color: #f53548;">¥<span style="font-size: 20px;letter-spacing: 0;margin-right:3px;font-weight: 500" v-text="shop.dsp_cpi"></span>/人</div>
+            </div>
+            <a id="share" href="javascript:void(0)" class="share" style="display:none">
+                <img src="themes/images/Shop%20details_share_Slide%20down@2x.png" alt="">
+            </a>
+        </div>
+        <div style="padding: 0 10px">
+            <a href="javascript:void(0)">
+                <div class="iconList" id="address_div">
+                    <img src="themes/images/shop_Location@2x.png" alt="" style="width:20px;height:20px;margin-right: 8px" class="lt mat13">
+                    <span class="text-overflow2 lt adress"  style="max-width: 70%">{{shop.pcd}}{{shop.dsp_address}}</span>
+                    <div class="rt" style="height: 100%" id="quanjing_div">
+                        <img src="themes/images/shop_panorama@2x.png" alt=""  style="width:40px;height:14px;">
+                    </div>
+                    <div class="shuxian"></div>
+                </div>
+            </a>
+            <a href="javascript:void(0)">
+                <div class="iconList telPhone" v-bind:phone="shop.dsp_phone">
+                    <img src="themes/images/Contact@2x@2x.png" alt="" style="width:20px;height:20px;margin-right: 8px" class="lt mat13">
+                    <span class="text-overflow lt" style="max-width: 70%">{{shop.dsp_phone}}</span>
+                    <img src="themes/images/item_arrow@2x copy@2x.png" alt=""  style="width:20px;height:20px;" class="rt mat13">
+                </div>
+            </a>
+            <a href="javascript:void(0)" v-if="shop.is_dspcount == 1" id="discountDetail">
+                <div class="iconList" v-if="shop.is_dspcount == 1">
+                    <img src="themes/images/shop_Discount@2x.png" alt="" style="width:16px;height:16px;margin-right: 8px;margin-top: 14px" class="lt">
+                    <span class="text-overflow lt" style="max-width: 56%">{{shop.dsp_dc_desc}}</span>
+                    <a class="youhui" href="javascript:void(0)" id="toDisCount">
+                        <span>优惠买单</span>
+                    </a>
+                </div>
+            </a>
+            <a href="javascript:void(0)" v-if="isShowAdvert == 1">
+                <div class="iconList getCoupon">
+                    <span class="text-overflow lt" style="max-width: 70%">领取优惠券</span>
+                    <span class="getIcon">领取</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--商户信息-->
+    <div style="margin:10px 0;padding: 0 10px;background-color: #fff;" >
+        <a href="">
+            <!-- <div class="iconList" style="border: 0">
+                <span class="text-overflow lt" style="max-width: 70%">商户信息</span>
+                <img src="themes/images/item_arrow@2x copy@2x.png" alt=""  style="width:20px;height:20px;" class="rt mat13">
+            </div> -->
+        </a>
+        <div style="border-top:1px solid #eee;padding: 6px 0;">
+            <p class="text-overflow">营业时间：{{shop.dsp_busi_time}}</p>
+            <div class="storeNews">
+                <div style="margin-right: 10px" class="lt" v-if="shop.dsp_wifi == 1">
+                    <img src="themes/images/nearby_WiFi@2x.png" alt="">
+                    <span>免费WiFi</span>
+                </div>
+                <div style="margin-right: 10px" class="lt" v-if="shop.dsp_park == 1">
+                    <img src="themes/images/nearby_Parking@2x.png" alt="">
+                    <span>免费停车</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--商品筛选-->
+    <div>
+        <div style="display: flex;display: -webkit-flex;background-color: #ffffff;">
+            <span class="screenA changeOrder" v-bind:class="{'on':order == 2}" order="2">价格最低</span>
+            <span class="screenA changeOrder" v-bind:class="{'on':order == 1}" order="1">好评优先</span>
+            <span class="screenA changeOrder" v-bind:class="{'on':order == 0}" order="0">销量最高</span>
+            <span class="screenA changeArray" style="border: 0">
+                <img v-if="ismedia == 0" id="changeArrayPhoto" src="themes/images/Product-list_Horizontal@2x.png" alt="" class="screenA-img">
+                <img v-if="ismedia == 1" id="changeArrayPhoto" src="themes/images//Product-list_Vertical@2x.png" alt="" class="screenA-img">
+            </span>
+        </div>
+        <div class="box productList">
+            <!--给item加media就变形-->
+            <div class="item lt productDetail" v-bind:class="{'media':ismedia == 1}" v-bind:sim_id="item.sim_id" v-bind:sphoto="item.sim_photo" v-for="item in productList">
+                <div style="background-color: #fff;" class="mab10">
+                    <div class="Cimg">
+                        <img :src="item.sim_photo | FMimg" alt="" class="W100" >
+                    </div>
+                    <div class="mediaP0">
+                        <div class="text-overflow color333 fontW500 W100 W90 lt" v-text="item.sim_name"></div>
+                        <div class=" text-overflow lt">
+                            <span class="color535 mar5">¥{{item.sim_target_price}}</span>
+                            <span style="text-decoration: line-through" class="color999">¥{{item.sim_source_price}}</span>
+                        </div>
+                        <div class="color999 text-overflow font12 lt" style="width: 100%;">
+                            <span class="mar5">{{item.goodcooment}}条好评</span>
+                            <span>好评率{{item.good_percent * 100}}%</span>
+                        </div>
+                        <a href="javascript:void(0)" v-bind:shop_id="shop.dsp_id" v-bind:sim_id="item.sim_id" class="itemA toBuyCart lt">
+                        <img v-if="ismedia == 0" src="themes/images/New%20product_cart@2x.png" alt="" class="itemAImg">
+                        <img v-if="ismedia == 1" src="themes/images/Combined Shape Copy@2x.png" alt="" class="itemAImg">
+                        加入购物车</a>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+     <!--加载loading-->
+    <div v-if="isLoading == 0" class="loading_div">正在加载中...</div>
+    <!--评价-->
+    <div id="towPage" style="display: none"><!-- 隐藏的下半部分  -->
+    <div>
+        <!--推荐菜品-->
+        <div class="dishes" v-if="footCount != 0">
+            <div class="iconList padlr10">
+                <span class="text-overflow">推荐菜品</span>
+            </div>
+            <div class="W100 dishesLei foodList">
+                <div class="dishesA" v-for="item in shop.disitems">
+                    <img :src="item.sid_photo" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="comment" v-if="commentCount != 0">
+            <div class="iconList padlr10" style="border: 0">
+                <span class="text-overflow">评价({{commentCount}})</span>
+            </div>
+            <div>
+                <div class=" commentItem" v-for="item in comment">
+                    <a href="javascript:void(0)" class="bordert1">
+                        <div class="comImg">
+                            <img :src="item.ccr_avatar | getAvatar" alt="">
+                        </div>
+                        <div class="flex-right">
+                            <div>
+                                <span class="color333 font12 lt mar5" v-text="item.ccr_name"></span>
+                                <img src="themes/images/shop_star5@2x.png" alt="" class="lt comStar">
+                                <span class="color999 font11 rt">{{item.ict_datatime | FMtime}}</span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="color333 martb5" v-text="item.ict_content"></div>
+                            <div class="color999 font11">{{item.sim_name}}</div>
+                        </div>
+                    </a>
+                    <div class="comPhoto">
+                        <div class="wxPhoto lt" v-for="photo in item.ict_photo_items">
+                            <img :src="photo | FMimg" alt="" onclick="click_img(this)">
+                        </div>
+                        <div class="clearfix"></div>
+					</div>
+                </div>
+            </div>
+            <div style="background-color: #fff;margin: 0 10px" class="iconList allComment">
+                <a href="javascript:void(0)" class="pinglun color999">查看全部评价</a>
+            </div>
+        </div>
+        <!--店铺相册-->
+        <div class="storePhoto padlr10" v-if="photoCount != 0">
+            <div class="iconList" style="border: 0">
+                <span class="text-overflow">店铺相册</span>
+            </div>
+            <div class="W100 dishesLei">
+                <div class="dishesA" v-for="item in albumls"  style="position:relative">
+                    <img :src="item.pa_coverPhoto" alt="">
+                    <div class="dishesBG ">
+                        <div style="width: 100%;height:100%;" class="albumLsDetail" v-bind:pid="item.pa_id">
+                            <p class="text-overflow" style="padding-top: 25px;" v-text="item.pa_title"></p>
+                            <!-- <p class="text-overflow">(12)张</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--第二个下拉加载：为你推荐  更多店铺-->
+    <div>
+        <!--更多店铺-->
+        <div>
+            <img src="themes/images/moreshop@2x.png" alt="" class="recommImg">
+            <div class="malr10">
+                
+                <div class="flex recommend mab10 toShopDetail" style="padding-bottom: 10px" v-bind:sid="item.dsp_id" v-for="item in GroomShops">
+                    <img v-bind:src="item.dsp_photo" alt="" class="recommend-left">
+                    <div class="flex-right recommend-right" style="margin-bottom: -8px;">
+                        <div class="W100">
+                            <span class="text-overflow lt font15 color333 fontW500" style="max-width: 72%" v-text="item.dsp_name"></span>
+                            <span class="rt font12">{{item.distance | ToDou2}}km</span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="W100">
+                            <img v-if="item.dsp_star == 0" src="themes/images/shop_star0@2x.png" alt="" class="recomStar">
+                            <img v-if="item.dsp_star == 1" src="themes/images/shop_star1@2x.png" alt="" class="recomStar">
+                            <img v-if="item.dsp_star == 2" src="themes/images/shop_star2@2x.png" alt="" class="recomStar">
+                            <img v-if="item.dsp_star == 3" src="themes/images/shop_star3@2x.png" alt="" class="recomStar">
+                            <img v-if="item.dsp_star == 4" src="themes/images/shop_star4@2x.png" alt="" class="recomStar">
+                            <img v-if="item.dsp_star == 5" src="themes/images/shop_star5@2x.png" alt="" class="recomStar">
+                            <span class="colorff6 font12">{{item.dsp_star}}</span>
+                            <span class="color999 font11">月售{{item.dsp_sale_count}}单</span>
+                        </div>
+                        <div class="color999 text-overflow font12 W100">
+                            <div class="font13 color535 lt">
+                                ¥
+                                <span class="fontW500" style="font-size: 20px;letter-spacing: 0;">{{item.dsp_cpi}}</span>
+                                <span class="font11 color999">/人均</span>
+                            </div>
+                            <div class="rt">
+                                <img v-if="item.dsp_wifi == 1" src="themes/images/nearby_WiFi@2x.png" alt="" class="recomPrice">
+                                <img v-if="item.dsp_park == 1" src="themes/images/nearby_Parking@2x.png" alt="" class="recomPrice">
+                                <img v-if="item.is_dspcount == 1" src="themes/images/shop_Discount@2x.png" alt="" class="recomPrice">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--为你推荐-->
+        <div>
+            <img v-if="GroomItemCount != 0" src="themes/images/Recommend-for-you@2x.png" alt="" class="recommImg">
+            <div class="malr10">
+                <div class="flex recommend mab10 productDetail" v-bind:sim_id="item.sim_id" v-bind:sphoto="item.sim_photo" v-for="item in GroomItems">
+                    <img :src="item.sim_photo" alt="" class="recommend-left">
+                    <div class="flex-right recommend-right">
+                        <div class="W100">
+                            <span class="text-overflow lt font15 color333 fontW500" style="max-width: 72%" v-text="item.sim_name"></span>
+                            <span class="rt font12">{{item.mile}}km</span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="W100" style="height: 22px;line-height: 22px">
+                            <img src="themes/images/shop_Location@2x.png" alt="" class="recomAddres lt" style="top:3px">
+                            <span class="text-overflow font13 lt" v-text="item.dsp_name"></span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div>
+                            <span class="color535 mar5">¥{{item.sim_target_price}}</span>
+                            <span style="text-decoration: line-through" class="color999">¥{{item.sim_source_price}}</span>
+                        </div>
+                        <div class="color999 text-overflow font12 W100">
+                            <span class="mar5">{{item.goodcount | FMint}}条好评</span>
+                            <span>好评率{{item.goodp | ToDou2}}%</span>
+                            <a href="javascript:void(0)" v-bind:shop_id="item.sim_shop_id" v-bind:sim_id="item.sim_id" class="recomShop toBuyCart"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </div><!-- 隐藏域 -->
+
+
+
+    <!--弹出框-->
+    <div class="alertTan">
+        <span>加入购物车成功</span>
+    </div>
+    <!--弹出广告-->
+    <!-- <div v-if="isShowAdvert == 1" class="alertAdvert">
+        <img src="themes/images/Get%20a%20coupon@2x.png" alt="">
+    </div> -->
+    <!--广告背景-->
+    <div class="AdvertDetail"></div>
+    <!--广告-->
+    <!--<div>-->
+        <!--< img src="themes/images/Popup%20window.png" alt="" class="AdvertDetail-img">-->
+    <!--</div>-->
+    <div class="alertList">
+        <div class="alert-icon">店铺优惠券</div>
+        <div class='aletValue' v-for="item in couponlist">
+            <div class="valueList">
+                <div class="valuePrice">
+                    <span style="font-size: 20px;" v-if="item.cpr_value_type == 1">¥<span style="font-size: 30px;">{{item.cpr_cash}}</span></span>
+                    <span style="font-size: 30px;" v-if="item.cpr_value_type == 0">{{item.cpr_cash}}<span style="font-size: 20px;">折</span></span>
+                    <ul>
+                        <li v-text="item.cpr_name"></li>
+                        <li v-text="item.cpr_desc"></li>
+                    </ul>
+                </div>
+                <div v-if="item.isShow == 1" class="value-moban catCoupon" v-bind:cpr_id="item.cpr_id">
+                    <span>立即领取</span>
+                </div>
+                <div class="value-moban-no" v-if="item.isShow != 1">
+                    <span>{{item.tips}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--联系商家-->
+    <div class="colorFixed">
+        <a href="javascript:void(0)" class="colorTel telPhone" v-bind:phone="shop.dsp_phone">
+            <img src="themes/images/Contact@2x Copy@2x.png" alt="">
+            <span>联系商家</span>
+        </a>
+        <a href="javascript:void(0)" class="custom">
+            <img src="themes/images/classification@2x.png" alt="">
+            <span>全部分类</span>
+        </a>
+
+    </div>
+    <!--返回顶部-->
+    <img src="themes/images/top_back@2x.png" alt="" class="BackTop">
+    <!--右滑框-->
+    <div class="rightCase">
+        <div class="caseHeader">商品分类</div>
+            <div class="caseList">
+                <div class="caseList-ob">
+                    <span style="height: 20px"></span>
+                    <ul>
+                        <li class="active">
+                            <span class="allste" ste_id="">全部分类</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="caseList-ob" v-for="p_type in itemType">
+                    <span>{{p_type.ite_name}}</span>
+                    <ul>
+                        <li v-for="c_type in p_type.children">
+                            <span v-bind:ste_id="c_type.ite_id" class="ctype_span">{{c_type.ite_name}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+    <script type="text/javascript" src="js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/context.js"></script>
+    <script type="text/javascript" src="js/lib/vue-resource.js"></script>
+    <script type="text/javascript" src="js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="js/shop.js"></script>
+    <script type="text/javascript" src="js/lib/tripledes2.js"></script>
+    <script>
+        //朋友圈点击查看图片
+        function click_img(obj) {
+            var aa=[];
+            var i = 0;
+            var aasrc='';
+            var src = [];
+            var this_aasrc='';
+            var json = null;
+            aa=$(obj).parent().parent().find('img');
+            this_aasrc=$(obj).attr('src');
+            var jsonsrc = [];
+            for (i = 0; i < aa.length; i++) {
+               aasrc =  getnearImg(aa[i].src);
+               src[i] = aasrc;
+               jsonsrc.push(aasrc)
+            }
+            
+            //获取来源
+            var origin = getRequestParameter('origin')
+            //判断微信商城还是app
+            var json = {};
+            json.this_aasrc = getnearImg(this_aasrc);
+            json.src = jsonsrc;
+            if(origin == 'adr'){
+                APP.lunboImg(src,this_aasrc);
+            }else if(origin == 'ios'){
+                window.webkit.messageHandlers.lunboImg.postMessage(json)
+            }else if(origin == 'wxshop'){
+                imagePreview(this_aasrc, src);
+            }
+ 
+        };
+        //这个是调用微信图片浏览器的函数
+        function imagePreview(curSrc, srcList) {
+            if (!curSrc || !srcList || srcList.length == 0) {
+                return;
+            }
+            WeixinJSBridge.invoke('imagePreview', {
+                'current': curSrc,
+                'urls': srcList
+            });
+        };
+
+        //截取图片尾号
+        function getnearImg(src){
+            var index = src.indexOf('?');
+            if(index == -1){
+                return src;
+            }
+            src = src.substring(0,index); 
+            return src;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>财务管理</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="top">
+        <div style="position: relative">
+            <a href="javascript:void(0)" class="toback" style="position: absolute;top:-2px;left: 10px;">
+                <img src="../themes/images/arrow_back@2x.png" alt="" class="TOPImg">
+            </a>
+            <div style="text-align: center ;font-size: 17px">财务管理</div>
+            <a href="javascript:void(0)" class="top-right font14 cash" style="position: absolute;top:2px;right: 10px;">
+                申请提现
+            </a>
+        </div>
+    </div>
+    <div class="order">
+        <div class="orderBody">
+            <p>普通订单余额(元)</p>
+            <p class="text-overflow" v-text="shopinfo.orderBalance"></p>
+        </div>
+        <i></i>
+        <div class="orderBody">
+            <p>优惠买单余额(元)</p>
+            <p class="text-overflow" v-text="shopinfo.disBalance"></p>
+        </div> 
+    </div>
+    <div class="orderList">
+        <div class="listA">
+            <p>不可用余额</p>
+            <p class="text-overflow"><span>¥</span><span v-text="shopinfo.notuseBalace"></span></p>
+        </div>
+        <div class="listB toconsum">
+            <p>一周消费订单收益</p>
+            <p class="text-overflow"><span>¥</span><span v-text="shopinfo.weekOforderLucre"></span></p>
+        </div>
+        <div class="listC todiscountconsum">
+            <p>一周买单收益</p>
+            <p class="text-overflow"><span>¥</span><span v-text="shopinfo.weekOfDisOrderLucre"></span></p>
+        </div>
+    </div>
+    <div class="mat10">
+        <div class="iconList toPayHistory">
+            <span>最后结算时间</span>
+            <span class="text-overflow">{{shopinfo.lastpaymentDate}}</span>
+            <img src="../themes/images/item_arrow@2x copy@2x.png" alt="">
+        </div>
+        <div class="iconList toAccount">
+            <span>默认付款账户</span>
+            <span class="text-overflow">{{accountName | getBankName}}</span>
+            <img src="../themes/images/item_arrow@2x copy@2x.png" alt="">
+        </div>
+    </div>
+    <div class="mat10">
+        <div class="iconList orderPayType" v-bind:type="shopinfo.accountType">
+            <span>消费订单付款方式</span>
+            <span class="text-overflow">{{shopinfo.accountType | getType}}</span>
+            <img src="../themes/images/item_arrow@2x copy@2x.png" alt="">
+        </div>
+        <div class="iconList disPayType" v-bind:type="shopinfo.disaccountType">
+            <span>优惠买单付款方式</span>
+            <span class="text-overflow">{{shopinfo.disaccountType | getType}}</span>
+            <img src="../themes/images/item_arrow@2x copy@2x.png" alt="">
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/context.js"></script>
+    <script type="text/javascript" src="../js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="../js/financial.js"></script>
+    <script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+</body>
+</html>

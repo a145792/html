@@ -1,0 +1,815 @@
+html{
+    font-size: 10px;
+}
+body{
+    width: 100%;
+    margin:0;
+}
+
+.header{
+    width:100%;
+    background-color: #fff;
+}
+.top{
+    width: 100%;
+    height:44px;
+    line-height: 44px;
+    background: url("../themes/images/Mask_picture@2x.png") no-repeat 0 0;
+    background-size: 100% 100%;
+    font-size: 17px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 10;
+}
+.TOPImg{
+    width: 20px;
+    height: 20px;
+}
+.clear{
+    clear: both;
+}
+.hHeight{
+    width:100%;
+    overflow: hidden;
+    background-color: #f6f6f6;
+    position:relative;
+}
+.hImg{
+    width: 100%;
+}
+.W100,.W90{
+    width: 100%;
+}
+.color333{
+    color: #333;
+}
+.color666{
+    color:#666;
+}
+.color535{
+    color:#F53548;
+}
+.font10{
+    font-size: 10px;
+}
+.font11{
+    font-size: 11px;
+}
+.font12{
+    font-size: 12px;
+}
+.font13{
+    font-size: 13px;
+}
+.font14{
+    font-size: 14px;
+}
+.font15{
+    font-size: 15px;
+}
+.fontW500{
+    font-weight: 500;
+}
+.color999{
+    color:#999;
+}
+.colorff6{
+    color: #FF6000;
+}
+.on{
+    color:#F53548;
+}
+.bgff{
+    background-color: #fff;
+}
+.mat5{
+    margin-top: 5px;
+}
+.mat13{
+    margin-top: 11px;
+}
+.ma10{
+    margin:10px;
+}
+.pa10{
+    padding:10px;
+}
+.mar5{
+    margin-right: 5px;
+}
+.mar10{
+    margin-right: 10px;
+}
+.mat10{
+    margin-top: 10px;
+}
+.mab10{
+    margin-bottom: 10px;
+}
+.malr10{
+    margin: 0 10px;
+}
+.padb10{
+    padding-bottom: 10px;
+}
+.martb10{
+    margin:10px 0;
+}
+.martb5{
+    margin:5px 0;
+}
+.padlr10{
+    padding: 0 10px;
+}
+.borderb1{
+    border-bottom: 1px solid #eee;
+}
+.bordert1{
+    border-top: 1px solid #eee;
+}
+.text-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.text-overflow2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    overflow: hidden;
+}
+.text-overflow3 {
+    word-break:break-all;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+.flex{
+    display: flex;
+    display: -webkit-flex;
+}
+.flex-right{
+    flex: 1;
+    width: 1px;
+}
+.adress{
+    max-width: 75%;
+    line-height: 15px;
+    position: absolute;
+    top: 50%;
+    left:28px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.hPhoto{
+    width:78px;
+    height:30px;
+    position: absolute;
+    bottom:1rem;
+    right:0;
+}
+.introduce{
+    padding:10px;
+    position: relative;
+}
+#share,.share{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 10px;
+    right:10px;
+}
+#share>img{
+    width: 100%;
+    height: 100%;
+}
+.topImg-sousuo{
+    position: fixed;
+    top: 30px;
+    left: 52px;
+    width:calc(100% - 146px);
+    height: 32px;
+    color: #666666;
+    line-height: 32px;
+    background-color: rgba(255,255,255,.8);
+    border-radius: 74px;
+}
+.topImg-sousuo>img{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+#sousuoB{
+    width: calc(100% - 146px);
+    left: 52px;
+    height: 32px;
+    color: #666666;
+    line-height: 32px;
+    background-color: rgb(232,232,232);
+    border-radius: 74px;
+}
+#sousuoB>img{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin: 0 10px;
+    border-radius: initial;
+}
+
+.ziying{
+    width:26px;
+    height:15px;
+    position:relative;
+    top:2px;
+}
+.iconList{
+    height:43px;
+    line-height: 43px;
+    border-top:1px solid #eeeeee;
+    font-size: 13px;
+    color: #333333;
+    letter-spacing: 1px;
+    position: relative;
+}
+.storeNews{
+    font-size: 12px;
+    line-height: 20px;
+    overflow: hidden;
+}
+.storeNews img{
+    width:14px;
+    height:14px;
+    position: relative;
+    top: -1px;
+}
+.screenA{
+    flex: 1;
+    height:24px;
+    line-height: 24px;
+    margin: 10px 0;
+    border-right: 1px solid #eeeeee;
+    text-align: center;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+.screenA-img{
+    width: 18px;
+    height:18px;
+}
+.box{
+    width:100%;
+    padding:10px 5px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+.item{
+    width:50%;
+    padding:0 5px;
+    font-size: 14px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+
+.itemA{
+    display: block;
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    color: #F53548;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid #EEEEEE;
+}
+.itemAImg{
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+}
+.mediaP0{
+    padding-top: 5px;
+    padding-bottom: 0;
+}
+.mediaP0>div{
+    padding: 0 10px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    line-height: 20px;
+}
+/*添加class改变筛选部分的样式*/
+.media{
+    width:100%;
+    margin-bottom: 10px;
+}
+.media .itemA{
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #F53548;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    border-top: 0;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.media .itemAImg{
+    width: 22px;
+    height: 22px;
+    margin-bottom: 10px;
+    margin-right: 0;
+}
+.media .Cimg{
+    padding-right: 10px;
+}
+.media .mab10{
+    margin-bottom: 0;
+    padding:8px 10px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+.media .Cimg>img{
+    width:64px;
+    height:64px;
+}
+.media>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.media .mediaP0{
+    padding: 0;
+    flex: 1;
+    width: 1px;
+    position: relative;
+}
+.media .mediaP0>div{
+    padding: 0;
+}
+.media .mediaP0>div:nth-child(2){
+    margin: 3px 0;
+}
+/*.media .mediaP0 .W90{*/
+    /*width: 75%;*/
+/*}*/
+/*弹出框*/
+.alertTan{
+    background-color: rgba(0,0,0,.7);
+    text-align: center;
+    max-width: 80%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 13px;
+    position: fixed;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    margin:  auto;
+    color:#fff;
+    border-radius: 5px;
+    z-index: 99;
+    display: none;
+}
+
+/*推荐菜品*/
+.dishes{
+    background-color: #fff;
+    padding-bottom: 10px;
+}
+.dishesLei{
+    overflow-x: scroll;
+    overflow-y:hidden;
+    height:75px;
+    white-space:nowrap;
+    padding: 0 7.5px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+.dishesA{
+    display: inline-block;
+    width: 75px;
+    height:75px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f6f6f6;
+    margin: 0 2.5px;
+}
+.dishesA>img{
+    width:100%;
+    height:100%;
+}
+/*评价*/
+.comment{
+    background-color: #fff;
+    margin-top:10px;
+}
+.commentItem>a{
+    display: flex;
+    padding:10px 0;
+    margin: 0 10px;
+}
+.comImg{
+    margin-right: 10px;
+}
+.comImg>img{
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+}
+.comStar{
+    width:45px;
+    position: relative;
+    top:4px;
+}
+.comPhoto{
+    width:100%;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding-left: 35px;
+    padding-right: 5px;
+    margin-bottom: 10px;
+}
+.wxPhoto{
+   /*flex: 1;*/
+    width: 20%;
+    background-color: #f6f6f6;
+    margin: 0 2.5px;
+}
+.wxPhoto>img{
+    width:100%;
+}
+/*查看全部评论*/
+.comment .pinglun{
+    display: block;
+    width:100px;
+    height:25px;
+    line-height: 25px;
+    border: 1px solid #EEEEEE;
+    border-radius: 4px;
+    text-align: center;
+    margin: 9px auto;
+}
+.storePhoto{
+    margin-top: 10px;
+    background-color: #fff;
+    padding-bottom: 10px
+}
+.dishesBG{
+    position: absolute;
+    top:0;
+    left:0;
+    width:75px;
+    height:75px;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.3);
+    font-size: 12px;
+    color:#fff;
+    z-index:10;
+}
+.dishesBG p{
+    display: block;
+    text-align: center;
+}
+/*为你推荐*/
+.recommImg{
+    height: 50px;
+    width:100%;
+}
+.recommend{
+    background-color: #fff;
+    padding: 10px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding-bottom: 0;
+}
+.recommend-left{
+    width: 65px;
+    height: 65px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.recommend-right{
+    ;line-height: 24px;
+    position: relative
+}
+.recomAddres{
+    display: inline-block;
+    width: 15px;
+    height:15px;
+    position: relative;
+    top:-10px;
+}
+.recomShop{
+    width: 30px;
+    height:30px;
+    position:absolute;
+    right:0;
+    bottom: 10px;
+    background: url("../themes/images/home_cart@2x.png") no-repeat 0 0;
+    background-size: 30px 30px;
+}
+/*更多推荐*/
+.recomStar{
+    width:60px;
+    height:11px;
+    position: relative;
+    top: -1px;
+}
+.recomPrice{
+    display: inline-block;
+    width: 14px;
+    height:14px;
+    margin-left: 5px;
+}
+/*.loading{*/
+    /*position: fixed;*/
+    /*width: 100%; */
+    /*height: 100%; */
+    /*background: #fff; */
+    /*z-index: 110;*/
+    /*top:64px;*/
+/*}*/
+.xinxiAction{
+    height: 43px;
+}
+.loading_div{
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 15px;
+}
+
+/*店铺详情页弹出广告*/
+.alertAdvert{
+    width: 88px;
+    height: 88px;
+    position: fixed;
+    top:240px;
+    right: 0;
+    z-index: 10;
+}
+.alertAdvert>img{
+    width: 100%;
+    height: 100%;
+}
+.AdvertDetail{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 95;
+    display: none;
+}
+.AdvertDetail-img{
+    width: 80%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 220;
+    display: none;
+    background-color: rgb(239,89,54);
+}
+/*底部定位*/
+.colorFixed{
+    position: fixed;
+    width: 100%;
+    height: 54px;
+    display: flex;
+    display: -webkit-flex;
+    bottom: 0;
+    left: 0;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    z-index: 90;
+    background: url("../themes/images/bgbox-show.png")no-repeat 0 0;
+    background-size: 100% 100%;
+}
+.colorFixed>a{
+    flex: 1;
+    width: 50%;
+    height:44px;
+    line-height: 44px;
+    text-align: center;
+    color: #333333;
+    font-size: 14px;
+    background-color: transparent;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    align-self: flex-end;
+}
+.colorFixed>.colorTel{
+    border-right: 1px solid #EEEEEE;
+}
+.colorTel>img{
+    width: 16px;
+    height: 16px;
+}
+.custom>img{
+    width: 20px;
+    height: 20px;
+    margin-bottom: 3px;
+}
+.BackTop{
+    width: 64px;
+    height: 68px;
+    position: fixed;
+    bottom: 40px;
+    right: 5px;
+    z-index: 92;
+}
+/*全部分类*/
+.rightCase{
+    background-color: #FFFFFF;
+    width: 86%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -90%;
+    z-index: 999;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.caseHeader{
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 14px;
+    color: #333333;
+    font-weight: 500;
+    border-bottom: 1px solid #EEEEEE;
+    padding-top: 20px;
+}
+.caseList-ob{
+    font-size: 12px;
+    color: #333333;
+}
+.caseList-ob>span{
+    display: block;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    font-size: 14px;
+    text-align: left;
+    padding: 0 10px;
+}
+.caseList-ob ul{
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap:wrap;
+    padding: 0 5px;
+    margin-top: -5px;
+}
+.caseList-ob ul li{
+    display: inline-block;
+    width: calc(100% / 3);    /* 此处运用了一个css3的表达式，将div三等分，IE8及以上可以支持，当然也可以根据需要设置固定值 */
+    width: -webkit-calc(100% /3);
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    height: 28px;
+    line-height: 28px;
+    padding:0 5px;
+    margin: 5px 0;
+}
+.caseList-ob ul li>span{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: #F0F2F5;
+    border-radius: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.caseList-ob ul li.active>span{
+    background: #FFFFFF;
+    border: 1px solid #F53548;
+    color:#F53548;
+}
+
+body.modal-open {
+    position: fixed;
+    width: 100%;
+}
+/*等待动画*/
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #FFFFFF;
+}
+.spinner {
+    margin: auto ;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    width: 80%;
+    text-align: center;
+}
+/*现金弹出框*/
+.alertList{
+    position: fixed;
+    bottom: -374px;
+    left:0;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index:97;
+    max-height: 374px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling:touch;
+}
+.alert-icon{
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+}
+.aletValue {
+    padding: 0 15px;
+}
+.valueList {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    display: -webkit-flex;
+    background: url(../themes/images/coupons@2x.png)no-repeat 0 0;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+.valuePrice {
+    flex: 1;
+    font-size: 18px;
+    padding: 10px;
+}
+.valuePrice ul {
+    font-size: 12px;
+    margin-top: 6px;
+}
+.value-moban, .value-moban-no {
+    width: 27%;
+    text-align: center;
+    border-left: 1px dashed #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.mui-table-view:before, .mui-table-view:after{
+    height: 0;
+}
+.skip-shop{
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    bottom: 100px;
+    right: 5px;
+    z-index: 92;
+}
+.skip-shop>div{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.skip-shop img{
+    width: 100%;
+    height: 100%;
+}
+.skip-text{
+    position: absolute;
+    top: 5px;
+    left:35px;
+    padding:0 4px;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 12px;
+    background-color: #E22121;
+}

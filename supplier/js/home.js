@@ -21,6 +21,7 @@ $(function(){
 	//获取首页活动列表
 	getActivi(user_id)
 		.then(res=>{
+			log(res)
 			for(var i = 0; i < res.data.item.length; i++){
 				res.data.item[i].free_time = ''
 			}
@@ -60,6 +61,7 @@ $(function(){
 	//获取销量最高的10个商品
 	getHotProduct(user_id)
 		.then(res=>{
+			log(res)
 			$("#loadingdiv").remove();
 			var hotlist = res.data.item;
 			
@@ -87,6 +89,7 @@ $(function(){
 	//获取爆款商品
 	getBoomProduct(user_id)
 		.then(res=>{
+			log(res)
 			var boomlist = res.data.item;
 			if(boomlist.length){
 				vm.boomnum = boomlist.length;

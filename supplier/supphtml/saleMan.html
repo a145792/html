@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>业务员管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <link rel="stylesheet" href="../css/supp/inventory.css">
+    <style type="text/css">
+        #pullrefresh{
+            padding-bottom:44px;
+        }
+    </style>
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper"> 
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+                <li>
+                    <div class="slaeList saleman" v-for="item in list" v-bind:sm_id="item.sm_id">
+                        <div class="saleNews">
+                            <span class="saleName">姓名: {{item.sm_name}}</span>
+                            <span>分配商铺: {{item.count}}</span>
+                            <img src="../images/item_arrow@2x@2x.png" alt="" class="saleImg">
+                        </div>
+                        <ul class="newsList">
+                            <li>联系方式: {{item.sm_mobile}}</li>
+                            <li>所属区域: {{item.dis_name}}</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--定位框-->
+        <div class="addSaleMan toadd">
+            <div class="invenBtn">
+                <img src="../images/Sales management_add_salesman@2x.png" alt="" class="" >
+                <span>添加业务员</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/saleMan.js"></script>
+</body>
+</html>

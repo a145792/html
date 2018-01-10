@@ -1,0 +1,147 @@
+@charset "utf-8";
+/*组合商品促销活动列表*/
+.Imgbg{
+    height:175px;
+    background:url(../../images/Bitmap@2x.png)no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+}
+.Imgbg>span{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.group-list{
+    padding:15px;
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    color: #333333;
+}
+.groupName{
+    font-weight: bold;
+}
+.group-scope{
+    color: #999999;
+    margin: 8px 0;
+}
+.scope-active>img{
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-top: 2px;
+}
+.scope-active>span{
+    margin-left: 10px;
+    float: left;
+}
+.group-news{
+    margin-bottom: 10px;
+}
+.groupImg{
+    position: relative;
+}
+.groupImg-time{
+    position: absolute;
+    top:0;
+    left: 0;
+    background: #F53548;
+    padding: 10px 5px;
+    color: #FFFFFF;
+    font-size: 13px;
+    text-align: justify;
+    word-break: break-all;
+}
+.groupImg-time>span:nth-of-type(odd){
+    display: inline-block;
+    width: 20px;
+    padding:2px 0;
+    background-color: #FFFFFF;
+    color: #F53548;
+    margin: 0 5px;
+    text-align: center;
+}
+.addSaleMan{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+.addSaleMan .invenBtn{
+    background-color: #DC3C4F;
+    border-top: 0;
+    color: #FFFFFF;
+    font-size: 17px;
+}
+.invenBtn{
+    width: 100%;
+    height: 44px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #EEEEEE;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    color: #DC3C4F;
+}
+.invenBtn>img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/*营销中心*/
+.setList{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    margin: 0 10px;
+    margin-top: 10px;
+    padding: 0 10px;
+    background-color: #FFFFFF;
+    height: 65px;
+    font-size: 14px;
+    color: #333333;
+}
+.setList-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.set-name{
+    flex: 1;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.set-click{
+    width: 65px;
+    padding: 3px 0;
+    border: 1px solid #333333;
+    border-radius: 43px;
+    text-align: center;
+}
+@media screen and (min-width: 320px) and (max-width: 359px) {
+    .Imgbg {
+        height:160px;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 374px) {
+    .Imgbg {
+        height:180px;
+    }
+}
+@media screen and (min-width: 401px) and (max-width: 414px) {
+    .Imgbg {
+        height:200px;
+    }
+}
+@media screen and (min-width: 750px) and (max-width: 799px) {
+    .Imgbg {
+        height:380px;
+    }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="../css/financial.css">
+    <link rel="stylesheet" type="text/css" href="../css/newsWeb.css">
+    <style>
+        .square {
+            width: 50%;
+            background: #ccc;
+        }
+
+        .square:after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .advertTime{
+            font-size: 12px;
+            color: #999999;
+            display: flex;
+            display: -webkit-flex;
+            justify-content:space-between;
+            align-items: center;
+            padding: 0 10px;
+            padding-top: 5px;
+        }
+        .TimeDetail{
+            display: inline-flex;
+            align-items: center;
+        }
+        .TimeDetail>img{
+            width: 12px;
+            height: 12px;
+        }
+        .top{
+            height: auto;
+        }
+        body{
+            padding: 0;
+        }
+        .mui-table-view{
+            background-color: #f3f5f7;
+        }
+    </style>
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    
+    <!--广告推送-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+    <!--列表-->
+    <ul class="mui-table-view">
+    <div v-for="item in list">
+        <div class="advert"  v-if="item.isOnlyMessage == 0">
+            <span class="advertName">{{item.push_content}}</span>
+        </div>
+        <div class="advert guanggao" v-if="item.advert_id != '' && item.isOnlyMessage == 1" v-bind:aid="item.advert_id">
+            <div v-if="item.advert_img != ''" class="advertBg"  v-bind:style="{backgroundImage:'url('+item.advert_img+')'}"></div>
+            <span class="advertName">{{item.push_title}}</span>
+            <div class="advertTime">
+            <span>{{item.push_time | FMtime}}</span>
+            <span class="TimeDetail">
+                <span>查看详情</span>
+                <img src="../themes/images/news_arrow@2x.png" alt="">
+            </span>
+        </div>
+        </div>
+        <div class="order_item" v-if="item.push_type == 'order' && item.isOnlyMessage == 1" v-bind:sor_id="item.push_func_id" v-bind:name="item.item[0].soi_name" v-bind:push_id="item.push_id" v-bind:push_read_status="item.push_read_status">
+            <span class="orderAlert">新的订单提醒</span>
+            <div class="orderDetail">
+                <div class="orderClass">
+                    <span>订单编号:</span>
+                    <span class="orderA">{{item.item[0].sor_order_no}}</span>
+                </div>
+                <div class="orderClass">
+                    <span>商品总额:</span>
+                    <span class="orderA">¥<span>{{item.item[0].sor_price}}</span></span>
+                </div>
+                <div class="orderClass">
+                    <span>订单时间:</span>
+                    <span class="orderA">{{item.item[0].sor_datetime | FMtime}}</span>
+                </div>
+            </div>
+            <ul class="bgff">
+                <li class="orderLi" v-for="sim in item.item">
+                    <img v-if="item.item[0].soi_name != '优惠买单'" v-bind:src="sim.sim_photo" alt="">
+                    <span class="orderSpan2">{{sim.soi_name}}</span>
+                    <span class="orderSpan">¥<span>{{sim.soi_price}}</span></span>
+                </li>
+            </ul>
+            <img v-if="item.push_read_status == 'N'" src="../themes/images/new@2x.png" alt="" class="unread">
+        </div>
+
+        <div class="comment_item" v-if="item.push_type == 'default' && item.isOnlyMessage == 1" v-bind:push_id="item.push_id" v-bind:push_read_status="item.push_read_status">
+            <span class="orderAlert">您的新的评价信息</span>
+            <div class="orderDetail">
+                <div class="assess">
+                    <span>综合评价</span>
+                    <img v-bind:src="item.item[0].ict_score | getCommentImg" alt="">
+                </div>
+            </div>
+            <div class="newsComment">
+                <div class="commentA">
+                    <div class="AImg">
+                        <img v-bind:src="item.item[0].ccr_avatar | getAvatar" alt="">
+                    </div>
+                    <span v-text="item.item[0].ccr_name"></span>
+                    <span>{{item.item[0].ict_create_time | FMtime}}</span>
+                </div>
+                <div class="commentB" v-text="item.item[0].ict_content"></div>
+                <div class="commentC">{{item.item[0].soi_name}} {{item.item[0].soi_create_time | FMtime}}</div>
+                <div class="flex" style="padding: 0 5px">
+                    <div class="commentBg" v-for="mimg in item.pics">
+                        <img v-bind:src="mimg" alt="">
+                    </div>
+                </div>
+                <div class="commentD">
+                    <div style="padding: 10px;background-color: #f6f6f6" class="flex">
+                        <div class="orderImg" style="background: url('../themes/images/9ae641a76239a961302a7493d4909d84.jpg')no-repeat 0 0;background-size: cover"></div>
+                        <div class="flex-right newDetail">
+                            <div>{{item.item[0].soi_name}}</div>
+                            <div>¥<span>{{item.item[0].soi_price}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img v-if="item.push_read_status == 'N'" src="../themes/images/new@2x.png" alt="" class="unread">
+        </div>
+
+    </div>
+    </ul>
+        </div>
+    </div>
+    <div v-if="count == 0" class="Nono">
+        <img src="../themes/images/no_news@2x.png" alt="" style="width: 50%">
+    </div>
+</div>
+<script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/mui.min.js"></script>
+<script type="text/javascript" src="../js/lib/context.js"></script>
+<script type="text/javascript" src="../js/lib/vue.min.js"></script>
+<script type="text/javascript" src="../js/newsWeb.js"></script>
+<script type="text/javascript" src="../js/lib/tripledes2.js"></script>
+</body>
+</html>

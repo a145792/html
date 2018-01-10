@@ -1,10 +1,8 @@
-/**
- * Created by Administrator on 2017/8/25 0025.
- */
 Vue.config.productionTip = false
 var vm = new Vue({
     el:'#app',
     data:{
+        mobile:'',
     	list:[],				//消息列表
     	count:1,
     	page:1
@@ -46,6 +44,7 @@ var vm = new Vue({
 $(function(){
 
 	var mobile = getRequestParameter('mobile');
+    vm.mobile = mobile
     var origin = getRequestParameter('origin');
 	var token = true;
 	var count = 0;
@@ -55,9 +54,17 @@ $(function(){
             console.log(res)
 			var mylist = res.data.items;
 			var pics;
-            var count = res.data.count;
+            count = res.data.count;
+
             if(count > 0){
                 for(var i = 0; i < mylist.length; i++){
+                    if(mylist[i].push_type.indexOf('order') >= 0){
+                        mylist[i].push_type = 'order'
+                    }
+                    if(mylist[i].push_type.indexOf('default') >= 0){
+                        mylist[i].push_type = 'default'
+                    }
+                    
                     item = mylist[i];
                     if(item.push_type == 'default'){    //评论
                         pics = mylist[i].item[0].ict_photo;
@@ -79,56 +86,8 @@ $(function(){
 
 
 
-	 //上拉加载下一页
-    $(window).scroll(function() { 
-        if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
-
-            if(!token){
-                return
-            }else{
-                token = false;
-            }
-
-            //计算总页码
-            var pageCount = parseInt((count%10 == 0) ? count/10 : count/10 + 1);
-
-            if(vm.page >= pageCount){
-                token = true;
-                return;
-            }
-
-            //加载数据
-            getNews(mobile,vm.page+1)
-                .then(res=>{
-                    var code = res.code
-                    if(code == 0){
-                        var mylist = res.data.items;
-						var pics;
-						for(var i = 0; i < mylist.length; i++){
-							item = mylist[i];
-							if(item.push_type == 'default'){	//评论
-								pics = mylist[i].item[0].ict_photo;
-								if(isUndef(pics) || isNull(pics)){
-									mylist[i].pics = [];
-								}else{
-									mylist[i].pics = pics.split(',');
-								}
-							}
-						}
-                        vm.list = vm.list.concat(mylist);
-                        vm.page = vm.page + 1;
-                        token = true
-                    }else{
-                        alert(res.message);
-                        token = true
-                    }
-                })
-
-        }
-    })
-
     //点击订单
-    $(document).on('click','.order_item',function(){
+    mui(".mui-content").on('tap','.order_item',function(e){ 
         var sor_id = $(this).attr('sor_id');
         var name = $(this).attr('name');
         var is_discount = 0;
@@ -151,7 +110,7 @@ $(function(){
     })
 
     //点击广告
-    $(document).on('click','.guanggao',function(){
+    mui(".mui-content").on('tap','.guanggao',function(e){ 
         var aid = $(this).attr('aid');
         if(origin == 'adr'){
             APP.appToAdvert(aid)
@@ -161,8 +120,10 @@ $(function(){
         }
     })
 
+    
+
     //点击返回
-    $(document).on('click','.toback',function(){
+    $(document).on('tap','.toback',function(){
     	if(origin == 'adr'){
             APP.appToBack()
         }else if(origin == 'ios'){
@@ -172,3 +133,92 @@ $(function(){
     })
     
 })
+
+
+mui.init({
+    pullRefresh:{
+        container: '#pullrefresh',
+        down: {
+            auto:false,//可选,默认false.自动下拉刷新一次
+            callback: pulldownRefresh
+        },
+        up: {
+
+            contentrefresh: '正在加载...',
+            contentnomore:'没有更多数据了',
+            callback: pullupRefresh
+        }
+    }
+});
+
+//下拉刷新
+function pulldownRefresh(){
+    getNews(vm.mobile,1)
+        .then(res=>{
+            console.log(res)
+            var mylist = res.data.items;
+            var pics;
+            var count = res.data.count;
+
+            if(count > 0){
+                for(var i = 0; i < mylist.length; i++){
+                    if(mylist[i].push_type.indexOf('order') >= 0){
+                        mylist[i].push_type = 'order'
+                    }
+                    if(mylist[i].push_type.indexOf('default') >= 0){
+                        mylist[i].push_type = 'default'
+                    }
+
+                    item = mylist[i];
+                    if(item.push_type == 'default'){    //评论
+                        pics = mylist[i].item[0].ict_photo;
+                        if(isUndef(pics) || isNull(pics)){
+                            mylist[i].pics = [];
+                        }else{
+                            mylist[i].pics = pics.split(',');
+                        }
+                    }
+                }
+            }
+                
+            vm.page = 1
+            vm.list = mylist;
+            vm.count = res.data.count;  
+
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+            mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+        })
+
+}
+//上拉加载
+function pullupRefresh(){
+    //计算总页码
+    var pageCount = parseInt((vm.count%10 == 0) ? vm.count/10 : vm.count/10 + 1);
+    mui('#pullrefresh').pullRefresh().endPullupToRefresh((vm.page >= pageCount)); 
+    //加载数据
+    getNews(vm.mobile,vm.page+1)
+        .then(res=>{
+            var code = res.code
+            if(code == 0){
+                var mylist = res.data.items;
+                var pics;
+                for(var i = 0; i < mylist.length; i++){
+                    item = mylist[i];
+                    if(item.push_type == 'default'){    //评论
+                        pics = mylist[i].item[0].ict_photo;
+                        if(isUndef(pics) || isNull(pics)){
+                            mylist[i].pics = [];
+                        }else{
+                            mylist[i].pics = pics.split(',');
+                        }
+                    }
+                }
+                vm.list = vm.list.concat(mylist);
+                vm.page = vm.page + 1;
+                token = true
+            }else{
+                alert(res.message);
+                token = true
+            }
+        })
+}

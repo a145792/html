@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择活动商品</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <link rel="stylesheet" href="../css/supp/chose_activety.css">
+    <style type="text/css">
+        .mui-content{
+            padding-bottom: 44px;
+        }
+    </style> 
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--列表-->
+            <ul class="mui-table-view">
+
+                <li class="borderT1" v-for="item in list">
+                    <div class="orderChose">
+                        <label class="check-box"><input v-bind:spt_id="item.spt_id" type="checkbox" :checked="item.checked" v-model="item.checked" name="chose" class="box-input"><span></span></label>
+                        <div class="choseImg">
+                            <img v-bind:src="item.spt_photo" alt="">
+                        </div>
+                        <ul class="assigned">
+                            <li>
+                                <span class="text-overflow2" v-text="item.spt_name"></span>
+                            </li>
+                            <li class="assigned-new">
+                                <span>已出售: {{item.sale_count}}笔</span>
+                            </li>
+                        </ul>
+                        <span class="color535">¥<span>{{item.spt_price}}</span></span>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!--确定-->
+    <div class="addSaleMan">
+        <div class="invenBtn">
+            <span>确定</span>
+        </div>
+    </div>
+    <!--右滑框-->
+    <div class="rightCase">
+        <div class="caseHeader">商品分类</div>
+        <div class="caseList">
+            <div class="caseList-ob">
+                <span style="height: 20px"></span>
+                <ul>
+                    <li v-bind:class="{'active':type == ''}">
+                        <span class="allste ite" ite_id="">全部分类</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="caseList-ob" v-for="ite in types">
+                <span>{{ite.ite_name}}</span>
+                <ul>
+                    <li v-for="item in ite.children"  v-bind:class="{'active':type == item.ite_id}">
+                        <span class="ctype_span ite" v-bind:ite_id="item.ite_id">{{item.ite_name}}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- 遮罩 -->
+    <div class="AdvertDetail"></div>
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/source.js"></script>
+</body>
+</html>

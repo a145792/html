@@ -2,12 +2,12 @@ document.write('<script language=javascript src="../js/lib/tripledes2.js"></scri
 //请求后台的总方法
 function fetchApi(params){ 
     params = {'params':encryptByDES(params.params)};
-	var  url = 'http://admin.jiuziran.com/api';
+	/*var url = 'http://admin.jiuziran.com/api';
     if(getRequestParameter('origin')=='ios'){
 		url = 'http://114.55.73.221:8080/api';
-    }
+    }*/
 	//url = 'http://dev.jiuziran.com/api';
-	//url = 'http://127.0.0.1:8080/adminsystem/api';
+	url = 'http://127.0.0.1:8080/adminsystem/api';
 	return new  Promise(function (resolve, reject) {
 		$.ajax({
             url:url,
@@ -22,6 +22,7 @@ function fetchApi(params){
 			}
 		})
 	})
+
 }
 
 //当前项目根路径
@@ -29,7 +30,50 @@ function getRootPath(){
     return 'http://dev.jiuziran.com/supplier/'
 }
 
-//-----------------------------------------------------------------------------------------------------
+//app同一动作
+function APPAction(action,params){
+    var json = {}
+    json.action = action
+    json.params = params
+    if(getRequestParameter('debug') == 'Y'){
+        log(json)
+    }else if(getRequestParameter('debug') == 'O'){
+        mui.toast(JSON.stringify(json))
+    }
+    if(getRequestParameter('origin') == 'adr'){
+        APP.JsAction(JSON.stringify(json));
+    }else if(getRequestParameter('origin') == 'ios'){
+        window.webkit.messageHandlers.JsAction.postMessage(json);
+    }
+}
+
+//获取店铺内商品类型列表
+function getSupplierTypes(csr_id){
+    var params = {"params":"{'biz':'com.api.item.type.supp.find','data':{'csr_id':'"+csr_id+"'}}"}
+        return fetchApi(params)
+            .then(res=>res) 
+}
+
+//获取活动商品选材
+function getActivitySource(csr_id,type,status,page){
+    var params = {"params":"{'biz':'com.api.activity.product.list','data':{'csr_id':'"+csr_id+"','type':'"+type+"','status':'"+status+"','page':'"+page+"','limit':'10'}}"}
+        return fetchApi(params)
+            .then(res=>res) 
+}
+
+//获取外部活动
+function getOutActivity(csr_id){
+    var params = {"params":"{'biz':'com.api.activity.out.list','data':{'csr_id':'"+csr_id+"'}}"}
+        return fetchApi(params)
+            .then(res=>res) 
+}
+
+//获取商户邀请码
+function getShopInvite(shopId){
+    var params = {"params":"{'biz':'com.api.shop.invite.get','data':{'shopId':'"+shopId+"'}}"}
+        return fetchApi(params)
+            .then(res=>res) 
+}
 
 //商品详情
 function getSuppDetail(spt_id,user_id){
@@ -67,8 +111,8 @@ function createNewCoupon(userId,cpr_id){
 }
 
 //根据二级分类查询商品列表
-function getProductListSteId(ste_id,scope_id,order,page){
-    var params = {"params":"{'biz':'com.supp.child.type.product','data':{'ste_id':'"+ste_id+"','page':'"+page+"','scope_id':'"+scope_id+"','order':'"+order+"','limit':'10'}}"}
+function getProductListSteId(user_id,ste_id,scope_id,order,page){
+    var params = {"params":"{'biz':'com.supp.child.type.product','data':{'user_id':'"+user_id+"','ste_id':'"+ste_id+"','page':'"+page+"','scope_id':'"+scope_id+"','order':'"+order+"','limit':'10'}}"}
         return fetchApi(params)
             .then(res=>res) 
 }
@@ -276,6 +320,62 @@ function getPromotionInfo(ids){
         .then(res=>res)
 }
 
+//供应商下业务员列表
+function getSaleManList(user_id,page){
+    var params = {"params":"{'biz':'com.api.salesman.show','data':{'sm_spt_id':'"+user_id+"','page':'"+page+"','limit':'10'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//业务员的店铺
+//status  0 未分配1已分配
+function getSMShops(status,shop_name,sm_id,page){
+    if(!shop_name || shop_name == ''){
+        shop_name = '0'
+    }
+    var params = ''
+    if(status == 0){
+        params = {"params":"{'biz':'com.api.salesman.unReadyShop','data':{'shop_name':'"+shop_name+"','sm_id':'"+sm_id+"','page':'"+page+"','limit':'10'}}"}
+    }else if(status == 1){
+        params = {"params":"{'biz':'com.api.salesman.areadyShop','data':{'shop_name':'"+shop_name+"','sm_id':'"+sm_id+"','page':'"+page+"','limit':'10'}}"}
+    }
+    
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//店铺内的商品列表
+function getSuppProduct(csr_id,page){
+    var params = {"params":"{'biz':'com.api.supp.product.all','data':{'spt_supplier_id':'"+csr_id+"','spt_is_wholesale':'1','page':'"+page+"','limit':'10'}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//给业务员分配店铺
+function saleManAddShop(sm_id,ids){
+    var sm_obj = []
+    ids = ids.split(',')
+    for(var i = 0; i < ids.length; i++){
+        sm_obj[i] = {'ss_sm_id':sm_id,'ss_shop_id':ids[i]}
+    }
+    var params = {"params":"{'biz':'com.api.salesman.addShop','data':{'sm_obj':" + JSON.stringify(sm_obj) + "}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+
+//业务员取消分配店铺saleManDelShop
+function saleManDelShop(sm_id,ids){
+    var sm_obj = []
+    ids = ids.split(',')
+    for(var i = 0; i < ids.length; i++){
+        sm_obj[i] = {'ss_sm_id':sm_id,'ss_shop_id':ids[i]}
+    }
+    var params = {"params":"{'biz':'com.api.salesman.readyDel','data':{'sm_obj':" + JSON.stringify(sm_obj) + "}}"}
+    return fetchApi(params)
+        .then(res=>res)
+}
+//----------------------------------------------------------------
+
 //同一设置商品是否促销和促销价格
 function setPromotionInfo(list){
     if(!list || list.length == 0){
@@ -304,6 +404,9 @@ function setPromotionInfo(list){
                                 list[j].spt_is_promotion = 'N';
                                 list[j].spt_price = sales[i].spt_price;
                                 list[j].unit = sales[i].unit;
+                                list[j].cpr_id = sales[i].cpr_id;
+                                list[j].cpr_name = sales[i].cpr_name;
+                                list[j].cpr_desc = sales[i].cpr_desc;
                             }
                         }
                     }
@@ -320,35 +423,14 @@ function no_Detail(data){
     var crr='<div class="no-shuju">'+
         '<img src='+data +' alt="">'+
         '</div>';
-    if($(".no-shuju") ){
-        $(".no-shuju").remove();
-        $("body").append(crr);
-    }else{
-        $("body").append(crr);
-    }
+    $("body").append(crr);
 }
-// 数据为空页面
-function no_Detail(data){
-    var crr='<div class="no-shuju">'+
-        '<img src='+data +' alt="">'+
-        '</div>';
-    if($(".no-shuju") ){
-        $(".no-shuju").remove();
-        $("body").append(crr);
-    }else{
-        $("body").append(crr);
-    }
-}
+
 function empty(data){
     var err='<div class="empty">'+
         '<img src='+data +' alt="">'+
         '</div>';
-    if($(".empty") ){
-        $(".empty").remove();
-        $(".mui-table-view").append(err);
-    }else{
-        $(".mui-table-view").append(err);
-    }
+    $(".mui-table-view").append(err);
 }
 //成功提示
 function successTips(data){
@@ -375,6 +457,9 @@ function failTips(data){
 //获取秒数的时间格式
 function getBackTime(t){
     //t = Math.abs(t);
+    if(t >= 2592000){
+        return '不限时间'
+    }
     var s = Math.floor(t%60) < 10 ? '0' : '';
     var m = Math.floor(t/60%60) < 10 ? '0' : '';
     var h = Math.floor(t/60/60%24) < 10 ? '0' : '';
@@ -441,6 +526,8 @@ function jsonSort(array, field, reverse) {
   return array;
 }
 
+var log = console.log.bind(console)
+
 function smartSize(){
     var h=window.getComputedStyle(document.getElementById("userSum")).height;
     if( parseInt(h) >"74"){
@@ -450,18 +537,47 @@ function smartSize(){
     }
 }
 
-/*onerror=handleErr
-var txt=""
-
-function handleErr(msg,url,l){
-    txt="本页中存在错误。\n\n"
-    txt+="错误：" + msg + "\n"
-    txt+="URL: " + url + "\n"
-    txt+="行：" + l + "\n\n"
-    txt+="点击“确定”继续。\n\n"
-    if(getRequestParameter('debug') == 'Y'){
-        console.log('aaa')
-        failTips(txt)
-        return true
+//确认取消框对象
+function myConfirm(message,sureAction,cancelAction){
+    var confirm = {
+        message:message,
+        sureAction:sureAction,
+        cancelAction:cancelAction
     }
-}*/
+
+    confirm.show = function(){
+        if(!$('.zhezhao').length > 0 || !$('.alertWait').length > 0 ){
+            $("body").append('<div class="zhezhao"></div>'
+                +'+<div class="alertWait" id="picture">'
+                +'<div class="a1">'+message+'</div>'
+                +'<div class="a2">'
+                    +'<span class="cancel">取消</span>'
+                    +'<span class="sure">确定</span>'
+                +'</div>'
+                +'</div>')
+        }
+
+        $(".zhezhao").fadeIn();
+        $(".alertWait").fadeIn();
+    }
+
+    $(document).on('click','.sure',function(){
+        if(sureAction){
+            sureAction()
+        }
+        $(".zhezhao").fadeOut()
+        $(".alertWait").fadeOut()
+    })
+
+    $(document).on('click','.cancel',function(){
+        $(".zhezhao").fadeOut()
+        $(".alertWait").fadeOut()
+        if(cancelAction){
+            cancelAction()
+        }
+    })
+
+    return confirm
+}
+
+

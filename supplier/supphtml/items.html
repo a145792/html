@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <link rel="stylesheet" href="../css/supp/inventory.css">
+</head>
+<body>
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div  id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+
+                <li class="product" v-for="item in list" v-bind:spt_id="item.spt_id">
+                    <div class="story-Chose">
+                        <div class="choseImg">
+                            <img v-bind:src="item.spt_photo" alt="">
+                        </div>
+                        <ul class="invenName">
+                            <li>
+                                <div class="storyName">
+                                    <span class="text-overflow2" v-text="item.spt_name"></span>
+                                </div>
+                            </li>
+                            <li class="mat10">
+                                <div class="storyList" v-for="spec in item.specs">
+                                    <span>{{spec}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/stock.js"></script>
+</body>
+</html>

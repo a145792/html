@@ -5,6 +5,7 @@
     <title>消息</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../css/every.css">
+    <link rel="stylesheet" type="text/css" href="../css/mui.min.css">
     <link rel="stylesheet" type="text/css" href="../css/storeDetail.css">
     <link rel="stylesheet" type="text/css" href="../css/financial.css">
     <link rel="stylesheet" type="text/css" href="../css/newsWeb.css">
@@ -33,9 +34,36 @@
             padding: 0 10px;margin-bottom: 10px;
             border-radius: 4px;
         }
-        /* body{
-            padding-top: 0;
-        } */
+        .advertTime{
+            font-size: 12px;
+            color: #999999;
+            display: flex;
+            display: -webkit-flex;
+            justify-content:space-between;
+            align-items: center;
+            padding: 0 10px;
+            padding-top: 5px;
+        }
+        .TimeDetail{
+            display: inline-flex;
+            align-items: center;
+        }
+        .TimeDetail>img{
+            width: 12px;
+            height: 12px;
+        }
+        .mui-content{
+            margin-top:64px ;
+        }
+        .top{
+            height: auto;
+        }
+        body{
+            padding: 0;
+        }
+        .mui-table-view{
+            background-color: #f3f5f7;
+        }
     </style>
 </head>
 <body>
@@ -55,16 +83,24 @@
         </div>
     </div>
     <!--广告推送-->
-       
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+    <!--列表-->
+    <ul class="mui-table-view">
     <div v-for="item in list">
         <div class="advert"  v-if="item.isOnlyMessage == 0">
             <span class="advertName">{{item.push_content}}</span>
         </div>
         <div class="advert guanggao" v-if="item.advert_id != '' && item.isOnlyMessage == 1" v-bind:aid="item.advert_id">
-            <span class="orderAlert">广告</span>
             <div v-if="item.advert_img != ''" class="advertBg"  v-bind:style="{backgroundImage:'url('+item.advert_img+')'}"></div>
             <span class="advertName">{{item.push_title}}</span>
-            <div class="advertZhuti">{{item.push_content}}</div>
+            <div class="advertTime">
+            <span>2017-08-11</span>
+            <span class="TimeDetail">
+                <span>查看详情</span>
+                <img src="../themes/images/news_arrow@2x.png" alt="">
+            </span>
+        </div>
         </div>
         <div class="order_item" v-if="item.push_type == 'order' && item.isOnlyMessage == 1" v-bind:sor_id="item.push_func_id" v-bind:name="item.item[0].soi_name">
             <span class="orderAlert">新的订单提醒</span>
@@ -125,11 +161,15 @@
             </div>
         </div>
     </div>
+    </ul>
+        </div>
+    </div>
     <div v-if="count == 0" class="Nono">
         <img src="../themes/images/no_news@2x.png" alt="" style="width: 50%">
     </div>
 </div>
 <script type="text/javascript" src="../js/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/lib/mui.min.js"></script>
 <script type="text/javascript" src="../js/lib/context.js"></script>
 <script type="text/javascript" src="../js/lib/vue.min.js"></script>
 <script type="text/javascript" src="../js/newsWeb.js"></script>

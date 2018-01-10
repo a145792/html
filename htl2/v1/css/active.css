@@ -1,0 +1,244 @@
+.text-overflow2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    overflow: hidden;
+}
+.colorfff{
+    color: #FFFFFF;
+}
+input:-webkit-autofill { box-shadow: 0 0 0px 1000px white inset !important;}
+body{
+    background-color: #ffc939;
+}
+.mainTop{
+    width: 100%;
+}
+.mainBottom{
+    background-color: #ef5936;
+}
+.mainBottom>img{
+    width: 100%;
+}
+.mainHua{
+    width: 100%;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    position: relative;
+    text-align: center;
+    color: #78201d;
+    font-size: 18px;
+    z-index: -1;
+    top: -34px;
+}
+.mainHua>img{
+    width: 100%;
+}
+.mainHua>.guding{
+    position: absolute;
+    top:70%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+.mainHua>.bianhua{
+    width: 100%;
+    position: absolute;
+    top:106%;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    font-size: 15px;
+}
+.mainFixed{
+    width: 100%;
+    position: fixed;
+    top: -250px;
+    left: 0;
+    z-index: 10;
+    padding:25px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    font-size: 15px;
+    background-color: #FFFFFF;
+}
+@-webkit-keyframes name{
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(0deg); }
+}
+.mainInput,.password>input{
+    padding: 0 10px;
+    border: 1px solid #EEEEEE;
+    background-color: #f6f6f6;
+    list-style: none;
+    outline:none;
+    margin: 0;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    font-size: 15px;
+}
+.password{
+    display: flex;
+    display: -webkit-flex;
+    margin-top: 23px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.password>input{
+    flex: 1;
+    margin-right: 10px;
+}
+.passwordCode{
+    height: 50px;
+    line-height: 50px;
+    width: 133px;
+    text-align: center;
+    background-color: #ffe449;
+    color: #695900;
+    border-radius: 5px;
+}
+.getJuan{
+    width: 100%;
+    height:50px;
+    line-height: 50px;
+    background-color: #f86637;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 17px;
+}
+.mainBody{
+    margin-top: 30px;
+}
+.mainBody>p{
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    color: #333333;
+}
+.mainBody>img{
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+}
+.mainFoot{
+    width: 100%;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding: 0 25px;
+    padding-bottom:20px ;
+}
+.mainFoot>img{
+    width: 100%;
+    margin-top: 10px;
+}
+.cash{
+    padding: 0 25px;
+}
+.cashList{
+    margin-bottom: 15px;
+    width: 100%;
+    height: 135px;
+    background: url("../themes/images/Cash-coupon_BG.png") no-repeat 0 0;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+}
+.zhuti{
+    font-size: 24px;
+    color: #ffd200;
+}
+.pull{
+    width: 67px;
+    border-left: 1px dashed #ffd200;
+    text-align: center;
+    position: relative;
+}
+.pull>span{
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    display: block;
+    width:20px;
+    line-height:18px;
+    font-size: 15px;
+}
+.bg_quanbu{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 5;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+}
+.lingquB{
+    display: none;
+}
+.lingquB>img{
+    width: 65px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.Toptext{
+    width: 100%;
+    position: relative;
+}
+.mainImg{
+    position: absolute;
+    top: 36%;
+    right: 22%;
+    color: #ffe449;
+    font-size: 17px;
+}
+.mainImg>span{
+    font-size: 28px;
+}
+.errorCode{
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    color: red;
+    font-size: 10px;
+}
+.photoCode{
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    color: red;
+    font-size: 10px;
+}
+.password>.borderRed{
+    border: 1px solid red;
+}
+.borderRed{
+    border: 1px solid red;
+}
+.guize{
+    padding: 20px 15px;
+    color: #972824;
+    font-size: 15px;
+    line-height: 25px;
+}
+.guizeFirst{
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.hangxian{
+    display: inline-block;
+    width: 50px;
+    border-top:1px solid #972824 ;
+    position: relative;
+    top:-5px;
+}

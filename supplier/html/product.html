@@ -43,7 +43,7 @@
 					   <div class="mui-slider-group">
 					      <div class="mui-slider-item" v-for="item in photolist">
 					         <div class="Imgbg">
-					            <span v-bind:style="{backgroundImage:'url('+item+')'}"></span>
+					            <span v-bind:imgsrc="item" onclick="click_img(this)" v-bind:style="{backgroundImage:'url('+item+')'}"></span>
 					         </div>
 					      </div>
 					   </div>
@@ -55,6 +55,7 @@
 					<ul class="commList">
 						<li class="commName" v-text="detail.spt_name"></li>
 						<li class="text-overflow2">{{detail.spt_reminder}}</li>
+						<li class="color535" v-if="chirldProduct != null && chirldProduct.length > 0">{{groupInfo.spr_desc}}</li>
 						<li>
 							批发价：
 							<span class="commPrice">¥<span v-text="detail.spt_price"></span>/{{detail.unit}}
@@ -68,69 +69,137 @@
 						</li>
 					</ul>
 				</div>
-				<a href="#activeList" v-if="first_coupon_name != ''" v-if="first_coupon_name != null">
+				<!-- <a href="#activeList" v-if="first_coupon_name != ''" v-if="first_coupon_name != null">
 					<div class="icon-cart">
 						<div>
 							<img src="../images/shop_Discount@2x.png" alt="" class="iconLeft"/>
 							<span class="iconMotive">{{first_coupon_name}}</span>
+							<span class="iconItem">领取</span>
+							<img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
+						</div>
+					</div>
+				</a> -->
+
+				<a href="#activeList" v-if="first_coupon_name != ''" v-if="first_coupon_name != null">
+					<div class="icon-cart">
+						<div>
+							<span class="mar10">领券</span>
+							<ul class="pull-cart">
+								<li v-for="item in couponList">
+									<span>{{item.cpr_name}}</span>
+								</li>
+							</ul>
 							<span class="iconItem">领取</span>
 							<!--<img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>-->
 						</div>
 					</div>
 				</a>
 				
-				<!--满减活动-->
-				<!--<div class="icon-cart" v-if="hasMorefree == 'Y'">
-					<div>
-						<img src="../images/Full reduction@2x.png" alt="" class="iconLeft"/>
-						<span class="iconMotive">{{morefree.detal}}</span>
-						<div class="iconTime">活动剩余 <span>{{free_time}}</span></div>
-					</div>
-				</div>-->
-            	<!--满减活动-->
-                <!--满减活动-->
-           <div class="discount" v-if="hasMorefree == 'Y'">
+				
+           <!-- <div class="discount" v-if="hasMorefree == 'Y'">
                <div>
-                   <img src="../images/Full reduction@2x.png" alt="" class="iconLeft"/>
+               	   <img src="../images/Full reduction@2x.png" alt="" class="iconLeft"/>
                    <ul>
                        <li v-text="morefreeName"></li>
                    </ul>
-                   <!--<span class="iconMotive">{{morefree.detal}}</span>-->
                    <div class="iconTime">活动剩余 <span>{{free_time}}</span></div>
                </div>
                <div class="discount_span">
-				   <span v-for="item in morefree">满{{item.full}}减{{item.min}} </span>
-			   </div>
+           				   <span v-for="item in morefree">满{{item.full}}减{{item.min}} </span>
+           			   </div>
            </div>
-			<div class="icon-cart" v-if="hasSalses == 'Y'">
-				<div>
-					<img src="../images/Sales promotion@2x.png" alt="" class="iconLeft"/>
-					<span class="iconMotive">{{sales.spr_name}}</span>
-					<div class="iconTime">活动剩余 <span>{{sale_time}}</span></div>
-				</div>
-			</div>
+           			<div class="icon-cart" v-if="hasSalses == 'Y'">
+           				<div>
+           					<img src="../images/Sales promotion@2x.png" alt="" class="iconLeft"/>
+           					<span class="iconMotive">{{sales.spr_name}}</span>
+           					<div class="iconTime">活动剩余 <span>{{sale_time}}</span></div>
+           				</div>
+           			</div> -->
+          <!--促销-->
+	      <div class="activety-cart">
+	         <div>
+	            <span class="mar10">活动</span>
+	            <ul class="activety-list">
+	               <!--满减活动-->
+	               <li v-if="hasMorefree == 'Y'">
+	                  <img src="../images/Full reduction@2x.png" alt="" class="iconLeft">
+	                  <div class="activety-list-type">
+	                     <span v-for="item in morefree">满{{item.full}}减{{item.min}}</span>
+	                  </div>
+	               </li>
+	               <!--促销活动-->
+	               <li v-if="hasSalses == 'Y'">
+	                  <img src="../images/Sales promotion@2x.png" alt="" class="iconLeft">
+	                  <span>{{sales.spr_name}}</span>
+	               </li>
+	               <!--优惠套装-->
+	               <li v-if="parentProduct != null && parentProduct.length > 0">
+	                  <img src="../images/Preferential suit@2x.png" alt="" class="iconLeft">
+	                  <span>{{parentProduct[0].spr_name}}</span>
+	               </li>
+	               <!--赠品-->
+	               <li v-if="hasGive == 'Y'">
+	                  <img src="../images/Rectangle 11 Copy 3@2x.png" alt="" class="iconLeft">
+	                  <span>{{give.spr_name}}</span>
+	               </li>
+	            </ul>
+	            <img src="../images/order_point@2x.png" alt="" class="iconRight mat10">
+	         </div>
+	      </div>
+
 
 			<!--已选-->
-			<div class="codding">
-			   <div id="onCheck">
-			      <div class="flex1">
-			         <span class="iconMotive">
-			             <span class="mar10">已选</span>
-			            <span class="color535" v-text="spec.spec_unit_desc"></span>
-			         </span>
-			         <span v-if="detail.spt_dis != null && detail.spt_dis != ''" class="codding-flex">本商品只配送{{detail.spt_dis}}</span>
-			      </div>
-			     <img src="../images/order_point@2x.png" alt="" class="iconRight">
-			   </div>
-			</div>
+				<div class="codding">
+				   <div id="onCheck">
+					  <div class="flex1">
+						 <span class="iconMotive">
+							 <span class="mar10">已选</span>
+							<span class="color535" v-text="spec.spec_unit_desc"></span>
+						 </span>
+					  </div>
+					 <img src="../images/order_point@2x.png" alt="" class="iconRight">
+				   </div>
+				</div>
+				<!--送至-->
+				<a href="#location">
+					<div class="location-cart">
+						<div>
+							<span class="mar10">送至</span>
+							<ul class="location-list">
+								<li class="location-name">
+									<span>{{address.uad_province}}{{address.uad_city}}{{address.uad_district}}{{address.uad_add_detail}}</span>
+								</li>
+								<li class="location-no">
+									<span>(本商品仅配送{{detail.spt_dis}})</span>
+								</li>
+								<li class="location-type">
+									<div>
+										<img src="../images/@2x.png" alt="">
+										<span>货到付款</span>
+									</div>
+									<div>
+										<img src="../images/@2x.png" alt="">
+										<span>商家发货</span>
+									</div>
+									<div>
+										<img src="../images/@2x.png" alt="">
+										<span>上门自提</span>
+									</div>
+								</li>
+							</ul>
+							<img src="../images/order_point@2x.png" alt="" class="iconRight mat10">
+						</div>
+					</div>
+				</a>
+
 
 				<!--是否组成父级商品-->
-				<div v-show="parentProduct.length > 0" class="icon-cart active-alert">
+				<!-- <div v-show="parentProduct.length > 0" class="icon-cart active-alert">
 				   <div>
 				      <span class="iconMotive">推荐活动</span>
 				      <img src="../images/item_arrow@2x copy@2x.png" alt="" class="iconRight"/>
 				   </div>
-				</div>
+				</div> -->
 				
 				<!--供应商-->
 				<div class="supplier">
@@ -159,7 +228,7 @@
 				</div>
 
 				<!--组成商品-->
-				<div class="ware" v-show="chirldProduct.length > 0">
+				<div class="ware" v-show="chirldProduct != null && chirldProduct.length > 0">
 				   <div class="icon-cart">
 				      <div>
 				         <span class="iconMotive" v-text="groupInfo.spr_name"></span>
@@ -191,7 +260,6 @@
 					</div>
 					<ul style="padding: 0;">
 						<li v-html="detail.spt_desc">
-							
 						</li>
 					</ul>
 				</div>
@@ -209,11 +277,8 @@
 					<img src="../images/order_title copy 3@2x.png" />
 					<p>店铺</p>
 				</button>
-				<button v-if="spec.spec_is_promotion == 'Y'" class="orderMarke" id="addToCart" style="color: #FFFFFF;background-color: #cccccc">
+				<button class="orderMarke" id="addToCart">
 				   加入购物车
-				</button>
-				<button v-if="spec.spec_is_promotion != 'Y'" class="orderMarke" id="addToCart">
-					加入购物车
 				</button>
 				<button class="orderGet" id="allToBuy">
 					立即购买
@@ -235,6 +300,7 @@
 								<div class="valuePrice">
 									<span v-if="item.cpr_value_type == '1'"  style="font-size: 30px;">¥<span style="font-size: 30px;">{{item.cpr_cash}}</span></span>
 									<span v-if="item.cpr_value_type == '0'"  style="font-size: 30px;">{{item.cpr_cash * 10}}<span style="font-size: 30px;">折</span></span>
+									<span v-if="item.cpr_value_type == '2'"  style="font-size: 30px;">满{{item.cpr_full}}减{{item.cpr_cash}}<span style="font-size: 30px;"></span></span>
 									<ul>
 										<li>{{item.cpr_desc}}</li>
 										<li>{{item.cpr_name}}</li>
@@ -268,9 +334,6 @@
                     <img src="../images/close@2x.png" alt="" class="chahao">
                 </div>
                 <ul class="format">
-				   <!-- <li class="mat-list" v-bind:class="{'mat-active':item.spec_id == spec.spec_id}" v-for="item in specs">
-				      <span class="mat-one" @click="changespec(item.spec_id)" v-text="item.spec_unit_desc" v-bind:spec_id="item.spec_id"></span>
-				   </li>-->
 				   <li class="mat-list" v-bind:class="{'mat-active':item.spec_id == spec.spec_id}" v-for="item in specs">
 				   		<span @click="changespec(item.spec_id)" v-bind:spec_id="item.spec_id">
 						   <span class="mat-one-535" v-if="item.spec_is_promotion == 'Y'">促</span>
@@ -278,14 +341,15 @@
 						</span>
 					</li>
 				</ul>
-                <div class="buyNumber">
+                <div class="buyNumber" v-if="buy_temp != '1'">
                     <div class="NumDetail">
                         <span>购买数量</span>
                         <span>剩余量:{{spec.spec_stock}}, 起批量:{{spec.spec_unit_number}}</span>
                     </div>
                     <div class="NumAdd">
                         <button class="minus"></button>
-                        <input type="number" v-model="buy_num" autofocus id="numValue" data-min="5" >
+                        <!-- <input readonly="readonly" type="number" v-model="buy_num" autofocus id="numValue" data-min="5" > -->
+                        <span v-text="buy_num"></span>
                         <button class="add"></button>
                     </div>
                 </div>
@@ -295,7 +359,7 @@
             </div>
 
             <!--推荐活动弹出框-->
-			<div class="Alert_active">
+			<!-- <div class="Alert_active">
 				<div class="icon-cart">
 					<div>
 						<span class="iconMotive" style="text-align: center;">推荐活动</span>
@@ -326,6 +390,104 @@
 							</div>
 						</li>
 					</ul>
+				</div>
+			</div> -->
+			<!--活动列表弹出框-->
+			<div id="sales" style="height: 375px;background-color: #fff;">
+				<!--这里放置真实显示的DOM内容-->
+				<div class="icon-cart">
+					<div>
+						<span class="iconMotive" style="text-align: center;">商品活动</span>
+					</div>
+				</div>
+
+				<!-- 满减 -->
+				<div class="alet-activety"  v-if="hasMorefree == 'Y'">
+					<div class="alert_sales">
+						<img src="../images/Full reduction@2x.png" alt="" class="iconLeft">
+						<ul class="pull-cart">
+							<li v-for="item in morefree">
+								<span>满{{item.full}}减{{item.min}}</span>
+							</li>
+						</ul>
+					</div>
+					<!--促销-->
+					<div class="alert_sales" v-if="hasSalses == 'Y'">
+						<img src="../images/Sales promotion@2x.png" alt="" class="iconLeft">
+						<span class="sales_detail">{{sales.spr_name}}</span>
+					</div>
+					<!--赠品-->
+					<div v-if="hasGive == 'Y'">
+						<div class="alert_sales">
+							<img src="../images/Rectangle 11 Copy 3@2x.png" alt="" class="iconLeft">
+							<ul class="sales_detail">
+							   <li>{{give.spr_name}}</li>
+							   <li>满{{give.ag_full_price}}送:</li>
+							</ul>
+						</div>
+						<ul class="activeList mat10">
+							<li>
+								<div class="active-group product" v-bind:spt_id="give.spt_id">
+									<div class="ImgbgA">
+										<img v-bind:src="give.spt_photo" alt="">
+									</div>
+									<div class="text-overflow2" v-text="give.spt_name"></div>
+									<span class="group-price">¥<span>{{give.spt_price}}</span></span>
+								</div>
+								<div class="group-add">
+									<img src="../images/combination_add@2x.png" alt="">
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--优惠套装-->
+					<div v-if="parentProduct != null && parentProduct.length > 0">
+
+						<div class="product" v-for="item in parentProduct" v-bind:spt_id="item.spt_id">
+							<div class="alert_sales">
+								<img src="../images/Preferential suit@2x.png" alt="" class="iconLeft">
+								<span class="sales_detail" v-text="item.spr_name"></span>
+							</div>
+									<!--这里放置真实显示的DOM内容-->
+							<ul class="activeList mat10">
+								<li v-for="product in item.chirld">
+									<div class="active-group">
+										<div class="ImgbgA">
+											<img v-bind:src="product.spt_photo" alt="">
+										</div>
+										<div class="text-overflow2" v-text="product.spt_name"></div>
+										<span class="group-price">¥<span>{{product.spt_price}}</span></span>
+									</div>
+									<div class="group-add">
+										<img src="../images/combination_add@2x.png" alt="">
+									</div>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--送至地址-->
+			<div id="location" class="box mui-popover mui-popover-action mui-popover-bottom" style="height: 375px;background-color: #fff;">
+				<div class="mui-scroll-wrapper" style="margin: 0;">
+					<div class="mui-scroll">
+						<!--这里放置真实显示的DOM内容-->
+						<div class="icon-cart">
+							<div>
+								<span class="iconMotive" style="text-align: center;">配送至</span>
+							</div>
+						</div>
+						<div class="location-click sendUad" v-bind:uad_id="item.uad_id" v-bind:class="{'location-active':item.uad_id == address.uad_id}" v-for="item in addreList"><!--添加location-active变颜色-->
+							<i class="location-icon"></i>
+							<span>{{item.uad_province}}/{{item.uad_city}}/{{item.uad_district}}/{{item.uad_add_detail}}</span>
+						</div>
+					</div>
+					<!--新建地址-->
+					<div class="new-location">
+						<span>新建地址</span>
+					</div>
 				</div>
 			</div>
 

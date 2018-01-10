@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全部评论</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/every.css">
+    <link rel="stylesheet" type="text/css" href="css/storeDetail.css">
+    <link rel="stylesheet" type="text/css" href="css/pinglun.css">
+    <style>
+        .comment{
+            padding-top: 116px;
+            margin-top: 0;
+            background-color: #f6f6f6;
+        }
+        .commentItem{
+           margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .comPhoto{
+            padding-bottom: 10px;
+        }
+        @-webkit-keyframes name{
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(0deg); }
+        }
+        .commentLi{
+            position: fixed;
+            top: 75px;
+            z-index: 30;
+            cursor: pointer;
+            height: 40px;
+            line-height: 40px;
+        }
+        .commentItem>div.NoClick{
+            display: flex;
+            padding:10px 0;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+<!--加载白屏-->
+<div class="loading"  style="top:0;">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="themes/images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <div class="hongse">
+        <div class="commentFixed">
+            <div class="commentDetail back_i">
+                <img src="themes/images/fanhui.png" alt="">
+                <span>评论</span>
+            </div>
+            <div class="commentList">
+            </div>
+        </div>
+        <div class="commentLi text-overflow" v-bind:class="{'on':ict_type == 0}" order="0" style="left:0">
+            全部({{count}})
+        </div>
+        <div class="commentLi text-overflow" v-bind:class="{'on':ict_type == 1}" order="1" style="left:25%">
+            好评({{goodcount}})
+        </div>
+        <div class="commentLi text-overflow" v-bind:class="{'on':ict_type == 3}" order="3" style="left:50%">
+            晒图({{picscount}})
+        </div>
+        <div class="commentLi text-overflow" v-bind:class="{'on':ict_type == 2}" order="2" style="left:75%">
+            差评({{badcount}})
+        </div>
+    </div>
+
+    <!--评价-->
+    <div class="comment" v-if="count != 0">
+        <div>
+
+            <div class=" commentItem" v-for="item in list">
+                <div class="NoClick">
+                    <div class="comImg">
+                        <img v-bind:src="item.ccr_avatar | FMimg" alt="">
+                    </div>
+                    <div class="flex-right">
+                        <div>
+                            <span class="color333 font12 lt mar5" v-text="item.ccr_name"></span>
+                            <img src="themes/images/shop_star5@2x.png" alt="" class="lt comStar">
+                            <span class="color999 font11 rt">{{item.ict_modify_time | FMtime}}</span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="color333 martb5" v-text="item.ict_content"></div>
+                        <div class="color999 font11">{{item.sim_name}}  {{item.soi_number}}瓶 {{item.soi_create_time | FMtime}}</div>
+                    </div>
+                </div>
+                <div class="comPhoto">
+                    <div class="wxPhoto lt" v-for="imgs in item.ict_photo_items">
+                        <img v-bind:src="imgs | FMimg" alt="" onclick="click_img(this)">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!--没有评论-->
+    <div v-if="count == 0" class="commentNo">
+        <img src="themes/images/Shop-details_No-comment@2x.png" alt="">
+    </div>
+</div>
+    <script type="text/javascript" src="js/lib/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/lib/context.js"></script>
+    <script type="text/javascript" src="js/lib/vue.min.js"></script>
+    <script type="text/javascript" src="js/comment.js"></script>
+    <script type="text/javascript" src="js/lib/tripledes2.js"></script>
+    <script type="text/javascript">
+        //朋友圈点击查看图片
+        function click_img(obj) {
+            var aa=[];
+            var i = 0;
+            var aasrc='';
+            var src = [];
+            var this_aasrc='';
+            var json = null;
+            aa=$(obj).parent().parent().find('img');
+            //完美解决ios和安卓的url值获取问题
+            //this_aasrc=$(obj).css('background-image').replace('url(','').replace(')','').replace(/(^\"*)|(\"*$)/g, "");
+            this_aasrc=$(obj).attr('src');
+            var jsonsrc = [];
+            for (i = 0; i < aa.length; i++) {
+               // aasrc= aa.eq(i).css('background-image').replace('url(','').replace(')','').replace(/(^\"*)|(\"*$)/g, "");
+                aasrc= getnearImg(aa[i].src);
+                src[i] = aasrc;//把所有的src存到数组里
+                jsonsrc.push(aasrc)
+            }
+            //var srcList = arrayToJson(src); //转换成json并赋值给srcList
+            
+            
+            //获取来源
+            var origin = getRequestParameter('origin')
+            //判断微信商城还是app
+            var json = {};
+            json.this_aasrc = getnearImg(this_aasrc);
+            json.src = jsonsrc;
+            if(origin == 'adr'){
+                APP.lunboImg(src,this_aasrc);
+            }else if(origin == 'ios'){
+                window.webkit.messageHandlers.lunboImg.postMessage(json)
+            }else if(origin == 'wxshop'){
+                imagePreview(this_aasrc, src);
+            }
+ 
+        };
+        //这个是调用微信图片浏览器的函数
+        function imagePreview(curSrc, srcList) {
+            if (!curSrc || !srcList || srcList.length == 0) {
+                return;
+            }
+            WeixinJSBridge.invoke('imagePreview', {
+                'current': curSrc,
+                'urls': srcList
+            });
+        };
+
+        //截取图片尾号
+        function getnearImg(src){
+            var index = src.indexOf('?');
+            if(index == -1){
+                return src;
+            }
+            src = src.substring(0,index); 
+            return src;
+        }
+    </script>
+</body>
+</html>

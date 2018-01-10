@@ -7,10 +7,117 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="../css/advert/advert.css">
+    <style>
+        #loadingdiv {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #FFFFFF;
+        }
+        .spinner {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            text-align: center;
+        }
+        .btn-img{
+            position: absolute;
+            top: 500px;
+            margin:  auto;
+            left: 0;
+            right: 0;
+            width: 80%;
+            z-index: 10;
+        }
+        @media screen and (min-width: 320px) and (max-width: 359px) {
+            .btn-img{
+                top: 425px;
+            }
+        }
+        @media screen and (min-width: 360px) and (max-width: 374px) {
+            .btn-img{
+                top: 480px;
+            }
+        }
+        @media screen and (min-width: 401px) and (max-width: 414px) {
+            .btn-img{
+                top: 552px;
+            }
+        }
+        @media screen and (min-width: 750px) and (max-width: 799px) {
+            .btn-img{
+                top: 1020px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="contion">
-    <img src="http://pics.jiuziran.com/FonHykqcVW38efuMRNXpaKFbtWGG" alt="">
-</div>
+    <div id="loadingdiv">
+        <div style="width: 100%;height: 100%;position: relative">
+            <img src="../images/soogif1.gif" alt=""  class="spinner">
+        </div>
+    </div>
+    <div class="contion">
+        <img src="http://pics.jiuziran.com/Fi-W2uvUCxwEyQVYZT5diA8ebtla" alt="">
+        <!--<span class="btn-img">立即邀请商户</span>-->
+        <img src="http://pics.jiuziran.com/FtYYC2I3vHHFCmkD8Hl29KKGiXdw" alt="" class="btn-img">
+    </div>
+    <script src="../js/lib/jquery-1.7.1.min.js"></script>
+    <script src="../js/lib/application.js"></script>
+    <script>
+	
+            
+        $(function(){
+            var status = false;
+            var tips = '';
+            var invite = '';
+
+            var shopId = getRequestParameter('shopId')
+            if(!shopId || shopId == ''){
+                failTips(tips)
+                tips = '未登录用户!';
+            }
+            //获取邀请码
+            getShopInvite(shopId)
+                .then(res=>{
+                    $("#loadingdiv").remove();
+                    var code = res.code
+                    if(code == '0'){
+                        status = true
+                        invite = res.data.inviteCode
+                    }else{
+                        tips = res.message
+                    }
+                })
+
+            var user_id = getRequestParameter('user_id');
+            var origin = getRequestParameter('origin');
+            $(".btn-img").click(function(){
+                if(!status){
+                    failTips(tips)
+                    return
+                }
+                var json = {};
+                json.head = '邀请商家入驻';
+                json.context = '成功推荐商户入驻"小喝两杯”，即可获得50元抵用券';
+                json.photo = 'http://pics.jiuziran.com/FqcTdbhSB7-lk-KKZev2bPy61Yi7?imageView2/1/w/200/h/200';
+                json.url = 'http://b.jiuziran.com/other/apptoregist.html?inviteCode='+invite;
+                if(origin == 'adr'){
+                    APP.appToShare(JSON.stringify(json));
+                }else if(origin == 'ios'){
+                    window.webkit.messageHandlers.appToShare.postMessage(json);
+                }
+
+            })
+        })
+
+    </script>
 </body>
 </html>

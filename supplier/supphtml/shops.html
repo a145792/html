@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>配置服务店铺</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/supp/index.css">
+    <link rel="stylesheet" href="../css/supp/inventory.css">
+    <style>
+        .mui-content{
+            margin-top: 79px;
+        }
+        .mui-content{
+            padding-bottom: 44px;
+        }
+    </style>
+</head>
+<body> 
+<div id="loadingdiv">
+    <div style="width: 100%;height: 100%;position: relative">
+        <img src="../images/soogif1.gif" alt=""  class="spinner">
+    </div>
+</div>
+<div id="app">
+    <!--搜索-->
+    <div class="search">
+        <div class="label-input">
+            <label v-if="shop_name == ''" for="story_seach" class="label-seach">
+                <img src="../images/nearby_nav_search%20copy@2x.png" alt="">
+                <span>搜索店铺内商品</span>
+            </label>
+            <input type="search" class="seach-input" v-model="shop_name" id="story_seach">
+        </div>
+        <span class="seach-click">搜索</span>
+    </div>
+    <!--顶部切换-->
+    <ul class="assigned-fixed">
+        <li class="shoptype" status="0">
+            <span v-bind:class="{'active':status == 0}">未分配店铺</span>
+        </li>
+        <li class="shoptype" status="1">
+            <span v-bind:class="{'active':status == 1}">已分配店铺</span>
+        </li>
+    </ul>
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <!--数据列表-->
+            <ul class="mui-table-view">
+
+                <li class="borderT1 shop" v-for="item in list" v-bind:dsp_id="item.dsp_id">
+                    <div class="orderChose">
+                        <div class="choseImg">
+                            <img v-bind:src="item.dsp_photo" alt="">
+                        </div>
+                        <div class="assigned">
+                            <span v-text="item.dsp_name"></span>
+                            <ul class="assigned-new">
+                                <li>当前业务员: {{item.usersname}}</li>
+                                <li>{{item.pvc_name}}{{item.cty_name}}{{item.dsp_address}}</li>
+                            </ul>
+                        </div>
+                        <label class="check-box"><input type="checkbox" v-model="item.checked" name="chose" class="box-input">
+                        <span></span></label>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <!--底部定位-->
+    <div class="addSaleMan">
+        <div class="invenBtn toAdd" class="" v-if="status == '0'">
+            <span>确定</span>
+        </div>
+        <div class="invenBtn toDel" class="" v-if="status == '1'">
+            <span>删除</span>
+        </div>
+    </div>
+
+        <!-- <div class="zhezhao"></div>
+        <div class="alertWait" id="picture">
+            <div class="a1">您确认删除吗？</div>
+            <div class="a2">
+                <span class="">取消</span>
+                <span class="">确定</span>
+            </div>
+        </div> -->
+
+</div>
+<script src="../js/lib/jquery-1.7.1.min.js"></script>
+<script src="../js/lib/mui.min.js"></script>
+<script src="../js/lib/vue.min.js"></script>
+<script src="../js/lib/application.js"></script>
+<script src="../js/supp/shops.js"></script>
+</body>
+</html>

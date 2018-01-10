@@ -252,20 +252,20 @@ $(function(){
         }
         closeConfirm();
     })
-
+    
     //弹出确认框
     function showConfirm(msg){
         $(".alertWait>.a1").html(msg);
         $(".zhezhao").fadeIn();
         $(".alertWait").fadeIn();
     }
-
+    
     //关闭确认框
     function closeConfirm(){
         $(".zhezhao").fadeOut();
         $(".alertWait").fadeOut();
     }
-
+    
 })
 
 //删除dom  
@@ -307,8 +307,7 @@ function pulldownRefresh(){
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
             mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
         })
-      
-    
+
 }
 
  /*

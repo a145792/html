@@ -2,6 +2,7 @@ Vue.config.productionTip = false
 var vm = new Vue({//此处采用vue.js
     el: '#pullrefresh',
     data: {
+    	user_id:'',
     	ste_id:'',
         productlist:[],
         count:0,
@@ -15,12 +16,14 @@ var vm = new Vue({//此处采用vue.js
 
 
 $(function(){
+	var user_id = getRequestParameter('user_id')
 	var ste_id = getRequestParameter('ste_id');
 	var origin = getRequestParameter('origin');
 	vm.ste_id = ste_id;
+	vm.user_id = user_id;
 
 	//获取该类型的商品列表
-	getProductListSteId(ste_id,vm.scope_id,vm.order,1)
+	getProductListSteId(vm.user_id,ste_id,vm.scope_id,vm.order,1)
 		.then(res=>{
 			
 			var list = res.data.items;
@@ -65,7 +68,7 @@ function search(scope_id,order){
 	vm.scope_id = scope_id;
 	vm.order = order;
 	
-	getProductListSteId(vm.ste_id,vm.scope_id,vm.order,1)
+	getProductListSteId(vm.user_id,vm.ste_id,vm.scope_id,vm.order,1)
 	.then(res=>{
 		
 		var list = res.data.items;
@@ -141,7 +144,7 @@ mui.init({
 	  mui('#pullrefresh').pullRefresh().endPullupToRefresh((vm.page >= vm.pageNumber)); 
 	  
 	  if(vm.page < vm.pageNumber){
-	  		getProductListSteId(vm.ste_id,vm.scope_id,vm.order,vm.page*1+1)
+	  		getProductListSteId(vm.user_id,vm.ste_id,vm.scope_id,vm.order,vm.page*1+1)
 	  			.then(res=>{
 	  				var list = res.data.items;
 					list = formatList(list);

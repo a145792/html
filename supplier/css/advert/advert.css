@@ -17,3 +17,27 @@ ul,li,p,h1,h2,h3,h4,h5,h6,dl,dt,dd {
     display: block;
     width: 100%;
 }
+.getShop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 100;
+    width: 200px;
+    text-align: center;
+    height: 80px;
+    background: rgba(0,0,0,.7);
+    color: #FFFFFF;
+    font-size: 14px;
+    border-radius: 10px;
+}
+.getShop>img{
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+}
+.getShop>p{
+    color: #FFFFFF;
+}
